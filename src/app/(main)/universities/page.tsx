@@ -6,8 +6,9 @@ import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
 import { Input } from '@/components/ui/input';
-import { Search, MapPinIcon, DollarSignIcon, Frown } from 'lucide-react';
+import { Search, MapPin, DollarSign, Frown } from 'lucide-react';
 import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function UniversitiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -79,7 +80,7 @@ export default function UniversitiesPage() {
           </div>
           <div>
             <Label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
-              <MapPinIcon className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+              <MapPin className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
               المدينة
             </Label>
             <Input
@@ -92,7 +93,7 @@ export default function UniversitiesPage() {
           </div>
           <div>
             <Label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
-              <DollarSignIcon className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+              <DollarSign className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
               أقصى ميزانية سنوية (USD)
             </Label>
             <Input
@@ -114,14 +115,16 @@ export default function UniversitiesPage() {
           ))}
         </div>
       ) : (
-        <div className="py-12 text-center">
-          <Frown className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
-          <p className="text-xl text-muted-foreground">لم يتم العثور على جامعات تطابق بحثك.</p>
-          <p className="mt-2 text-sm text-muted-foreground">حاول تعديل معايير البحث الخاصة بك.</p>
-        </div>
+        <Card className="shadow-lg">
+          <CardContent className="py-12 text-center">
+            <Frown className="mx-auto mb-6 h-20 w-20 text-muted-foreground" />
+            <p className="mb-2 text-2xl font-semibold text-foreground">لم يتم العثور على جامعات</p>
+            <p className="text-muted-foreground">
+              حاول تعديل معايير البحث الخاصة بك أو توسيع نطاق بحثك.
+            </p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
 }
-
-    

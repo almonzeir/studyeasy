@@ -1,10 +1,10 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
 import Image from 'next/image'; 
-import { ChevronLeft } from 'lucide-react';
-// BotMessageSquare is used later, Wand2 is used in Hero
+import { ChevronLeft, Wand2, BotMessageSquare } from 'lucide-react';
 
 export default function HomePage() {
   const featuredUniversities = mockUniversities.slice(0, 3); 
@@ -13,7 +13,18 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative py-20 text-primary-foreground md:py-32">
-        {/* Background image is now global, hero content sits on main layout's overlay */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://rare-gallery.com/uploads/posts/733421-Malaysia-Skyscrapers-Night-Kuala-Lumpur.jpg"
+            alt="Kuala Lumpur skyline at night"
+            layout="fill"
+            objectFit="cover"
+            priority
+            quality={85}
+            data-ai-hint="city skyline night"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-background/80" />
+        </div>
         <div className="container relative z-10 text-center">
           <h1
             className="mb-6 font-headline text-5xl font-bold md:text-6xl lg:text-7xl animate-fade-in-down"
@@ -45,7 +56,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Universities Section */}
-      <section className="py-16 bg-transparent md:py-24"> {/* Changed background to transparent */}
+      <section className="py-16 bg-transparent md:py-24">
         <div className="container">
           <h2 className="mb-12 text-center font-headline text-3xl font-bold md:text-4xl">
             الجامعات <span className="text-accent">المميزة</span>
@@ -67,7 +78,7 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-16 bg-primary/10 md:py-24"> {/* Kept bg-primary/10 for slight variation */}
+      <section className="py-16 bg-primary/10 md:py-24">
         <div className="container text-center">
           <h2 className="mb-6 font-headline text-3xl font-bold md:text-4xl">
             هل أنت مستعد لبدء رحلتك؟
@@ -86,7 +97,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-// Dummy icons for illustrative purposes until actual icons are integrated
-const Wand2 = ({ className }: { className: string }) => <svg className={className} fill="currentColor" viewBox="0 0 20 20"><path d="M11.05 2.142a.75.75 0 01.09.626l-.48 2.046a.75.75 0 00.76.839l2.047-.48a.75.75 0 01.625.091l3.536 3.535a.75.75 0 01-.09.939l-2.047 2.046a.75.75 0 00.072 1.045l2.046 2.047a.75.75 0 01-.938.09l-3.536-3.535a.75.75 0 00-1.045-.072l-2.047 2.047a.75.75 0 01-.09.625l.48 2.047a.75.75 0 00.839.76l2.046-.48a.75.75 0 01.626.09l3.535 3.536a.75.75 0 01-.939.939l-2.046-.48a.75.75 0 00-.76.839l.48 2.046a.75.75 0 01-.09.626l-3.536 3.535a.75.75 0 01-.939-.09l-2.046-2.046a.75.75 0 00-1.045.072l-2.047-2.046a.75.75 0 01-.625-.09l-2.047.48a.75.75 0 00-.839-.76l-.48-2.046a.75.75 0 01.09-.626l3.535-3.535a.75.75 0 00.072-1.045L2.14 8.95a.75.75 0 01.939-.09l3.535 3.536a.75.75 0 001.045.072l2.047-2.047a.75.75 0 01.09-.625l-.48-2.047a.75.75 0 00-.839-.76L6.404 9.05a.75.75 0 01-.626-.09L2.243 5.424a.75.75 0 01.939-.939l2.046.48a.75.75 0 00.76-.839L5.424 2.08a.75.75 0 01.09-.626l3.536-3.535a.75.75 0 01.939.09l2.046 2.046a.75.75 0 001.045-.072l2.047 2.046zM10 12a2 2 0 100-4 2 2 0 000 4z" /></svg>;
-const BotMessageSquare = ({ className }: { className: string }) => <svg className={className} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.5 2A2.5 2.5 0 002 4.5v6A2.5 2.5 0 004.5 13H5v2.5A2.5 2.5 0 007.5 18h6a2.5 2.5 0 002.5-2.5V13h.5A2.5 2.5 0 0018 10.5v-6A2.5 2.5 0 0015.5 2h-11zM10 6a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0V6zm3 .75A.75.75 0 0112.25 6v1.5a.75.75 0 01-1.5 0V6a.75.75 0 011.5-.75zm-6 0A.75.75 0 016.25 6v1.5a.75.75 0 01-1.5 0V6A.75.75 0 017 .75z" clipRule="evenodd" /></svg>;
