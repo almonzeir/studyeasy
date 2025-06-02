@@ -21,7 +21,7 @@ export default function RootLayout({
       </head>
       <body 
         className="font-body antialiased bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url('https://rare-gallery.com/uploads/posts/4590017-kuala-lumpur-malaysia-cityscape-city-lights-night-skyline-skyscrapers-petronas-towers-long-exposure.jpg')" }}
+        style={{ backgroundImage: "url('https://cdn.unifiedcommerce.com/content/product/media/large/5900511103946.jpg')" }}
       >
         {children}
         <Toaster />
