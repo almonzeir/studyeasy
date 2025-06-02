@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
@@ -23,6 +23,16 @@ export default function UniversitiesPage() {
   const [budgetFilter, setBudgetFilter] = useState<number | ''>('');
   const [filteredUniversities, setFilteredUniversities] = useState<University[]>(mockUniversities);
 
+  const uniqueCities = useMemo(() => {
+    const cities = new Set<string>();
+    mockUniversities.forEach(uni => {
+      if (uni.city) {
+        cities.add(uni.city);
+      }
+    });
+    return Array.from(cities).sort((a, b) => a.localeCompare(b));
+  }, []);
+
   useEffect(() => {
     let universities = mockUniversities;
 
@@ -35,7 +45,7 @@ export default function UniversitiesPage() {
 
     if (cityFilter) {
       universities = universities.filter(uni =>
-        uni.city && uni.city.toLowerCase().includes(cityFilter.toLowerCase())
+        uni.city && uni.city.toLowerCase() === cityFilter.toLowerCase()
       );
     }
 
@@ -46,11 +56,7 @@ export default function UniversitiesPage() {
     setFilteredUniversities(universities);
   }, [searchTerm, cityFilter, budgetFilter]);
 
-  const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCityFilter(e.target.value);
-  };
-
-  const handleBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setBudgetFilter(value === '' ? '' : Number(value));
   };
@@ -95,13 +101,22 @@ export default function UniversitiesPage() {
               <MapPin className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
               المدينة
             </Label>
-            <Input
-              id="cityFilter"
-              type="text"
-              placeholder="مثال: كوالالمبور"
-              value={cityFilter}
-              onChange={handleCityChange}
-            />
+            <Select
+              value={cityFilter || "all"}
+              onValueChange={(value) => setCityFilter(value === "all" ? "" : value)}
+            >
+              <SelectTrigger id="cityFilter" className="w-full">
+                <SelectValue placeholder="اختر مدينة..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">جميع المدن</SelectItem>
+                {uniqueCities.map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <Label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
