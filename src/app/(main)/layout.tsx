@@ -8,7 +8,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background/85"> {/* Overlay for readability */}
+    <div className="flex min-h-screen flex-col bg-background/50"> {/* Overlay for readability, opacity reduced */}
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
