@@ -12,6 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { guidedUniversitySelection } from '@/ai/flows/guided-university-selection';
 import type { GuidedUniversitySelectionInput, GuidedUniversitySelectionOutput as AISuggestionSchemaArray } from '@/ai/flows/guided-university-selection';
+import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
+import type { UniversityDetailsOutput } from '@/types';
 import { Loader2, Search, Frown } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { mockUniversities } from '@/data/universities';
@@ -26,20 +28,23 @@ const FormSchema = z.object({
 type FormData = z.infer<typeof FormSchema>;
 
 export function GuidedWizardForm() {
-  const [results, setResults] = useState<University[]>([]); // Store full University objects
+  const [results, setResults] = useState<University[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingDetails, setIsFetchingDetails] = useState(false);
   const { toast } = useToast();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
+    setIsFetchingDetails(false); // Reset fetching details state
     setResults([]);
     try {
       const aiInput: GuidedUniversitySelectionInput = {
@@ -48,55 +53,91 @@ export function GuidedWizardForm() {
         city: data.city,
       };
       const aiSuggestions: AISuggestionSchemaArray = await guidedUniversitySelection(aiInput);
+      
+      setIsLoading(false); // Initial suggestions received
 
-      const enhancedResults = aiSuggestions.map((suggestedUni, index) => {
-        const matchedMockUni = mockUniversities.find(
-          (mockUni) => mockUni.name.toLowerCase() === suggestedUni.name.toLowerCase() ||
-                       mockUni.name.toLowerCase().includes(suggestedUni.name.toLowerCase()) ||
-                       suggestedUni.name.toLowerCase().includes(mockUni.name.toLowerCase())
-        );
+      if (aiSuggestions && aiSuggestions.length > 0) {
+        setIsFetchingDetails(true); // Now indicate we are fetching further details
 
-        if (matchedMockUni) {
-          return {
-            ...matchedMockUni, // Use full data from mockUniversities
-            // Optionally, override fields if AI provides more up-to-date info for them
-            // For now, we prefer mock data if matched.
-          };
-        } else {
-          // Fallback for universities suggested by AI but not in mockUniversities
-          return {
-            id: `ai-suggestion-${index}-${Date.now()}`, // More unique temporary ID
-            name: suggestedUni.name,
-            city: suggestedUni.city,
-            annualFees: suggestedUni.annualFees,
-            availableCourses: suggestedUni.availableCourses,
-            imageUrl: 'https://placehold.co/600x400.png?text=Suggested+University', // Placeholder image
-            dataAiHint: 'university campus',
-            description: `AI suggested university. Full details may not be available in our current database.`,
-            // Other fields like logoUrl, livingCosts, acceptanceCriteria, applicationLink will be undefined
-            // UniversityCard should gracefully handle these missing optional fields.
-          };
+        const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni, index) => {
+          const lowerCaseSuggestedName = suggestedUni.name.toLowerCase();
+          const matchedMockUni = mockUniversities.find(
+            (mockUni) => mockUni.name.toLowerCase() === lowerCaseSuggestedName ||
+                         mockUni.name.toLowerCase().includes(lowerCaseSuggestedName) ||
+                         lowerCaseSuggestedName.includes(mockUni.name.toLowerCase())
+          );
+
+          if (matchedMockUni) {
+            return matchedMockUni;
+          } else {
+            // Not found in mock data, try to fetch details using the new AI flow
+            try {
+              const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
+              return {
+                ...suggestedUni, // Start with basic info from initial suggestion
+                ...fetchedDetails, // Override/add with more detailed info
+                id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
+                // Ensure required fields for UniversityCard are present, even if from initial suggestion
+                name: fetchedDetails.name || suggestedUni.name,
+                city: fetchedDetails.city || suggestedUni.city,
+                annualFees: fetchedDetails.annualFees || suggestedUni.annualFees,
+                availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
+                imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
+                dataAiHint: fetchedDetails.dataAiHint || 'university campus',
+              };
+            } catch (detailError) {
+              console.error(`Error fetching details for ${suggestedUni.name}:`, detailError);
+              // Fallback to basic info if detail fetching fails
+              return {
+                ...suggestedUni,
+                id: `ai-fallback-${encodeURIComponent(suggestedUni.name)}-${Date.now()}`,
+                imageUrl: 'https://placehold.co/600x400.png?text=University+Info+Unavailable',
+                dataAiHint: 'university campus',
+                description: `AI suggested university. Detailed information could not be fetched. Original suggestion: ${suggestedUni.name}, City: ${suggestedUni.city}, Fees: $${suggestedUni.annualFees}, Courses: ${suggestedUni.availableCourses.join(', ')}`,
+              };
+            }
+          }
+        });
+
+        const settledResults = await Promise.allSettled(enrichedResultsPromises);
+        const finalResults = settledResults
+          .filter(result => result.status === 'fulfilled')
+          .map(result => (result as PromiseFulfilledResult<University>).value);
+        
+        setResults(finalResults);
+        setIsFetchingDetails(false);
+
+        if (finalResults.length === 0 && aiSuggestions.length > 0) {
+             toast({
+                title: "جاري جلب التفاصيل",
+                description: "لم نتمكن من جلب تفاصيل إضافية لبعض الاقتراحات.",
+                variant: "default",
+            });
+        } else if (finalResults.length === 0) {
+             toast({
+                title: "لا توجد نتائج",
+                description: "لم نتمكن من العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
+                variant: "default",
+            });
         }
-      });
 
-      setResults(enhancedResults);
-
-      if (enhancedResults.length === 0) {
+      } else {
         toast({
           title: "لا توجد نتائج",
           description: "لم نتمكن من العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
           variant: "default",
         });
       }
+
     } catch (error) {
-      console.error('Error fetching university suggestions:', error);
+      console.error('Error in wizard submission process:', error);
       toast({
         title: "حدث خطأ",
         description: "حدث خطأ أثناء محاولة جلب اقتراحات الجامعات. يرجى المحاولة مرة أخرى.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
+      setIsFetchingDetails(false);
     }
   };
 
@@ -141,30 +182,33 @@ export function GuidedWizardForm() {
             {errors.city && <p className="mt-1 text-sm text-destructive">{errors.city.message}</p>}
           </div>
 
-          <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading}>
-            {isLoading ? (
+          <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading || isFetchingDetails}>
+            {(isLoading || isFetchingDetails) ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin rtl:ml-2 rtl:mr-0" />
             ) : (
               <Search className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
             )}
-            {isLoading ? 'جاري البحث...' : 'ابحث عن الجامعات'}
+            {isLoading ? 'جاري البحث عن اقتراحات...' : isFetchingDetails ? 'جاري جلب التفاصيل...' : 'ابحث عن الجامعات'}
           </Button>
         </form>
 
-        {results.length > 0 && !isLoading && (
+        {results.length > 0 && !isLoading && !isFetchingDetails && (
           <div className="mt-10">
             <h3 className="mb-6 text-center font-headline text-2xl">الجامعات المقترحة لك:</h3>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2"> {/* Adjusted for better layout on small screens */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {results.map((uni) => (
                 <UniversityCard
-                  key={uni.id} // Use the actual or generated unique ID
-                  university={uni} // Pass the full University object
+                  key={uni.id}
+                  university={uni}
                 />
               ))}
             </div>
           </div>
         )}
-        {results.length === 0 && !isLoading && Object.keys(errors).length === 0 && (
+        {results.length === 0 && !isLoading && !isFetchingDetails && !Object.keys(errors).length && (
+          // This condition should be met if form submitted, no errors, and no results after all fetching.
+          // We need to ensure this message doesn't show while loading or before first submission.
+          // A check if form has been submitted might be needed if this shows prematurely.
           <div className="mt-10 text-center">
              <Frown className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
             <p className="text-lg text-muted-foreground">لم يتم العثور على جامعات تطابق بحثك. يرجى تجربة معايير مختلفة.</p>
