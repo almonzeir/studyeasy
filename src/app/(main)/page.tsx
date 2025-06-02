@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="relative py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-10" 
-          style={{ backgroundImage: "url('https://placehold.co/1920x1080.png')" }}
+          style={{ backgroundImage: "url('https://rare-gallery.com/uploads/posts/733421-Malaysia-Skyscrapers-Night-Kuala-Lumpur.jpg')" }}
           data-ai-hint="malaysia skyline"
         ></div>
         <div className="container relative z-10 text-center">
