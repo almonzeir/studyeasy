@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Home } from 'lucide-react';
+import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe } from 'lucide-react';
 
 async function getUniversityById(id: string): Promise<University | undefined> {
   return mockUniversities.find((uni) => uni.id === id);
@@ -137,29 +137,27 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
           )}
         </CardContent>
 
-        {university.applicationLink && university.applicationLink !== '#' && (
-          <CardFooter className="bg-secondary/20 p-6 md:p-8">
-            <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href={university.applicationLink} target="_blank" rel="noopener noreferrer">
-                التقديم الآن
-                <ExternalLink className="ml-2 h-5 w-5 rtl:mr-2 rtl:ml-0" />
-              </Link>
-            </Button>
-          </CardFooter>
-        )}
-         {(!university.applicationLink || university.applicationLink === '#') && (
-            <CardFooter className="bg-secondary/20 p-6 md:p-8">
-                <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="/">
-                    <Home className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
-                    استكشف المزيد على موقعنا
+        {(university.officialWebsiteUrl || (university.applicationLink && university.applicationLink !== '#')) && (
+          <CardFooter className="bg-secondary/20 p-6 md:p-8 flex flex-col sm:flex-row gap-4">
+            {university.officialWebsiteUrl && (
+              <Button asChild size="lg" variant="outline" className="flex-1 border-primary text-primary hover:bg-primary/10">
+                <Link href={university.officialWebsiteUrl} target="_blank" rel="noopener noreferrer">
+                  <Globe className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
+                  الموقع الرسمي
                 </Link>
-                </Button>
-            </CardFooter>
+              </Button>
+            )}
+            {university.applicationLink && university.applicationLink !== '#' && (
+              <Button asChild size="lg" className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90">
+                <Link href={university.applicationLink} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
+                  التقديم الآن
+                </Link>
+              </Button>
+            )}
+          </CardFooter>
         )}
       </Card>
     </div>
   );
 }
-
-    

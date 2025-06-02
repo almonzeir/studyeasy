@@ -14,7 +14,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'university campus',
     livingCosts: 'USD 600-900 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدل ممتاز', 'إجادة اللغة الإنجليزية (IELTS/TOEFL)', 'مقابلة شخصية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.um.edu.my', // Placeholder, actual link
+    applicationLink: 'https://apply.um.edu.my', // Placeholder, actual link
   },
   {
     id: '2',
@@ -28,7 +29,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'modern university',
     livingCosts: 'USD 500-800 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدل جيد جدًا', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.usm.my', // Placeholder
+    applicationLink: 'https://apply.usm.my', // Placeholder
   },
   {
     id: '3',
@@ -42,7 +44,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'university building',
     livingCosts: 'USD 550-850 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الماليزية (لبعض البرامج)', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.ukm.my', // Placeholder
+    applicationLink: 'https://apply.ukm.my', // Placeholder
   },
   {
     id: '4',
@@ -56,7 +59,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'campus nature',
     livingCosts: 'USD 500-800 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'خبرة عملية (لبعض البرامج)'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.upm.edu.my', // Placeholder
+    applicationLink: 'https://apply.upm.edu.my', // Placeholder
   },
   {
     id: '5',
@@ -70,7 +74,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'technology building',
     livingCosts: 'USD 550-850 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدل ممتاز في المواد العلمية', 'إجادة اللغة الإنجليزية (IELTS 6.0+)'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.utm.my', // Placeholder
+    applicationLink: 'https://apply.utm.my', // Placeholder
   },
   {
     id: '6',
@@ -84,7 +89,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'islamic architecture',
     livingCosts: 'USD 450-750 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة العربية والإنجليزية', 'تزكية من جهة إسلامية معتمدة'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.iium.edu.my', // Placeholder
+    applicationLink: 'https://apply.iium.edu.my', // Placeholder
   },
   {
     id: '7',
@@ -98,7 +104,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'modern campus',
     livingCosts: 'USD 700-1000 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'ملف أعمال (لبرامج التصميم)', 'مقابلة شخصية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://university.taylors.edu.my', // Placeholder
+    applicationLink: 'https://apply.taylors.edu.my', // Placeholder
   },
   {
     id: '8',
@@ -112,7 +119,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'university management',
     livingCosts: 'USD 400-700 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.uum.edu.my', // Placeholder
+    applicationLink: 'https://apply.uum.edu.my', // Placeholder
   },
   {
     id: '9',
@@ -126,7 +134,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'multimedia technology',
     livingCosts: 'USD 600-900 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية', 'متطلبات خاصة لبعض برامج الفنون'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.mmu.edu.my', // Placeholder
+    applicationLink: 'https://apply.mmu.edu.my', // Placeholder
   },
   {
     id: '10',
@@ -140,7 +149,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'oil gas engineering',
     livingCosts: 'USD 650-950 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدلات عالية في العلوم والرياضيات', 'إجادة اللغة الإنجليزية (IELTS 6.5+)'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.utp.edu.my', // Placeholder
+    applicationLink: 'https://apply.utp.edu.my', // Placeholder
   },
   {
     id: '11',
@@ -154,7 +164,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'private university campus',
     livingCosts: 'USD 700-1000 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://sunwayuniversity.edu.my', // Placeholder
+    applicationLink: 'https://apply.sunway.edu.my', // Placeholder
   },
   {
     id: '12',
@@ -168,7 +179,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'city campus modern',
     livingCosts: 'USD 600-900 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية', 'اختبارات قبول لبعض التخصصات كالموسيقى'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.ucsiuniversity.edu.my', // Placeholder
+    applicationLink: 'https://apply.ucsi.edu.my', // Placeholder
   },
   {
     id: '13',
@@ -182,7 +194,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'creative arts university',
     livingCosts: 'USD 650-950 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'ملف أعمال (portfolio) لبرامج التصميم والفنون'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.limkokwing.net', // Placeholder
+    applicationLink: 'https://apply.limkokwing.net', // Placeholder
   },
   {
     id: '14',
@@ -196,7 +209,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'engineering university',
     livingCosts: 'USD 450-750 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة (مسار علمي)', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.ump.edu.my', // Placeholder
+    applicationLink: 'https://apply.ump.edu.my', // Placeholder
   },
   {
     id: '15',
@@ -210,7 +224,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'education university campus',
     livingCosts: 'USD 350-650 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'اختبار الكفاءة التربوية الماليزي (MEdSI)'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.upsi.edu.my', // Placeholder
+    applicationLink: 'https://apply.upsi.edu.my', // Placeholder
   },
   {
     id: '16',
@@ -224,7 +239,8 @@ export const mockUniversities: University[] = [
     dataAiHint: 'sarawak university nature',
     livingCosts: 'USD 400-700 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.unimas.my', // Placeholder
+    applicationLink: 'https://apply.unimas.my', // Placeholder
   },
   {
     id: '17',
@@ -238,8 +254,7 @@ export const mockUniversities: University[] = [
     dataAiHint: 'islamic science university',
     livingCosts: 'USD 400-700 شهريًا',
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة العربية والإنجليزية'],
-    applicationLink: '#',
+    officialWebsiteUrl: 'https://www.usim.edu.my', // Placeholder
+    applicationLink: 'https://apply.usim.edu.my', // Placeholder
   }
 ];
-
-    

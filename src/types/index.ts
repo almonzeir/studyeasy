@@ -10,7 +10,8 @@ export interface University {
   imageUrl?: string; // For a general image of the university
   livingCosts?: string; // e.g., "USD 500-800 per month"
   acceptanceCriteria?: string[];
-  applicationLink?: string;
+  officialWebsiteUrl?: string; // Link to the university's official homepage
+  applicationLink?: string; // Direct link to the application portal
   dataAiHint?: string;
 }
 
@@ -22,3 +23,4 @@ export interface AISuggestedUniversity {
   annualFees: number;
   availableCourses: string[];
 }
+
