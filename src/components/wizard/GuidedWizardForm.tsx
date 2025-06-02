@@ -1,13 +1,29 @@
 
 'use client';
 
-import { useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useState, useMemo } from 'react';
+import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components/ui/label'; // Keep for budget
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { guidedUniversitySelection } from '@/ai/flows/guided-university-selection';
@@ -20,9 +36,9 @@ import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
 
 const FormSchema = z.object({
-  specialization: z.string().min(3, 'التخصص مطلوب (3 أحرف على الأقل)'),
+  specialization: z.string({ required_error: 'التخصص مطلوب' }).min(1, 'التخصص مطلوب'),
   budget: z.coerce.number().min(0, 'الميزانية يجب أن تكون رقمًا موجبًا'),
-  city: z.string().min(3, 'المدينة المفضلة مطلوبة (3 أحرف على الأقل)'),
+  city: z.string({ required_error: 'المدينة المفضلة مطلوبة' }).min(1, 'المدينة المفضلة مطلوبة'),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -33,14 +49,34 @@ export function GuidedWizardForm() {
   const [isFetchingDetails, setIsFetchingDetails] = useState(false);
   const { toast } = useToast();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      specialization: '',
+      budget: undefined, // Or a default number like 0
+      city: '',
+    }
   });
+
+
+  const uniqueSpecializations = useMemo(() => {
+    const specializations = new Set<string>();
+    mockUniversities.forEach(uni => {
+      uni.availableCourses?.forEach(course => specializations.add(course));
+    });
+    return Array.from(specializations).sort((a, b) => a.localeCompare(b));
+  }, []);
+
+  const uniqueCities = useMemo(() => {
+    const cities = new Set<string>();
+    mockUniversities.forEach(uni => {
+      if (uni.city) {
+        cities.add(uni.city);
+      }
+    });
+    return Array.from(cities).sort((a,b) => a.localeCompare(b));
+  }, []);
+
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
@@ -147,50 +183,87 @@ export function GuidedWizardForm() {
         <CardTitle className="text-center font-headline text-2xl">أخبرنا عن تفضيلاتك</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <Label htmlFor="specialization">التخصص المطلوب</Label>
-            <Input
-              id="specialization"
-              {...register('specialization')}
-              placeholder="مثال: هندسة البرمجيات، إدارة الأعمال"
-              className="mt-1"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="specialization"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>التخصص المطلوب</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر التخصص المطلوب..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {uniqueSpecializations.map((spec) => (
+                        <SelectItem key={spec} value={spec}>
+                          {spec}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.specialization && <p className="mt-1 text-sm text-destructive">{errors.specialization.message}</p>}
-          </div>
 
-          <div>
-            <Label htmlFor="budget">الميزانية السنوية (بالدولار الأمريكي)</Label>
-            <Input
-              id="budget"
-              type="number"
-              {...register('budget')}
-              placeholder="مثال: 5000"
-              className="mt-1"
+            <FormField
+              control={form.control}
+              name="budget"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>الميزانية السنوية (بالدولار الأمريكي)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="مثال: 5000"
+                      {...field}
+                      onChange={e => field.onChange(e.target.value === '' ? undefined : +e.target.value)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.budget && <p className="mt-1 text-sm text-destructive">{errors.budget.message}</p>}
-          </div>
-
-          <div>
-            <Label htmlFor="city">المدينة المفضلة</Label>
-            <Input
-              id="city"
-              {...register('city')}
-              placeholder="مثال: كوالالمبور، بينانج"
-              className="mt-1"
+            
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>المدينة المفضلة</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر المدينة المفضلة..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {uniqueCities.map((cityOption) => (
+                        <SelectItem key={cityOption} value={cityOption}>
+                          {cityOption}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {errors.city && <p className="mt-1 text-sm text-destructive">{errors.city.message}</p>}
-          </div>
 
-          <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading || isFetchingDetails}>
-            {(isLoading || isFetchingDetails) ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin rtl:ml-2 rtl:mr-0" />
-            ) : (
-              <Search className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
-            )}
-            {isLoading ? 'جاري البحث عن اقتراحات...' : isFetchingDetails ? 'جاري جلب التفاصيل...' : 'ابحث عن الجامعات'}
-          </Button>
-        </form>
+            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isLoading || isFetchingDetails}>
+              {(isLoading || isFetchingDetails) ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin rtl:ml-2 rtl:mr-0" />
+              ) : (
+                <Search className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
+              )}
+              {isLoading ? 'جاري البحث عن اقتراحات...' : isFetchingDetails ? 'جاري جلب التفاصيل...' : 'ابحث عن الجامعات'}
+            </Button>
+          </form>
+        </Form>
 
         {results.length > 0 && !isLoading && !isFetchingDetails && (
           <div className="mt-10">
@@ -205,10 +278,7 @@ export function GuidedWizardForm() {
             </div>
           </div>
         )}
-        {results.length === 0 && !isLoading && !isFetchingDetails && !Object.keys(errors).length && (
-          // This condition should be met if form submitted, no errors, and no results after all fetching.
-          // We need to ensure this message doesn't show while loading or before first submission.
-          // A check if form has been submitted might be needed if this shows prematurely.
+        {results.length === 0 && !isLoading && !isFetchingDetails && Object.keys(form.formState.errors).length === 0 && form.formState.isSubmitted && (
           <div className="mt-10 text-center">
              <Frown className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
             <p className="text-lg text-muted-foreground">لم يتم العثور على جامعات تطابق بحثك. يرجى تجربة معايير مختلفة.</p>
@@ -218,3 +288,5 @@ export function GuidedWizardForm() {
     </Card>
   );
 }
+
+    
