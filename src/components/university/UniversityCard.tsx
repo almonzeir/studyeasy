@@ -26,21 +26,21 @@ export function UniversityCard({ university }: UniversityCardProps) {
           </div>
         )}
         <div className="p-6">
-          <CardTitle className="font-headline text-2xl mb-2">{university.name}</CardTitle>
-          <div className="flex items-center text-sm text-muted-foreground mb-2">
-            <MapPin className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0 text-accent" />
+          <CardTitle className="mb-2 text-center font-headline text-2xl">{university.name}</CardTitle>
+          <div className="mb-2 flex items-center text-sm text-muted-foreground">
+            <MapPin className="mr-2 h-4 w-4 text-accent rtl:ml-2 rtl:mr-0" />
             <span>{university.city}</span>
           </div>
         </div>
       </CardHeader>
       <CardContent className="flex-grow p-6 pt-0">
         <div className="mb-4">
-          <div className="flex items-center text-sm text-muted-foreground mb-1">
-            <DollarSign className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0 text-accent" />
+          <div className="mb-1 flex items-center text-sm text-muted-foreground">
+            <DollarSign className="mr-2 h-4 w-4 text-accent rtl:ml-2 rtl:mr-0" />
             <span>الرسوم السنوية: ${university.annualFees.toLocaleString()}</span>
           </div>
           <div className="flex items-start text-sm text-muted-foreground">
-            <BookOpen className="mr-2 mt-1 h-4 w-4 flex-shrink-0 rtl:ml-2 rtl:mr-0 text-accent" />
+            <BookOpen className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-accent rtl:ml-2 rtl:mr-0" />
             <div>
               <span className="font-medium text-foreground/90">التخصصات المتاحة:</span>
               <div className="mt-1 flex flex-wrap gap-2">
@@ -54,9 +54,9 @@ export function UniversityCard({ university }: UniversityCardProps) {
             </div>
           </div>
         </div>
-        {university.description && <CardDescription className="text-sm leading-relaxed text-muted-foreground line-clamp-3">{university.description}</CardDescription>}
+        {university.description && <CardDescription className="text-center text-sm leading-relaxed text-muted-foreground line-clamp-3">{university.description}</CardDescription>}
       </CardContent>
-      <CardFooter className="p-6 bg-secondary/30">
+      <CardFooter className="bg-secondary/30 p-6">
         <Button asChild className="w-full bg-primary hover:bg-primary/90">
           {/* The link will eventually go to /universities/[id] */}
           <Link href={`/universities/${university.id}`}> 

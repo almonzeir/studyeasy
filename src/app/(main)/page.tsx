@@ -2,32 +2,18 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
-import Image from 'next/image'; // Ensure Image is imported from next/image
+import Image from 'next/image'; 
 import { ChevronLeft } from 'lucide-react';
 // BotMessageSquare is used later, Wand2 is used in Hero
-// import { BotMessageSquare } from 'lucide-react'; // This was a local SVG, keeping local for now.
 
 export default function HomePage() {
-  const featuredUniversities = mockUniversities.slice(0, 3); // Show first 3 as featured
+  const featuredUniversities = mockUniversities.slice(0, 3); 
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 text-primary-foreground">
-        {/* Background Image and Overlay Container */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://rare-gallery.com/uploads/posts/733421-Malaysia-Skyscrapers-Night-Kuala-Lumpur.jpg"
-            alt="Kuala Lumpur skyline at night, a beacon for your educational journey in Malaysia"
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint="malaysia skyline night"
-            priority // Ensures LCP optimization
-          />
-          {/* Overlay for better text contrast and visual depth */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70"></div>
-        </div>
-
+      <section className="relative py-20 text-primary-foreground md:py-32">
+        {/* Background image is now global, hero content sits on main layout's overlay */}
         <div className="container relative z-10 text-center">
           <h1
             className="mb-6 font-headline text-5xl font-bold md:text-6xl lg:text-7xl animate-fade-in-down"
@@ -41,7 +27,7 @@ export default function HomePage() {
           >
             استكشف أفضل الجامعات الماليزية وابدأ رحلتك الأكاديمية معنا.
           </p>
-          <div className="flex flex-col items-center sm:flex-row justify-center gap-4 animate-fade-in">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row animate-fade-in">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 shadow-xl hover:shadow-accent/50 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background">
               <Link href="/wizard">
                 <Wand2 className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
@@ -59,7 +45,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Universities Section */}
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-16 bg-transparent md:py-24"> {/* Changed background to transparent */}
         <div className="container">
           <h2 className="mb-12 text-center font-headline text-3xl font-bold md:text-4xl">
             الجامعات <span className="text-accent">المميزة</span>
@@ -70,7 +56,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <Button asChild variant="link" className="text-accent text-lg">
+            <Button asChild variant="link" className="text-lg text-accent">
               <Link href="/universities">
                 عرض جميع الجامعات
                 <ChevronLeft className="ml-2 h-4 w-4 rtl:mr-2 rtl:ml-0" />
@@ -81,7 +67,7 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-16 md:py-24 bg-primary/10">
+      <section className="py-16 bg-primary/10 md:py-24"> {/* Kept bg-primary/10 for slight variation */}
         <div className="container text-center">
           <h2 className="mb-6 font-headline text-3xl font-bold md:text-4xl">
             هل أنت مستعد لبدء رحلتك؟
