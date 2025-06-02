@@ -6,9 +6,9 @@ import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
 import { Input } from '@/components/ui/input';
-import { Search, MapPin, DollarSign, Frown, ListFilter } from 'lucide-react';
+import { Search, MapPin, DollarSign, Frown, ListFilter, FilterIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Added CardHeader, CardTitle
 import {
   Select,
   SelectContent,
@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from '@/components/ui/separator'; // Added Separator
 
 export default function UniversitiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -72,68 +73,78 @@ export default function UniversitiesPage() {
         </p>
       </header>
 
-      <div className="mb-10 rounded-lg border bg-card p-6 shadow-xl">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div>
-            <Label htmlFor="selectUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
-              <ListFilter className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
-              اختر جامعة
-            </Label>
-            <Select
-              value={searchTerm || "all"}
-              onValueChange={(value) => setSearchTerm(value === "all" ? "" : value)}
-            >
-              <SelectTrigger id="selectUniversity" className="w-full">
-                <SelectValue placeholder="اختر جامعة..." />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">جميع الجامعات</SelectItem>
-                {mockUniversities.sort((a, b) => a.name.localeCompare(b.name)).map((uni) => (
-                  <SelectItem key={uni.id} value={uni.name}>
-                    {uni.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      <Card className="mb-12 rounded-lg border bg-card p-6 shadow-xl"> {/* Increased mb */}
+        <CardHeader className="p-0 pb-6"> {/* Added CardHeader */}
+          <CardTitle className="flex items-center font-headline text-2xl">
+            <FilterIcon className="mr-2 h-6 w-6 text-accent rtl:ml-2 rtl:mr-0" />
+            تصفية النتائج
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div>
+              <Label htmlFor="selectUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
+                <ListFilter className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+                اختر جامعة
+              </Label>
+              <Select
+                value={searchTerm || "all"}
+                onValueChange={(value) => setSearchTerm(value === "all" ? "" : value)}
+              >
+                <SelectTrigger id="selectUniversity" className="w-full">
+                  <SelectValue placeholder="اختر جامعة..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">جميع الجامعات</SelectItem>
+                  {mockUniversities.sort((a, b) => a.name.localeCompare(b.name)).map((uni) => (
+                    <SelectItem key={uni.id} value={uni.name}>
+                      {uni.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
+                <MapPin className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+                المدينة
+              </Label>
+              <Select
+                value={cityFilter || "all"}
+                onValueChange={(value) => setCityFilter(value === "all" ? "" : value)}
+              >
+                <SelectTrigger id="cityFilter" className="w-full">
+                  <SelectValue placeholder="اختر مدينة..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">جميع المدن</SelectItem>
+                  {uniqueCities.map((city) => (
+                    <SelectItem key={city} value={city}>
+                      {city}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
+                <DollarSign className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+                أقصى ميزانية سنوية (USD)
+              </Label>
+              <Input
+                id="budgetFilter"
+                type="number"
+                placeholder="مثال: 5000"
+                value={budgetFilter}
+                onChange={handleBudgetChange}
+                min="0"
+              />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
-              <MapPin className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
-              المدينة
-            </Label>
-            <Select
-              value={cityFilter || "all"}
-              onValueChange={(value) => setCityFilter(value === "all" ? "" : value)}
-            >
-              <SelectTrigger id="cityFilter" className="w-full">
-                <SelectValue placeholder="اختر مدينة..." />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">جميع المدن</SelectItem>
-                {uniqueCities.map((city) => (
-                  <SelectItem key={city} value={city}>
-                    {city}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
-              <DollarSign className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
-              أقصى ميزانية سنوية (USD)
-            </Label>
-            <Input
-              id="budgetFilter"
-              type="number"
-              placeholder="مثال: 5000"
-              value={budgetFilter}
-              onChange={handleBudgetChange}
-              min="0"
-            />
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
+
+      {/* <Separator className="my-10 border-border/30" />  Added separator, commented out for now to see if mb-12 is enough */}
 
       {filteredUniversities.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -142,11 +153,11 @@ export default function UniversitiesPage() {
           ))}
         </div>
       ) : (
-        <Card className="shadow-lg">
-          <CardContent className="py-12 text-center">
-            <Frown className="mx-auto mb-6 h-20 w-20 text-muted-foreground" />
-            <p className="mb-2 text-2xl font-semibold text-foreground">لم يتم العثور على جامعات</p>
-            <p className="text-muted-foreground">
+        <Card className="shadow-lg border-dashed border-muted-foreground/50"> {/* Enhanced no results card */}
+          <CardContent className="py-16 text-center"> {/* Increased padding */}
+            <Frown className="mx-auto mb-6 h-24 w-24 text-muted-foreground/70" /> {/* Larger icon */}
+            <p className="mb-3 text-3xl font-semibold text-foreground">لم يتم العثور على جامعات</p> {/* Larger text */}
+            <p className="text-muted-foreground text-lg">
               حاول تعديل معايير البحث الخاصة بك أو توسيع نطاق بحثك.
             </p>
           </CardContent>

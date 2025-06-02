@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative py-20 text-primary-foreground md:py-32">
+      <section className="relative py-24 text-primary-foreground md:py-40"> {/* Increased padding */}
         <div className="absolute inset-0">
           <Image
             src="https://rare-gallery.com/uploads/posts/733421-Malaysia-Skyscrapers-Night-Kuala-Lumpur.jpg"
@@ -27,14 +27,14 @@ export default function HomePage() {
         </div>
         <div className="container relative z-10 text-center">
           <h1
-            className="mb-6 font-headline text-5xl font-bold md:text-6xl lg:text-7xl animate-fade-in-down"
-            style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.7)' }}
+            className="mb-6 font-headline text-5xl font-bold sm:text-6xl md:text-7xl lg:text-8xl animate-fade-in-down" /* Increased font size */
+            style={{ textShadow: '0 3px 8px rgba(0, 0, 0, 0.8)' }} /* Enhanced shadow */
           >
-            أهلاً بك في <span className="text-accent" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.5)' }}>دليلك في ماليزيا</span>
+            أهلاً بك في <span className="text-accent" style={{ textShadow: '0 3px 8px rgba(0,0,0,0.6)' }}>دليلك في ماليزيا</span>
           </h1>
           <p
-            className="mb-8 text-lg md:text-xl lg:text-2xl text-primary-foreground/95 animate-fade-in-up"
-            style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.6)' }}
+            className="mb-10 text-lg md:text-xl lg:text-2xl text-primary-foreground/95 animate-fade-in-up" /* Increased margin-bottom */
+            style={{ textShadow: '0 2px 5px rgba(0, 0, 0, 0.7)' }} /* Enhanced shadow */
           >
             استكشف أفضل الجامعات الماليزية وابدأ رحلتك الأكاديمية معنا.
           </p>
@@ -45,7 +45,7 @@ export default function HomePage() {
                 ابدأ بمساعد الاختيار
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-accent text-accent hover:text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 bg-black/40 hover:border-accent backdrop-blur-sm shadow-xl hover:shadow-accent/40 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background">
+            <Button asChild size="lg" variant="outline" className="border-accent text-accent hover:text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 bg-black/50 hover:border-accent backdrop-blur-sm shadow-xl hover:shadow-accent/40 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background">
               <Link href="/universities">
                 تصفح الجامعات
                 <ChevronLeft className="ml-2 h-5 w-5 rtl:mr-2 rtl:ml-0" />
@@ -58,16 +58,19 @@ export default function HomePage() {
       {/* Featured Universities Section */}
       <section className="py-16 bg-transparent md:py-24">
         <div className="container">
-          <h2 className="mb-12 text-center font-headline text-3xl font-bold md:text-4xl">
-            الجامعات <span className="text-accent">المميزة</span>
-          </h2>
+          <div className="mb-14 text-center"> {/* Increased margin-bottom */}
+            <h2 className="font-headline text-4xl font-bold md:text-5xl"> {/* Increased font size */}
+              الجامعات <span className="text-accent">المميزة</span>
+            </h2>
+            <div className="mt-2 h-1 w-24 mx-auto bg-accent rounded-full"></div> {/* Accent underline */}
+          </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {featuredUniversities.map((uni) => (
               <UniversityCard key={uni.id} university={uni} />
             ))}
           </div>
           <div className="mt-12 text-center">
-            <Button asChild variant="link" className="text-lg text-accent">
+            <Button asChild variant="link" className="text-lg text-accent hover:text-accent/80">
               <Link href="/universities">
                 عرض جميع الجامعات
                 <ChevronLeft className="ml-2 h-4 w-4 rtl:mr-2 rtl:ml-0" />
@@ -80,13 +83,16 @@ export default function HomePage() {
       {/* Call to Action Section */}
       <section className="py-16 bg-primary/10 md:py-24">
         <div className="container text-center">
-          <h2 className="mb-6 font-headline text-3xl font-bold md:text-4xl">
-            هل أنت مستعد لبدء رحلتك؟
-          </h2>
+           <div className="mb-10 text-center"> {/* Increased margin-bottom */}
+            <h2 className="font-headline text-4xl font-bold md:text-5xl"> {/* Increased font size */}
+              هل أنت مستعد لبدء رحلتك؟
+            </h2>
+            <div className="mt-2 h-1 w-32 mx-auto bg-accent rounded-full"></div> {/* Accent underline */}
+          </div>
           <p className="mb-8 text-lg text-foreground/80 md:text-xl">
             دعنا نساعدك في كل خطوة، من اختيار الجامعة المناسبة حتى القبول وبدء الدراسة.
           </p>
-          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 shadow-lg hover:shadow-accent/50">
             <Link href="/chatbot">
               <BotMessageSquare className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
               تحدث مع المستشار الذكي
