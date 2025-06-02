@@ -6,9 +6,16 @@ import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
 import { Input } from '@/components/ui/input';
-import { Search, MapPin, DollarSign, Frown } from 'lucide-react';
+import { Search, MapPin, DollarSign, Frown, ListFilter } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function UniversitiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,26 +29,22 @@ export default function UniversitiesPage() {
     if (searchTerm) {
       universities = universities.filter(uni =>
         uni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        uni.availableCourses.some(course => course.toLowerCase().includes(searchTerm.toLowerCase()))
+        (uni.availableCourses && uni.availableCourses.some(course => course.toLowerCase().includes(searchTerm.toLowerCase())))
       );
     }
 
     if (cityFilter) {
       universities = universities.filter(uni =>
-        uni.city.toLowerCase().includes(cityFilter.toLowerCase())
+        uni.city && uni.city.toLowerCase().includes(cityFilter.toLowerCase())
       );
     }
 
     if (budgetFilter !== '') {
-      universities = universities.filter(uni => uni.annualFees <= budgetFilter);
+      universities = universities.filter(uni => uni.annualFees !== undefined && uni.annualFees <= budgetFilter);
     }
 
     setFilteredUniversities(universities);
   }, [searchTerm, cityFilter, budgetFilter]);
-
-  const handleSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
 
   const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCityFilter(e.target.value);
@@ -66,17 +69,26 @@ export default function UniversitiesPage() {
       <div className="mb-10 rounded-lg border bg-card p-6 shadow-xl">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div>
-            <Label htmlFor="searchUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
-              <Search className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
-              ابحث بالاسم أو التخصص
+            <Label htmlFor="selectUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
+              <ListFilter className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+              اختر جامعة
             </Label>
-            <Input
-              id="searchUniversity"
-              type="text"
-              placeholder="مثال: هندسة، جامعة ملايا..."
-              value={searchTerm}
-              onChange={handleSearchTermChange}
-            />
+            <Select
+              value={searchTerm || "all"}
+              onValueChange={(value) => setSearchTerm(value === "all" ? "" : value)}
+            >
+              <SelectTrigger id="selectUniversity" className="w-full">
+                <SelectValue placeholder="اختر جامعة..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">جميع الجامعات</SelectItem>
+                {mockUniversities.sort((a, b) => a.name.localeCompare(b.name)).map((uni) => (
+                  <SelectItem key={uni.id} value={uni.name}>
+                    {uni.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <Label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
