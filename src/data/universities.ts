@@ -16,6 +16,7 @@ export const mockUniversities: University[] = [
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدل ممتاز', 'إجادة اللغة الإنجليزية (IELTS/TOEFL)', 'مقابلة شخصية'],
     officialWebsiteUrl: 'https://www.um.edu.my',
     applicationLink: 'https://apply.um.edu.my',
+    studentHandbookUrl: 'https://fsktm.um.edu.my/student-handbook', // Added
   },
   {
     id: '2',
@@ -76,6 +77,7 @@ export const mockUniversities: University[] = [
     acceptanceCriteria: ['شهادة الثانوية العامة بمعدل ممتاز في المواد العلمية', 'إجادة اللغة الإنجليزية (IELTS 6.0+)'],
     officialWebsiteUrl: 'https://www.utm.my',
     applicationLink: 'https://admission.utm.my/apply-now/',
+    studentHandbookUrl: 'https://science.utm.my/undergraduate/academic-handbook/', // Added
   },
   {
     id: '6',
@@ -181,6 +183,7 @@ export const mockUniversities: University[] = [
     acceptanceCriteria: ['شهادة الثانوية العامة', 'إجادة اللغة الإنجليزية', 'اختبارات قبول لبعض التخصصات كالموسيقى'],
     officialWebsiteUrl: 'https://www.ucsiuniversity.edu.my',
     applicationLink: 'https://www.ucsiuniversity.edu.my',
+    studentHandbookUrl: 'https://www.ucsiuniversity.edu.my/sites/default/files/student_handbook_undergraduate.pdf', // Added
   },
   {
     id: '13',
@@ -199,7 +202,7 @@ export const mockUniversities: University[] = [
   },
   {
     id: '14',
-    name: 'جامعة ماليزيا باهانج السلطان عبد الله (UMPSA)',
+    name: 'Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)',
     city: 'كوانتان، باهانج',
     annualFees: 4300,
     availableCourses: ['الهندسة الميكانيكية', 'الهندسة الكهربائية والإلكترونية', 'هندسة البرمجيات', 'السلامة والصحة المهنية'],
@@ -214,7 +217,7 @@ export const mockUniversities: University[] = [
   },
   {
     id: '15',
-    name: 'جامعة السلطان إدريس التربوية (UPSI)',
+    name: 'Universiti Pendidikan Sultan Idris (UPSI)',
     city: 'تانجونج ماليم، فيرق',
     annualFees: 3200,
     availableCourses: ['التعليم (مختلف التخصصات)', 'اللغات والاتصال', 'الفنون والتصميم التربوي', 'العلوم الإنسانية'],
@@ -229,7 +232,7 @@ export const mockUniversities: University[] = [
   },
   {
     id: '16',
-    name: 'جامعة ماليزيا سرواك (UNIMAS)',
+    name: 'Universiti Malaysia Sarawak (UNIMAS)',
     city: 'كوتا ساماراهان، سرواك',
     annualFees: 4000,
     availableCourses: ['علوم الحاسوب', 'الفنون التطبيقية والإبداعية', 'العلوم الاجتماعية', 'الهندسة', 'الاقتصاد والأعمال'],
@@ -244,7 +247,7 @@ export const mockUniversities: University[] = [
   },
   {
     id: '17',
-    name: 'جامعة العلوم الإسلامية الماليزية (USIM)',
+    name: 'Universiti Sains Islam Malaysia (USIM)',
     city: 'نيلاي، نيجري سمبيلن',
     annualFees: 3700,
     availableCourses: ['الشريعة والقانون', 'القرآن والسنة', 'الاقتصاد والمعاملات المالية الإسلامية', 'الطب وطب الأسنان (مع منظور إسلامي)'],
@@ -526,5 +529,55 @@ export const mockUniversities: University[] = [
     acceptanceCriteria: ['Relevant high school qualifications', 'English and/or Chinese language proficiency depending on program'],
     officialWebsiteUrl: 'https://www.xmu.edu.my',
     applicationLink: 'https://www.xmu.edu.my',
+    studentHandbookUrl: 'https://www.xmu.edu.my/14713/list.htm', // Added
+  },
+  {
+    id: '36',
+    name: 'Universiti Kuala Lumpur (UniKL)',
+    city: 'Kuala Lumpur',
+    annualFees: 6000,
+    availableCourses: ['Engineering Technology', 'Business', 'IT', 'Design'],
+    description: 'Universiti Kuala Lumpur (UniKL) is a multi-campus technical university with a focus on higher technical and vocational education and training (HTVET).',
+    logoUrl: 'https://placehold.co/100x100.png?text=UniKL+Logo',
+    imageUrl: 'https://placehold.co/600x400.png?text=UniKL+Campus',
+    dataAiHint: 'technical university',
+    livingCosts: 'USD 600-900 شهريًا',
+    acceptanceCriteria: ['Relevant diploma or STPM/Matriculation', 'English proficiency'],
+    officialWebsiteUrl: 'https://www.unikl.edu.my',
+    applicationLink: 'https://www.unikl.edu.my/admission/',
+    studentHandbookUrl: 'https://academic.unikl.edu.my/wp-content/uploads/2024/10/Academic-Handbook-For-UGS-Oct-2024-1st-Ed11-F10102024.pdf', // Added
+  },
+  {
+    id: '37',
+    name: 'UOW Malaysia KDU',
+    city: 'Glenmarie, Selangor',
+    annualFees: 7500,
+    availableCourses: ['Business', 'Communication', 'Computing', 'Engineering', 'Hospitality'],
+    description: 'UOW Malaysia KDU is part of the University of Wollongong Australia global network, offering internationally recognized programs.',
+    logoUrl: 'https://placehold.co/100x100.png?text=UOWMY+Logo',
+    imageUrl: 'https://placehold.co/600x400.png?text=UOWMY+Campus',
+    dataAiHint: 'international campus modern',
+    livingCosts: 'USD 700-1100 شهريًا',
+    acceptanceCriteria: ['Relevant pre-university qualifications', 'English proficiency'],
+    officialWebsiteUrl: 'https://www.uow.edu.my/',
+    applicationLink: 'https://www.uow.edu.my/apply/',
+    studentHandbookUrl: 'https://www.uow.edu.my/pdf/Undergraduate-Handbook-2025-University-of-Wollongong-Malaysia.pdf', // Added
+  },
+  {
+    id: '38',
+    name: 'University College Fairview (UCF)',
+    city: 'Subang Jaya, Selangor',
+    annualFees: 7000,
+    availableCourses: ['International Baccalaureate (IB) Programmes', 'Education'],
+    description: 'University College Fairview is known for its International Baccalaureate (IB) programmes and teacher education.',
+    logoUrl: 'https://placehold.co/100x100.png?text=UCF+Logo',
+    imageUrl: 'https://placehold.co/600x400.png?text=UCF+Campus',
+    dataAiHint: 'ib school campus',
+    livingCosts: 'USD 650-950 شهريًا',
+    acceptanceCriteria: ['Relevant academic qualifications', 'Interview may be required'],
+    officialWebsiteUrl: 'https://ucf.edu.my',
+    applicationLink: 'https://ucf.edu.my/admissions/',
+    studentHandbookUrl: 'https://www.ucf.edu.my/wp-content/uploads/2017/02/ACADEMIC-HANDBOOK-2020.pdf', // Added
   }
 ];
+

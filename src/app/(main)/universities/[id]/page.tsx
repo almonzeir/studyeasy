@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe } from 'lucide-react';
+import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe, BookCopy } from 'lucide-react';
 
 async function getUniversityById(id: string): Promise<University | undefined> {
   return mockUniversities.find((uni) => uni.id === id);
@@ -111,7 +111,7 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
               </h2>
               <ul className="space-y-2 text-foreground/90">
                 <li>
-                  <strong>الرسوم السنوية:</strong> ${university.annualFees.toLocaleString()}
+                  <strong>الرسوم السنوية:</strong> ${university.annualFees?.toLocaleString() ?? 'غير متوفر'}
                 </li>
                 {university.livingCosts && (
                   <li>
@@ -137,7 +137,7 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
           )}
         </CardContent>
 
-        {(university.officialWebsiteUrl || (university.applicationLink && university.applicationLink !== '#')) && (
+        {(university.officialWebsiteUrl || (university.applicationLink && university.applicationLink !== '#') || university.studentHandbookUrl) && (
           <CardFooter className="bg-secondary/20 p-6 md:p-8 flex flex-col sm:flex-row gap-4">
             {university.officialWebsiteUrl && (
               <Button asChild size="lg" variant="outline" className="flex-1 border-primary text-primary hover:bg-primary/10">
@@ -155,9 +155,18 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
                 </Link>
               </Button>
             )}
+            {university.studentHandbookUrl && (
+              <Button asChild size="lg" variant="outline" className="flex-1 border-primary text-primary hover:bg-primary/10">
+                <Link href={university.studentHandbookUrl} target="_blank" rel="noopener noreferrer">
+                  <BookCopy className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
+                  دليل الطالب
+                </Link>
+              </Button>
+            )}
           </CardFooter>
         )}
       </Card>
     </div>
   );
 }
+

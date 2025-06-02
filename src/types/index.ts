@@ -24,7 +24,8 @@ export const UniversityDetailsOutputSchema = z.object({
   livingCosts: z.string().optional().describe("Estimated monthly living costs for a student in USD. If unknown, omit."),
   acceptanceCriteria: z.array(z.string()).optional().describe("Key acceptance criteria. If unknown, omit."),
   officialWebsiteUrl: z.string().url().optional().describe("The official website URL. If unknown, omit."),
-  applicationLink: z.string().url().optional().describe("The direct application portal URL. If unknown, omit.")
+  applicationLink: z.string().url().optional().describe("The direct application portal URL. If unknown, omit."),
+  studentHandbookUrl: z.string().url().optional().describe("The URL for the university's student handbook. If unknown, omit.")
 });
 export type UniversityDetailsOutput = z.infer<typeof UniversityDetailsOutputSchema>;
 
@@ -45,4 +46,6 @@ export interface University extends UniversityDetailsOutput {
   acceptanceCriteria?: string[];
   officialWebsiteUrl?: string;
   applicationLink?: string;
+  studentHandbookUrl?: string;
 }
+
