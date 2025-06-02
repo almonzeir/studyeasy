@@ -1,10 +1,56 @@
+
+'use client';
+
+import { useState, useEffect, ChangeEvent } from 'react';
 import { UniversityCard } from '@/components/university/UniversityCard';
 import { mockUniversities } from '@/data/universities';
+import type { University } from '@/types';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Filter, Search } from 'lucide-react';
+import { Search, MapPinIcon, DollarSignIcon, Frown } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 
 export default function UniversitiesPage() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [cityFilter, setCityFilter] = useState('');
+  const [budgetFilter, setBudgetFilter] = useState<number | ''>('');
+  const [filteredUniversities, setFilteredUniversities] = useState<University[]>(mockUniversities);
+
+  useEffect(() => {
+    let universities = mockUniversities;
+
+    if (searchTerm) {
+      universities = universities.filter(uni =>
+        uni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        uni.availableCourses.some(course => course.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    if (cityFilter) {
+      universities = universities.filter(uni =>
+        uni.city.toLowerCase().includes(cityFilter.toLowerCase())
+      );
+    }
+
+    if (budgetFilter !== '') {
+      universities = universities.filter(uni => uni.annualFees <= budgetFilter);
+    }
+
+    setFilteredUniversities(universities);
+  }, [searchTerm, cityFilter, budgetFilter]);
+
+  const handleSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCityFilter(e.target.value);
+  };
+
+  const handleBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setBudgetFilter(value === '' ? '' : Number(value));
+  };
+
   return (
     <div className="container py-12 md:py-16">
       <header className="mb-12 text-center">
@@ -16,49 +62,66 @@ export default function UniversitiesPage() {
         </p>
       </header>
 
-      {/* Filters Placeholder */}
-      <div className="mb-10 rounded-lg border bg-card p-6 shadow-sm">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 items-end">
+      <div className="mb-10 rounded-lg border bg-card p-6 shadow-xl">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div>
-            <label htmlFor="searchUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
+            <Label htmlFor="searchUniversity" className="mb-2 block text-sm font-medium text-foreground/80">
+              <Search className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
               ابحث بالاسم أو التخصص
-            </label>
-            <div className="relative">
-              <Input id="searchUniversity" type="text" placeholder="مثال: هندسة، جامعة ملايا..." className="pl-10 rtl:pr-10" />
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground rtl:right-3 rtl:left-auto" />
-            </div>
+            </Label>
+            <Input
+              id="searchUniversity"
+              type="text"
+              placeholder="مثال: هندسة، جامعة ملايا..."
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+            />
           </div>
           <div>
-            <label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
+            <Label htmlFor="cityFilter" className="mb-2 block text-sm font-medium text-foreground/80">
+              <MapPinIcon className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
               المدينة
-            </label>
-            <Input id="cityFilter" type="text" placeholder="مثال: كوالالمبور" />
+            </Label>
+            <Input
+              id="cityFilter"
+              type="text"
+              placeholder="مثال: كوالالمبور"
+              value={cityFilter}
+              onChange={handleCityChange}
+            />
           </div>
           <div>
-            <label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
-              الميزانية السنوية (USD)
-            </label>
-            <Input id="budgetFilter" type="number" placeholder="مثال: 5000" />
+            <Label htmlFor="budgetFilter" className="mb-2 block text-sm font-medium text-foreground/80">
+              <DollarSignIcon className="mr-1 inline h-4 w-4 rtl:ml-1 rtl:mr-0" />
+              أقصى ميزانية سنوية (USD)
+            </Label>
+            <Input
+              id="budgetFilter"
+              type="number"
+              placeholder="مثال: 5000"
+              value={budgetFilter}
+              onChange={handleBudgetChange}
+              min="0"
+            />
           </div>
-          <Button className="w-full md:w-auto bg-primary hover:bg-primary/90">
-            <Filter className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
-            تطبيق الفلاتر
-          </Button>
         </div>
       </div>
 
-      {/* University Grid */}
-      {mockUniversities.length > 0 ? (
+      {filteredUniversities.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {mockUniversities.map((uni) => (
+          {filteredUniversities.map((uni) => (
             <UniversityCard key={uni.id} university={uni} />
           ))}
         </div>
       ) : (
         <div className="py-12 text-center">
+          <Frown className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
           <p className="text-xl text-muted-foreground">لم يتم العثور على جامعات تطابق بحثك.</p>
+          <p className="mt-2 text-sm text-muted-foreground">حاول تعديل معايير البحث الخاصة بك.</p>
         </div>
       )}
     </div>
   );
 }
+
+    
