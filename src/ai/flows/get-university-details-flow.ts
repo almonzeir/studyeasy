@@ -14,7 +14,7 @@ import type { UniversityDetailsOutput } from '@/types'; // Ensure this type is d
 import { UniversityDetailsOutputSchema } from '@/types';
 
 
-export const GetUniversityDetailsByNameInputSchema = z.object({
+const GetUniversityDetailsByNameInputSchema = z.object({
   universityName: z.string().describe('The official name of the university to fetch details for.'),
 });
 export type GetUniversityDetailsByNameInput = z.infer<typeof GetUniversityDetailsByNameInputSchema>;
@@ -36,8 +36,8 @@ Please include the following details if available:
 - Estimated annual tuition fees in USD for international students (provide a number)
 - A list of 3-5 popular or notable courses offered
 - A brief description of the university (2-3 sentences)
-- A placeholder URL for a logo, e.g., https://placehold.co/100x100.png?text=LOGO. If unknown, omit this field.
-- A placeholder URL for a campus image, e.g., https://placehold.co/600x400.png?text=Campus. If unknown, omit this field.
+- A placeholder URL for a logo, e.g., https://placehold.co/100x100.png. If unknown, omit this field.
+- A placeholder URL for a campus image, e.g., https://placehold.co/600x400.png. If unknown, omit this field.
 - One or two keywords for a campus image if imageUrl is provided, e.g., 'university campus'. If unknown, omit.
 - Estimated monthly living costs for a student in USD, e.g., 'USD 500-800'. If unknown, omit.
 - A few key acceptance criteria or general requirements (as an array of strings). If unknown, omit.
@@ -70,3 +70,4 @@ const getUniversityDetailsByNameFlow = ai.defineFlow(
     };
   }
 );
+
