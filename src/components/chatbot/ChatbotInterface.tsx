@@ -19,6 +19,26 @@ interface Message {
   timestamp: Date;
 }
 
+// Function to clean text from asterisks (used for initial greeting/errors)
+const cleanSimpleText = (text: string) => {
+  return text.replace(/\*/g, ''); // Remove all asterisks
+};
+
+// Function to format bot messages: remove asterisks and convert Markdown links to HTML
+const formatBotMessageContent = (text: string): string => {
+  // 1. Remove asterisks
+  let processedText = text.replace(/\*/g, '');
+  // 2. Convert Markdown links to HTML links
+  // Regex: \[([^\]]+)\]\(([^)]+)\)
+  // $1: link text, $2: URL
+  processedText = processedText.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-medium">$1</a>'
+  );
+  return processedText;
+};
+
+
 export function ChatbotInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -36,16 +56,11 @@ export function ChatbotInterface() {
     }
   };
 
-  // Function to clean text from asterisks or other simple markdown
-  const cleanBotText = (text: string) => {
-    return text.replace(/\*/g, ''); // Remove all asterisks
-  };
-
   useEffect(() => {
     setMessages([
       {
         id: 'initial-greeting',
-        text: cleanBotText('مرحباً بك! أنا هنا لمساعدتك في الإجابة على أسئلتك حول الدراسة في ماليزيا. كيف يمكنني خدمتك اليوم؟'),
+        text: cleanSimpleText('مرحباً بك! أنا هنا لمساعدتك في الإجابة على أسئلتك حول الدراسة في ماليزيا. كيف يمكنني خدمتك اليوم؟'),
         sender: 'bot',
         timestamp: new Date(),
       }
@@ -79,7 +94,7 @@ export function ChatbotInterface() {
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: cleanBotText(response.answer), // Clean AI response
+        text: response.answer, // Store raw answer, formatting will be done at render time
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -89,7 +104,7 @@ export function ChatbotInterface() {
       console.error('Error fetching chatbot response:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: cleanBotText('عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.'), // Clean error message
+        text: cleanSimpleText('عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.'),
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -131,7 +146,11 @@ export function ChatbotInterface() {
                     : 'rounded-bl-lg bg-muted text-muted-foreground shadow-muted/30'
                 )}
               >
-                <p>{msg.text}</p>
+                {msg.sender === 'bot' ? (
+                  <p dangerouslySetInnerHTML={{ __html: formatBotMessageContent(msg.text) }} />
+                ) : (
+                  <p>{msg.text}</p>
+                )}
                 <p className={cn(
                     "mt-2 text-xs opacity-70",
                     msg.sender === 'user' ? "text-right text-accent-foreground/80" : "text-left text-muted-foreground/80"
