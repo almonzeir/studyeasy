@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'; // AvatarImage removed as we use icons
 import { universityChatbot } from '@/ai/flows/university-chatbot';
 import type { UniversityChatbotInput, UniversityChatbotOutput } from '@/ai/flows/university-chatbot';
 import { Loader2, Send, User, Bot } from 'lucide-react';
@@ -34,6 +34,18 @@ export function ChatbotInterface() {
       }
     }
   };
+
+  useEffect(() => {
+    // Add an initial greeting message from the bot
+    setMessages([
+      {
+        id: 'initial-greeting',
+        text: 'مرحباً بك! أنا هنا لمساعدتك في الإجابة على أسئلتك حول الدراسة في ماليزيا. كيف يمكنني خدمتك اليوم؟',
+        sender: 'bot',
+        timestamp: new Date(),
+      }
+    ]);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -89,8 +101,8 @@ export function ChatbotInterface() {
 
   return (
     <div className="flex h-full flex-col">
-      <ScrollArea className="flex-grow p-4 md:p-6" ref={scrollAreaRef}>
-        <div className="space-y-6">
+      <ScrollArea className="flex-grow p-6 md:p-8" ref={scrollAreaRef}>
+        <div className="space-y-8"> {/* Increased space between messages */}
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -100,29 +112,33 @@ export function ChatbotInterface() {
               )}
             >
               {msg.sender === 'bot' && (
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10 border-2 border-primary/50"> {/* Slightly larger avatar, themed border */}
                   <AvatarFallback className="bg-primary text-primary-foreground">
-                    <Bot className="h-5 w-5" />
+                    <Bot className="h-6 w-6" />
                   </AvatarFallback>
                 </Avatar>
               )}
               <div
                 className={cn(
-                  'max-w-[70%] rounded-xl px-4 py-3 shadow-md',
+                  'max-w-[75%] rounded-3xl px-5 py-3 shadow-md text-sm md:text-base leading-relaxed whitespace-pre-wrap', // Base styling for bubbles
                   msg.sender === 'user'
-                    ? 'rounded-br-none bg-primary text-primary-foreground'
-                    : 'rounded-bl-none bg-secondary text-secondary-foreground'
+                    ? 'rounded-br-lg bg-accent text-accent-foreground shadow-accent/30' // User bubble specific styling
+                    : 'rounded-bl-lg bg-muted text-muted-foreground shadow-muted/30' // Bot bubble specific styling
                 )}
               >
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-                <p className={cn("mt-1 text-xs", msg.sender === 'user' ? "text-primary-foreground/70" : "text-muted-foreground/70")}>
+                <p>{msg.text}</p>
+                <p className={cn(
+                    "mt-2 text-xs opacity-70", 
+                    msg.sender === 'user' ? "text-right text-accent-foreground/80" : "text-left text-muted-foreground/80"
+                  )}
+                >
                   {msg.timestamp.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
               {msg.sender === 'user' && (
-                <Avatar className="h-8 w-8">
+                <Avatar className="h-10 w-10 border-2 border-accent/50"> {/* Slightly larger avatar, themed border */}
                   <AvatarFallback className="bg-accent text-accent-foreground">
-                    <User className="h-5 w-5" />
+                    <User className="h-6 w-6" />
                   </AvatarFallback>
                 </Avatar>
               )}
@@ -130,30 +146,30 @@ export function ChatbotInterface() {
           ))}
           {isLoading && (
              <div className="flex items-end gap-3 justify-start">
-               <Avatar className="h-8 w-8">
+               <Avatar className="h-10 w-10 border-2 border-primary/50">
                   <AvatarFallback className="bg-primary text-primary-foreground">
-                    <Bot className="h-5 w-5" />
+                    <Bot className="h-6 w-6" />
                   </AvatarFallback>
                 </Avatar>
-                <div className="max-w-[70%] rounded-xl px-4 py-3 shadow-md rounded-bl-none bg-secondary text-secondary-foreground">
-                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                <div className="max-w-[70%] rounded-3xl rounded-bl-lg px-5 py-3 shadow-md bg-muted text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin text-primary" />
                 </div>
              </div>
           )}
         </div>
       </ScrollArea>
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t p-4 md:p-6 bg-background">
+      <form onSubmit={handleSubmit} className="flex items-center gap-3 border-t border-border/30 p-4 md:p-6 bg-background/90 backdrop-blur-sm">
         <Input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="اكتب سؤالك هنا..."
-          className="flex-grow"
+          className="flex-grow rounded-full border-2 border-border/50 bg-secondary/50 px-5 py-3 text-base focus:border-accent focus:bg-secondary/70 focus:ring-0" // Enhanced input styling
           disabled={isLoading}
           aria-label="اكتب سؤالك هنا"
         />
-        <Button type="submit" size="icon" className="bg-accent hover:bg-accent/80 text-accent-foreground" disabled={isLoading || !inputValue.trim()}>
-          {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+        <Button type="submit" size="icon" className="h-12 w-12 rounded-full bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-150 ease-in-out hover:scale-105 active:scale-95" disabled={isLoading || !inputValue.trim()}>
+          {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : <Send className="h-6 w-6" />}
           <span className="sr-only">إرسال</span>
         </Button>
       </form>
