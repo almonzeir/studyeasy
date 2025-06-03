@@ -9,7 +9,7 @@ export default function WizardPage() {
         <h1 className="font-headline text-4xl font-bold md:text-5xl">
           المساعد الذكي <span className="text-accent">لاختيار الجامعة</span>
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-lg text-foreground/80">
           أجب عن بعض الأسئلة وسنقترح عليك الجامعات الأنسب لك في ماليزيا.
         </p>
       </header>
