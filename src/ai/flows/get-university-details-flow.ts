@@ -43,6 +43,7 @@ Please include the following details if available:
 - A few key acceptance criteria or general requirements (as an array of strings). If unknown, omit.
 - The official website URL. If unknown, omit.
 - The direct application portal URL. If unknown, omit, or use the official website URL if it's generally the same.
+- The URL for the student handbook, if known. Omit if not found.
 
 If specific information (like fees or URLs) is not found, please omit those fields rather than guessing excessively.
 Ensure the output is in JSON format matching the provided schema.
@@ -56,18 +57,27 @@ const getUniversityDetailsByNameFlow = ai.defineFlow(
     inputSchema: GetUniversityDetailsByNameInputSchema,
     outputSchema: UniversityDetailsOutputSchema,
   },
-  async (input: GetUniversityDetailsByNameInput) => {
+  async (input: GetUniversityDetailsByNameInput): Promise<UniversityDetailsOutput> => {
     const {output} = await prompt(input);
-    // Ensure the name field is always present, even if the AI omits it, fall back to input name
+    
+    if (!output) {
+      // If AI fails to return a structured response, return a minimal object based on the input name.
+      // This ensures the wizard form always receives a valid UniversityDetailsOutput structure.
+      return {
+        name: input.universityName,
+        // Other fields will be undefined, which is acceptable by UniversityDetailsOutputSchema (all optional)
+        // and will be handled by the wizard form's display logic (e.g., showing placeholders or "Not available").
+        description: `Details for ${input.universityName} are currently unavailable. Please check their official website.`,
+        imageUrl: 'https://placehold.co/600x400.png?text=Info+Unavailable',
+        dataAiHint: 'university campus',
+      };
+    }
+
+    // Ensure the name field in the output uses the AI's provided name if available,
+    // otherwise falls back to the input name. This prioritizes the AI's potentially more accurate/official name.
     return {
-        name: input.universityName, 
-        ...output,
-        // If AI provides a name, it will override. Otherwise, input.universityName is used.
-        // This helps ensure the key field 'name' used for matching/display isn't lost.
-        // However, the prompt asks AI for official name, which is preferred.
-        // Let's ensure the output name is what AI provided if it did, or fallback.
-        name: output?.name || input.universityName,
+        ...output, // Spread AI's output first
+        name: output.name || input.universityName, // Ensure name is present
     };
   }
 );
-

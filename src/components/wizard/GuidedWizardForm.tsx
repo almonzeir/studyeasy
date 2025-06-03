@@ -32,7 +32,7 @@ import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-fl
 import type { UniversityDetailsOutput } from '@/types';
 import { Loader2, Search, Frown } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { mockUniversities } from '@/data/universities';
+import { mockUniversities } from '@/data/universities'; // Still used for dropdowns
 import type { University } from '@/types';
 
 const FormSchema = z.object({
@@ -55,9 +55,9 @@ export function GuidedWizardForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      specialization: '', // Represents "all-specializations" initially
+      specialization: '', 
       budget: undefined,
-      city: '', // Represents "all-cities" initially
+      city: '', 
     }
   });
 
@@ -87,9 +87,9 @@ export function GuidedWizardForm() {
     setResults([]);
     try {
       const aiInput: GuidedUniversitySelectionInput = {
-        specialization: data.specialization || undefined,
+        specialization: data.specialization === ALL_SPECIALIZATIONS_VALUE || data.specialization === '' ? undefined : data.specialization,
         budget: data.budget,
-        city: data.city || undefined,
+        city: data.city === ALL_CITIES_VALUE || data.city === '' ? undefined : data.city,
       };
       const aiSuggestions: AISuggestionSchemaArray = await guidedUniversitySelection(aiInput);
       
@@ -98,40 +98,31 @@ export function GuidedWizardForm() {
       if (aiSuggestions && aiSuggestions.length > 0) {
         setIsFetchingDetails(true); 
 
-        const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni, index) => {
-          const lowerCaseSuggestedName = suggestedUni.name.toLowerCase();
-          const matchedMockUni = mockUniversities.find(
-            (mockUni) => mockUni.name.toLowerCase() === lowerCaseSuggestedName ||
-                         mockUni.name.toLowerCase().includes(lowerCaseSuggestedName) ||
-                         lowerCaseSuggestedName.includes(mockUni.name.toLowerCase())
-          );
-
-          if (matchedMockUni) {
-            return matchedMockUni;
-          } else {
-            try {
-              const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
-              return {
-                ...suggestedUni, 
-                ...fetchedDetails, 
-                id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
-                name: fetchedDetails.name || suggestedUni.name,
-                city: fetchedDetails.city || suggestedUni.city,
-                annualFees: fetchedDetails.annualFees || suggestedUni.annualFees,
-                availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
-                imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
-                dataAiHint: fetchedDetails.dataAiHint || 'university campus',
-              };
-            } catch (detailError) {
-              console.error(`Error fetching details for ${suggestedUni.name}:`, detailError);
-              return {
-                ...suggestedUni,
-                id: `ai-fallback-${encodeURIComponent(suggestedUni.name)}-${Date.now()}`,
-                imageUrl: 'https://placehold.co/600x400.png?text=University+Info+Unavailable',
-                dataAiHint: 'university campus',
-                description: `AI suggested university. Detailed information could not be fetched. Original suggestion: ${suggestedUni.name}, City: ${suggestedUni.city}, Fees: $${suggestedUni.annualFees}, Courses: ${suggestedUni.availableCourses.join(', ')}`,
-              };
-            }
+        const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni) => {
+          try {
+            const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
+            return {
+              ...suggestedUni, // Base info from initial suggestion
+              ...fetchedDetails, // Detailed info from the second AI call
+              id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
+              name: fetchedDetails.name || suggestedUni.name, // Prioritize AI's official name
+              city: fetchedDetails.city || suggestedUni.city,
+              annualFees: fetchedDetails.annualFees !== undefined ? fetchedDetails.annualFees : suggestedUni.annualFees,
+              availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
+              imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
+              dataAiHint: fetchedDetails.dataAiHint || 'university campus',
+              description: fetchedDetails.description || `AI suggested university: ${suggestedUni.name}. Further details might be available on their official website.`,
+            };
+          } catch (detailError) {
+            console.error(`Error fetching details for ${suggestedUni.name}:`, detailError);
+            // Fallback to basic info from the initial suggestion if detail fetching fails
+            return {
+              ...suggestedUni,
+              id: `ai-fallback-${encodeURIComponent(suggestedUni.name)}-${Date.now()}`,
+              imageUrl: 'https://placehold.co/600x400.png?text=Info+Unavailable',
+              dataAiHint: 'university campus',
+              description: `AI suggested university. Detailed information could not be fetched. Original suggestion: ${suggestedUni.name}, City: ${suggestedUni.city}, Fees: $${suggestedUni.annualFees}, Courses: ${suggestedUni.availableCourses.join(', ')}`,
+            };
           }
         });
 
@@ -158,7 +149,7 @@ export function GuidedWizardForm() {
         }
 
       } else {
-        setResults([]); // Clear results if AI suggestions are empty
+        setResults([]); 
         toast({
           title: "لا توجد نتائج",
           description: "لم نتمكن من العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
@@ -194,11 +185,11 @@ export function GuidedWizardForm() {
                   <FormLabel>التخصص المطلوب (اختياري)</FormLabel>
                   <Select
                     onValueChange={(value) => field.onChange(value === ALL_SPECIALIZATIONS_VALUE ? "" : value)}
-                    value={field.value === "" ? ALL_SPECIALIZATIONS_VALUE : field.value}
+                    value={field.value === "" || field.value === undefined ? ALL_SPECIALIZATIONS_VALUE : field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر التخصص..." />
+                        <SelectValue placeholder="اختر التخصص أو اتركه فارغًا..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -224,7 +215,7 @@ export function GuidedWizardForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="مثال: 5000"
+                      placeholder="مثال: 5000 أو اتركه فارغًا"
                       {...field}
                       value={field.value ?? ''}
                       onChange={e => field.onChange(e.target.value === '' ? undefined : +e.target.value)}
@@ -243,11 +234,11 @@ export function GuidedWizardForm() {
                   <FormLabel>المدينة المفضلة (اختياري)</FormLabel>
                   <Select
                     onValueChange={(value) => field.onChange(value === ALL_CITIES_VALUE ? "" : value)}
-                    value={field.value === "" ? ALL_CITIES_VALUE : field.value}
+                    value={field.value === "" || field.value === undefined ? ALL_CITIES_VALUE : field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر المدينة..." />
+                        <SelectValue placeholder="اختر المدينة أو اتركها فارغة..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -298,5 +289,3 @@ export function GuidedWizardForm() {
     </Card>
   );
 }
-
-    
