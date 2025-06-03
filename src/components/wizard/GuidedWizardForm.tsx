@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label'; // Keep for budget
 import {
   Select,
   SelectContent,
@@ -87,9 +86,9 @@ export function GuidedWizardForm() {
     setResults([]);
     try {
       const aiInput: GuidedUniversitySelectionInput = {
-        specialization: data.specialization === ALL_SPECIALIZATIONS_VALUE || data.specialization === '' ? undefined : data.specialization,
+        specialization: data.specialization === ALL_SPECIALIZATIONS_VALUE || !data.specialization ? undefined : data.specialization,
         budget: data.budget,
-        city: data.city === ALL_CITIES_VALUE || data.city === '' ? undefined : data.city,
+        city: data.city === ALL_CITIES_VALUE || !data.city ? undefined : data.city,
       };
       const aiSuggestions: AISuggestionSchemaArray = await guidedUniversitySelection(aiInput);
       
@@ -99,15 +98,12 @@ export function GuidedWizardForm() {
         setIsFetchingDetails(true); 
 
         const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni) => {
-          // No try-catch here, let Promise.allSettled handle rejections from getUniversityDetailsByName
           const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
           
-          // This part only runs if getUniversityDetailsByName was successful
           return {
-            ...suggestedUni, // Base info from initial suggestion
-            ...fetchedDetails, // Detailed info from the second AI call
+            ...fetchedDetails,
             id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
-            name: fetchedDetails.name || suggestedUni.name, // Prioritize AI's official name
+            name: fetchedDetails.name || suggestedUni.name,
             city: fetchedDetails.city || suggestedUni.city,
             annualFees: fetchedDetails.annualFees !== undefined ? fetchedDetails.annualFees : suggestedUni.annualFees,
             availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
@@ -120,30 +116,28 @@ export function GuidedWizardForm() {
             officialWebsiteUrl: fetchedDetails.officialWebsiteUrl,
             applicationLink: fetchedDetails.applicationLink,
             studentHandbookUrl: fetchedDetails.studentHandbookUrl,
-          };
+          } as University;
         });
 
         const settledResults = await Promise.allSettled(enrichedResultsPromises);
         
         const finalResults = settledResults
-          .filter(result => result.status === 'fulfilled') // Only include if getUniversityDetailsByName was successful
+          .filter(result => result.status === 'fulfilled')
           .map(result => (result as PromiseFulfilledResult<University>).value);
         
         setIsFetchingDetails(false);
         setResults(finalResults);
 
         if (finalResults.length > 0) {
-          // Optionally, add a success toast or simply let the results appear.
-        } else { // No final results to show
+          // Successfully got some detailed results
+        } else { 
           if (aiSuggestions.length > 0) {
-            // Had initial suggestions, but all detail fetches failed (were excluded)
             toast({
               title: "فشل في جلب التفاصيل",
               description: "تم العثور على اقتراحات أولية، ولكن لم نتمكن من تحميل التفاصيل الكاملة لأي منها. حاول مرة أخرى أو قم بتوسيع معايير البحث.",
               variant: "default",
             });
           } else {
-            // No initial suggestions from the first AI call
             toast({
               title: "لا توجد نتائج",
               description: "لم يتم العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
@@ -151,8 +145,7 @@ export function GuidedWizardForm() {
             });
           }
         }
-
-      } else { // No initial suggestions from guidedUniversitySelection
+      } else { 
         setResults([]); 
         toast({
           title: "لا توجد نتائج",
@@ -160,7 +153,6 @@ export function GuidedWizardForm() {
           variant: "default",
         });
       }
-
     } catch (error) {
       console.error('Error in wizard submission process:', error);
       toast({
@@ -243,7 +235,7 @@ export function GuidedWizardForm() {
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر المدينة أو اتركها فارغة..." />
-                      </Trigger>
+                      </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                        <SelectItem value={ALL_CITIES_VALUE}>أي مدينة</SelectItem>
@@ -270,7 +262,7 @@ export function GuidedWizardForm() {
           </form>
         </Form>
 
-        {results.length > 0 && !isLoading && !isFetchingDetails && (
+        {(results.length > 0 && !isLoading && !isFetchingDetails) && (
           <div className="mt-10">
             <h3 className="mb-6 text-center font-headline text-2xl">الجامعات المقترحة لك:</h3>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -283,7 +275,7 @@ export function GuidedWizardForm() {
             </div>
           </div>
         )}
-        {results.length === 0 && !isLoading && !isFetchingDetails && Object.keys(form.formState.errors).length === 0 && form.formState.isSubmitted && (
+        {(results.length === 0 && !isLoading && !isFetchingDetails && Object.keys(form.formState.errors).length === 0 && form.formState.isSubmitted) && (
           <div className="mt-10 text-center">
              <Frown className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
             <p className="text-lg text-muted-foreground">لم يتم العثور على جامعات تطابق بحثك. يرجى تجربة معايير مختلفة.</p>
