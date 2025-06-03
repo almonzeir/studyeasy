@@ -43,6 +43,9 @@ const FormSchema = z.object({
 
 type FormData = z.infer<typeof FormSchema>;
 
+const ALL_SPECIALIZATIONS_VALUE = "all-specializations";
+const ALL_CITIES_VALUE = "all-cities";
+
 export function GuidedWizardForm() {
   const [results, setResults] = useState<University[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,9 +55,9 @@ export function GuidedWizardForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      specialization: '',
+      specialization: '', // Represents "all-specializations" initially
       budget: undefined,
-      city: '',
+      city: '', // Represents "all-cities" initially
     }
   });
 
@@ -155,6 +158,7 @@ export function GuidedWizardForm() {
         }
 
       } else {
+        setResults([]); // Clear results if AI suggestions are empty
         toast({
           title: "لا توجد نتائج",
           description: "لم نتمكن من العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
@@ -187,15 +191,18 @@ export function GuidedWizardForm() {
               name="specialization"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>التخصص المطلوب</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value || ""}>
+                  <FormLabel>التخصص المطلوب (اختياري)</FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(value === ALL_SPECIALIZATIONS_VALUE ? "" : value)}
+                    value={field.value === "" ? ALL_SPECIALIZATIONS_VALUE : field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر التخصص المطلوب (اختياري)..." />
+                        <SelectValue placeholder="اختر التخصص..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="">أي تخصص</SelectItem>
+                      <SelectItem value={ALL_SPECIALIZATIONS_VALUE}>أي تخصص</SelectItem>
                       {uniqueSpecializations.map((spec) => (
                         <SelectItem key={spec} value={spec}>
                           {spec}
@@ -234,14 +241,17 @@ export function GuidedWizardForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>المدينة المفضلة (اختياري)</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value || ""}>
+                  <Select
+                    onValueChange={(value) => field.onChange(value === ALL_CITIES_VALUE ? "" : value)}
+                    value={field.value === "" ? ALL_CITIES_VALUE : field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر المدينة المفضلة (اختياري)..." />
+                        <SelectValue placeholder="اختر المدينة..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                       <SelectItem value="">أي مدينة</SelectItem>
+                       <SelectItem value={ALL_CITIES_VALUE}>أي مدينة</SelectItem>
                       {uniqueCities.map((cityOption) => (
                         <SelectItem key={cityOption} value={cityOption}>
                           {cityOption}
