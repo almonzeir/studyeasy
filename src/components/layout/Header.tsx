@@ -7,7 +7,7 @@ const navItems = [
   { href: '/', label: 'الرئيسية', icon: <Home className="h-5 w-5" /> },
   { href: '/universities', label: 'الجامعات', icon: <LayoutGrid className="h-5 w-5" /> },
   { href: '/wizard', label: 'مساعد الاختيار', icon: <Wand2 className="h-5 w-5" /> },
-  { href: '/chatbot', label: 'الدردشة', icon: <BotMessageSquare className="h-5 w-5" /> },
+  { href: '/chatbot', label: 'اسال الذكاء الاصناعي', icon: <BotMessageSquare className="h-5 w-5" /> },
 ];
 
 export function Header() {
