@@ -1,10 +1,11 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'; // AvatarImage removed as we use icons
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { universityChatbot } from '@/ai/flows/university-chatbot';
 import type { UniversityChatbotInput, UniversityChatbotOutput } from '@/ai/flows/university-chatbot';
 import { Loader2, Send, User, Bot } from 'lucide-react';
@@ -35,12 +36,16 @@ export function ChatbotInterface() {
     }
   };
 
+  // Function to clean text from asterisks or other simple markdown
+  const cleanBotText = (text: string) => {
+    return text.replace(/\*/g, ''); // Remove all asterisks
+  };
+
   useEffect(() => {
-    // Add an initial greeting message from the bot
     setMessages([
       {
         id: 'initial-greeting',
-        text: 'مرحباً بك! أنا هنا لمساعدتك في الإجابة على أسئلتك حول الدراسة في ماليزيا. كيف يمكنني خدمتك اليوم؟',
+        text: cleanBotText('مرحباً بك! أنا هنا لمساعدتك في الإجابة على أسئلتك حول الدراسة في ماليزيا. كيف يمكنني خدمتك اليوم؟'),
         sender: 'bot',
         timestamp: new Date(),
       }
@@ -74,7 +79,7 @@ export function ChatbotInterface() {
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: response.answer,
+        text: cleanBotText(response.answer), // Clean AI response
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -84,7 +89,7 @@ export function ChatbotInterface() {
       console.error('Error fetching chatbot response:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.',
+        text: cleanBotText('عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.'), // Clean error message
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -102,7 +107,7 @@ export function ChatbotInterface() {
   return (
     <div className="flex h-full flex-col">
       <ScrollArea className="flex-grow p-6 md:p-8" ref={scrollAreaRef}>
-        <div className="space-y-8"> {/* Increased space between messages */}
+        <div className="space-y-8">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -112,7 +117,7 @@ export function ChatbotInterface() {
               )}
             >
               {msg.sender === 'bot' && (
-                <Avatar className="h-10 w-10 border-2 border-primary/50"> {/* Slightly larger avatar, themed border */}
+                <Avatar className="h-10 w-10 border-2 border-primary/50">
                   <AvatarFallback className="bg-primary text-primary-foreground">
                     <Bot className="h-6 w-6" />
                   </AvatarFallback>
@@ -120,15 +125,15 @@ export function ChatbotInterface() {
               )}
               <div
                 className={cn(
-                  'max-w-[75%] rounded-3xl px-5 py-3 shadow-md text-sm md:text-base leading-relaxed whitespace-pre-wrap', // Base styling for bubbles
+                  'max-w-[75%] rounded-3xl px-5 py-3 shadow-md text-sm md:text-base leading-relaxed whitespace-pre-wrap',
                   msg.sender === 'user'
-                    ? 'rounded-br-lg bg-accent text-accent-foreground shadow-accent/30' // User bubble specific styling
-                    : 'rounded-bl-lg bg-muted text-muted-foreground shadow-muted/30' // Bot bubble specific styling
+                    ? 'rounded-br-lg bg-accent text-accent-foreground shadow-accent/30'
+                    : 'rounded-bl-lg bg-muted text-muted-foreground shadow-muted/30'
                 )}
               >
                 <p>{msg.text}</p>
                 <p className={cn(
-                    "mt-2 text-xs opacity-70", 
+                    "mt-2 text-xs opacity-70",
                     msg.sender === 'user' ? "text-right text-accent-foreground/80" : "text-left text-muted-foreground/80"
                   )}
                 >
@@ -136,7 +141,7 @@ export function ChatbotInterface() {
                 </p>
               </div>
               {msg.sender === 'user' && (
-                <Avatar className="h-10 w-10 border-2 border-accent/50"> {/* Slightly larger avatar, themed border */}
+                <Avatar className="h-10 w-10 border-2 border-accent/50">
                   <AvatarFallback className="bg-accent text-accent-foreground">
                     <User className="h-6 w-6" />
                   </AvatarFallback>
@@ -164,7 +169,7 @@ export function ChatbotInterface() {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="اكتب سؤالك هنا..."
-          className="flex-grow rounded-full border-2 border-border/50 bg-secondary/50 px-5 py-3 text-base focus:border-accent focus:bg-secondary/70 focus:ring-0" // Enhanced input styling
+          className="flex-grow rounded-full border-2 border-border/50 bg-secondary/50 px-5 py-3 text-base focus:border-accent focus:bg-secondary/70 focus:ring-0"
           disabled={isLoading}
           aria-label="اكتب سؤالك هنا"
         />
