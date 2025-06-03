@@ -8,13 +8,58 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe, BookCopy } from 'lucide-react';
+import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
 
-async function getUniversityById(id: string): Promise<University | undefined> {
-  return mockUniversities.find((uni) => uni.id === id);
+async function getUniversityData(idOrNameFromUrl: string): Promise<University | undefined> {
+  // 1. Try to find in mockUniversities by ID first.
+  const mockUni = mockUniversities.find((uni) => uni.id === idOrNameFromUrl);
+  if (mockUni) {
+    return mockUni;
+  }
+
+  // 2. If not found in mock data by ID, assume idOrNameFromUrl is a university name (possibly URL-encoded) and fetch from AI.
+  let universityNameToQuery: string;
+  try {
+    universityNameToQuery = decodeURIComponent(idOrNameFromUrl);
+  } catch (e) {
+    console.warn("Failed to decode university ID/Name from URL:", idOrNameFromUrl, e);
+    universityNameToQuery = idOrNameFromUrl; // Use as is if decoding fails
+  }
+
+  console.log(`University ID/Name "${idOrNameFromUrl}" (decoded: "${universityNameToQuery}") not in mock. Attempting AI fetch.`);
+  try {
+    const aiDetails = await getUniversityDetailsByName({ universityName: universityNameToQuery });
+
+    if (aiDetails && aiDetails.name) {
+      // Construct a University object using AI details.
+      // The ID for this AI-fetched university will be its name.
+      return {
+        id: aiDetails.name, // Use the AI-provided name as the ID
+        name: aiDetails.name,
+        city: aiDetails.city,
+        annualFees: aiDetails.annualFees === undefined ? undefined : Number(aiDetails.annualFees),
+        availableCourses: aiDetails.availableCourses || [],
+        description: aiDetails.description,
+        logoUrl: aiDetails.logoUrl || `https://placehold.co/100x100.png?text=${encodeURIComponent(aiDetails.name)}`,
+        imageUrl: aiDetails.imageUrl || `https://placehold.co/600x400.png?text=${encodeURIComponent(aiDetails.name)}`,
+        dataAiHint: aiDetails.dataAiHint || 'university campus',
+        livingCosts: aiDetails.livingCosts,
+        acceptanceCriteria: aiDetails.acceptanceCriteria || [],
+        officialWebsiteUrl: aiDetails.officialWebsiteUrl,
+        applicationLink: aiDetails.applicationLink,
+        studentHandbookUrl: aiDetails.studentHandbookUrl,
+      };
+    }
+    console.warn(`AI fetch for "${universityNameToQuery}" did not return sufficient details (name missing).`);
+    return undefined;
+  } catch (error) {
+    console.error(`Error fetching university details from AI for name "${universityNameToQuery}":`, error);
+    return undefined;
+  }
 }
 
 export default async function UniversityDetailPage({ params }: { params: { id: string } }) {
-  const university = await getUniversityById(params.id);
+  const university = await getUniversityData(params.id);
 
   if (!university) {
     notFound();

@@ -100,17 +100,21 @@ export function GuidedWizardForm() {
         const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni) => {
           const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
           
+          // Use the university name as the ID for AI-sourced universities
+          // This makes the URL for the detail page cleaner and directly usable for AI queries if needed.
+          const universityId = fetchedDetails.name || suggestedUni.name;
+
           return {
             ...fetchedDetails,
-            id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
+            id: universityId, 
             name: fetchedDetails.name || suggestedUni.name,
             city: fetchedDetails.city || suggestedUni.city,
             annualFees: fetchedDetails.annualFees !== undefined ? fetchedDetails.annualFees : suggestedUni.annualFees,
             availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
-            imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
+            imageUrl: fetchedDetails.imageUrl || `https://placehold.co/600x400.png?text=${encodeURIComponent(universityId)}`,
             dataAiHint: fetchedDetails.dataAiHint || 'university campus',
             description: fetchedDetails.description || `AI suggested university: ${suggestedUni.name}. Further details might be available on their official website.`,
-            logoUrl: fetchedDetails.logoUrl,
+            logoUrl: fetchedDetails.logoUrl || `https://placehold.co/100x100.png?text=${encodeURIComponent(universityId)}`,
             livingCosts: fetchedDetails.livingCosts,
             acceptanceCriteria: fetchedDetails.acceptanceCriteria,
             officialWebsiteUrl: fetchedDetails.officialWebsiteUrl,
@@ -129,7 +133,11 @@ export function GuidedWizardForm() {
         setResults(finalResults);
 
         if (finalResults.length > 0) {
-          // Successfully got some detailed results
+           toast({
+             title: "تم العثور على الجامعات",
+             description: `وجدنا ${finalResults.length} جامعة تطابق بحثك.`,
+             variant: "default"
+           });
         } else { 
           if (aiSuggestions.length > 0) {
             toast({
@@ -185,7 +193,7 @@ export function GuidedWizardForm() {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر التخصص أو اتركه فارغًا..." />
+                        <SelectValue placeholder="اختر التخصص أو اتركه فارغًا لاختيار أي تخصص" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -207,11 +215,11 @@ export function GuidedWizardForm() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>الميزانية السنوية (بالدولار الأمريكي - اختياري)</FormLabel>
+                  <FormLabel>الميزانية السنوية القصوى (بالدولار الأمريكي - اختياري)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="مثال: 5000 أو اتركه فارغًا"
+                      placeholder="مثال: 5000 (اتركه فارغًا لأي ميزانية)"
                       {...field}
                       value={field.value ?? ''}
                       onChange={e => field.onChange(e.target.value === '' ? undefined : +e.target.value)}
@@ -234,7 +242,7 @@ export function GuidedWizardForm() {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر المدينة أو اتركها فارغة..." />
+                        <SelectValue placeholder="اختر المدينة أو اتركها فارغة لاختيار أي مدينة" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
