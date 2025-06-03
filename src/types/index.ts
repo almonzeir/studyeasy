@@ -18,14 +18,14 @@ export const UniversityDetailsOutputSchema = z.object({
   annualFees: z.number().optional().describe("Estimated annual tuition fees in USD for international students."),
   availableCourses: z.array(z.string()).optional().describe("A list of 3-5 popular or notable courses offered."),
   description: z.string().optional().describe("A brief description of the university (2-3 sentences)."),
-  logoUrl: z.string().url().optional().describe("A placeholder URL for a logo. If unknown, omit."),
-  imageUrl: z.string().url().optional().describe("A placeholder URL for a campus image. If unknown, omit."),
+  logoUrl: z.string().optional().describe("A placeholder URL for a logo. If unknown, omit."),
+  imageUrl: z.string().optional().describe("A placeholder URL for a campus image. If unknown, omit."),
   dataAiHint: z.string().optional().describe("One or two keywords for a campus image. If unknown, omit."),
   livingCosts: z.string().optional().describe("Estimated monthly living costs for a student in USD. If unknown, omit."),
   acceptanceCriteria: z.array(z.string()).optional().describe("Key acceptance criteria. If unknown, omit."),
-  officialWebsiteUrl: z.string().url().optional().describe("The official website URL. If unknown, omit."),
-  applicationLink: z.string().url().optional().describe("The direct application portal URL. If unknown, omit."),
-  studentHandbookUrl: z.string().url().optional().describe("The URL for the university's student handbook. If unknown, omit.")
+  officialWebsiteUrl: z.string().optional().describe("The official website URL. If unknown, omit."),
+  applicationLink: z.string().optional().describe("The direct application portal URL. If unknown, omit."),
+  studentHandbookUrl: z.string().optional().describe("The URL for the university's student handbook. If unknown, omit.")
 });
 export type UniversityDetailsOutput = z.infer<typeof UniversityDetailsOutputSchema>;
 
@@ -48,4 +48,3 @@ export interface University extends UniversityDetailsOutput {
   applicationLink?: string;
   studentHandbookUrl?: string;
 }
-
