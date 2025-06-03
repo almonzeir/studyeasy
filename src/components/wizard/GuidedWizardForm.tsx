@@ -36,9 +36,9 @@ import { mockUniversities } from '@/data/universities';
 import type { University } from '@/types';
 
 const FormSchema = z.object({
-  specialization: z.string({ required_error: 'التخصص مطلوب' }).min(1, 'التخصص مطلوب'),
-  budget: z.coerce.number().min(0, 'الميزانية يجب أن تكون رقمًا موجبًا'),
-  city: z.string({ required_error: 'المدينة المفضلة مطلوبة' }).min(1, 'المدينة المفضلة مطلوبة'),
+  specialization: z.string().optional(),
+  budget: z.coerce.number().min(0, 'الميزانية يجب أن تكون رقمًا موجبًا').optional(),
+  city: z.string().optional(),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -53,7 +53,7 @@ export function GuidedWizardForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       specialization: '',
-      budget: undefined, // Or a default number like 0
+      budget: undefined,
       city: '',
     }
   });
@@ -80,20 +80,20 @@ export function GuidedWizardForm() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
-    setIsFetchingDetails(false); // Reset fetching details state
+    setIsFetchingDetails(false); 
     setResults([]);
     try {
       const aiInput: GuidedUniversitySelectionInput = {
-        specialization: data.specialization,
+        specialization: data.specialization || undefined,
         budget: data.budget,
-        city: data.city,
+        city: data.city || undefined,
       };
       const aiSuggestions: AISuggestionSchemaArray = await guidedUniversitySelection(aiInput);
       
-      setIsLoading(false); // Initial suggestions received
+      setIsLoading(false); 
 
       if (aiSuggestions && aiSuggestions.length > 0) {
-        setIsFetchingDetails(true); // Now indicate we are fetching further details
+        setIsFetchingDetails(true); 
 
         const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni, index) => {
           const lowerCaseSuggestedName = suggestedUni.name.toLowerCase();
@@ -106,14 +106,12 @@ export function GuidedWizardForm() {
           if (matchedMockUni) {
             return matchedMockUni;
           } else {
-            // Not found in mock data, try to fetch details using the new AI flow
             try {
               const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
               return {
-                ...suggestedUni, // Start with basic info from initial suggestion
-                ...fetchedDetails, // Override/add with more detailed info
+                ...suggestedUni, 
+                ...fetchedDetails, 
                 id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
-                // Ensure required fields for UniversityCard are present, even if from initial suggestion
                 name: fetchedDetails.name || suggestedUni.name,
                 city: fetchedDetails.city || suggestedUni.city,
                 annualFees: fetchedDetails.annualFees || suggestedUni.annualFees,
@@ -123,7 +121,6 @@ export function GuidedWizardForm() {
               };
             } catch (detailError) {
               console.error(`Error fetching details for ${suggestedUni.name}:`, detailError);
-              // Fallback to basic info if detail fetching fails
               return {
                 ...suggestedUni,
                 id: `ai-fallback-${encodeURIComponent(suggestedUni.name)}-${Date.now()}`,
@@ -191,13 +188,14 @@ export function GuidedWizardForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>التخصص المطلوب</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value || ""}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر التخصص المطلوب..." />
+                        <SelectValue placeholder="اختر التخصص المطلوب (اختياري)..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem value="">أي تخصص</SelectItem>
                       {uniqueSpecializations.map((spec) => (
                         <SelectItem key={spec} value={spec}>
                           {spec}
@@ -215,12 +213,13 @@ export function GuidedWizardForm() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>الميزانية السنوية (بالدولار الأمريكي)</FormLabel>
+                  <FormLabel>الميزانية السنوية (بالدولار الأمريكي - اختياري)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       placeholder="مثال: 5000"
                       {...field}
+                      value={field.value ?? ''}
                       onChange={e => field.onChange(e.target.value === '' ? undefined : +e.target.value)}
                     />
                   </FormControl>
@@ -234,14 +233,15 @@ export function GuidedWizardForm() {
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>المدينة المفضلة</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormLabel>المدينة المفضلة (اختياري)</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value || ""}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر المدينة المفضلة..." />
+                        <SelectValue placeholder="اختر المدينة المفضلة (اختياري)..." />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                       <SelectItem value="">أي مدينة</SelectItem>
                       {uniqueCities.map((cityOption) => (
                         <SelectItem key={cityOption} value={cityOption}>
                           {cityOption}
