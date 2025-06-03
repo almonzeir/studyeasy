@@ -61,16 +61,10 @@ const getUniversityDetailsByNameFlow = ai.defineFlow(
     const {output} = await prompt(input);
     
     if (!output) {
-      // If AI fails to return a structured response, return a minimal object based on the input name.
-      // This ensures the wizard form always receives a valid UniversityDetailsOutput structure.
-      return {
-        name: input.universityName,
-        // Other fields will be undefined, which is acceptable by UniversityDetailsOutputSchema (all optional)
-        // and will be handled by the wizard form's display logic (e.g., showing placeholders or "Not available").
-        description: `Details for ${input.universityName} are currently unavailable. Please check their official website.`,
-        imageUrl: 'https://placehold.co/600x400.png?text=Info+Unavailable',
-        dataAiHint: 'university campus',
-      };
+      // If AI fails to return a structured response, throw an error.
+      // This will be caught by Promise.allSettled in the calling form,
+      // allowing exclusion of this university if details are not "perfect".
+      throw new Error(`AI could not provide structured details for ${input.universityName}.`);
     }
 
     // Ensure the name field in the output uses the AI's provided name if available,
@@ -81,3 +75,4 @@ const getUniversityDetailsByNameFlow = ai.defineFlow(
     };
   }
 );
+

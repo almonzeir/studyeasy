@@ -36,9 +36,9 @@ import { mockUniversities } from '@/data/universities'; // Still used for dropdo
 import type { University } from '@/types';
 
 const FormSchema = z.object({
-  specialization: z.string().optional(),
-  budget: z.coerce.number().min(0, 'الميزانية يجب أن تكون رقمًا موجبًا').optional(),
-  city: z.string().optional(),
+  specialization: z.string().optional().describe("The student's desired field of study. If omitted, the AI should consider all specializations."),
+  budget: z.coerce.number().min(0, 'الميزانية يجب أن تكون رقمًا موجبًا').optional().describe("The student's annual budget for university fees and living costs in USD. If omitted, the AI should consider all budgets or not filter by it."),
+  city: z.string().optional().describe("The student's preferred city in Malaysia. If omitted, the AI should consider all cities in Malaysia."),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -55,9 +55,9 @@ export function GuidedWizardForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      specialization: '', 
+      specialization: '',
       budget: undefined,
-      city: '', 
+      city: '',
     }
   });
 
@@ -83,7 +83,7 @@ export function GuidedWizardForm() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
-    setIsFetchingDetails(false); 
+    setIsFetchingDetails(false);
     setResults([]);
     try {
       const aiInput: GuidedUniversitySelectionInput = {
@@ -99,56 +99,60 @@ export function GuidedWizardForm() {
         setIsFetchingDetails(true); 
 
         const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni) => {
-          try {
-            const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
-            return {
-              ...suggestedUni, // Base info from initial suggestion
-              ...fetchedDetails, // Detailed info from the second AI call
-              id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
-              name: fetchedDetails.name || suggestedUni.name, // Prioritize AI's official name
-              city: fetchedDetails.city || suggestedUni.city,
-              annualFees: fetchedDetails.annualFees !== undefined ? fetchedDetails.annualFees : suggestedUni.annualFees,
-              availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
-              imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
-              dataAiHint: fetchedDetails.dataAiHint || 'university campus',
-              description: fetchedDetails.description || `AI suggested university: ${suggestedUni.name}. Further details might be available on their official website.`,
-            };
-          } catch (detailError) {
-            console.error(`Error fetching details for ${suggestedUni.name}:`, detailError);
-            // Fallback to basic info from the initial suggestion if detail fetching fails
-            return {
-              ...suggestedUni,
-              id: `ai-fallback-${encodeURIComponent(suggestedUni.name)}-${Date.now()}`,
-              imageUrl: 'https://placehold.co/600x400.png?text=Info+Unavailable',
-              dataAiHint: 'university campus',
-              description: `AI suggested university. Detailed information could not be fetched. Original suggestion: ${suggestedUni.name}, City: ${suggestedUni.city}, Fees: $${suggestedUni.annualFees}, Courses: ${suggestedUni.availableCourses.join(', ')}`,
-            };
-          }
+          // No try-catch here, let Promise.allSettled handle rejections from getUniversityDetailsByName
+          const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
+          
+          // This part only runs if getUniversityDetailsByName was successful
+          return {
+            ...suggestedUni, // Base info from initial suggestion
+            ...fetchedDetails, // Detailed info from the second AI call
+            id: `ai-detailed-${encodeURIComponent(fetchedDetails.name || suggestedUni.name)}-${Date.now()}`,
+            name: fetchedDetails.name || suggestedUni.name, // Prioritize AI's official name
+            city: fetchedDetails.city || suggestedUni.city,
+            annualFees: fetchedDetails.annualFees !== undefined ? fetchedDetails.annualFees : suggestedUni.annualFees,
+            availableCourses: fetchedDetails.availableCourses || suggestedUni.availableCourses,
+            imageUrl: fetchedDetails.imageUrl || 'https://placehold.co/600x400.png?text=University',
+            dataAiHint: fetchedDetails.dataAiHint || 'university campus',
+            description: fetchedDetails.description || `AI suggested university: ${suggestedUni.name}. Further details might be available on their official website.`,
+            logoUrl: fetchedDetails.logoUrl,
+            livingCosts: fetchedDetails.livingCosts,
+            acceptanceCriteria: fetchedDetails.acceptanceCriteria,
+            officialWebsiteUrl: fetchedDetails.officialWebsiteUrl,
+            applicationLink: fetchedDetails.applicationLink,
+            studentHandbookUrl: fetchedDetails.studentHandbookUrl,
+          };
         });
 
         const settledResults = await Promise.allSettled(enrichedResultsPromises);
+        
         const finalResults = settledResults
-          .filter(result => result.status === 'fulfilled')
+          .filter(result => result.status === 'fulfilled') // Only include if getUniversityDetailsByName was successful
           .map(result => (result as PromiseFulfilledResult<University>).value);
         
-        setResults(finalResults);
         setIsFetchingDetails(false);
+        setResults(finalResults);
 
-        if (finalResults.length === 0 && aiSuggestions.length > 0) {
-             toast({
-                title: "جاري جلب التفاصيل",
-                description: "لم نتمكن من جلب تفاصيل إضافية لبعض الاقتراحات.",
-                variant: "default",
+        if (finalResults.length > 0) {
+          // Optionally, add a success toast or simply let the results appear.
+        } else { // No final results to show
+          if (aiSuggestions.length > 0) {
+            // Had initial suggestions, but all detail fetches failed (were excluded)
+            toast({
+              title: "فشل في جلب التفاصيل",
+              description: "تم العثور على اقتراحات أولية، ولكن لم نتمكن من تحميل التفاصيل الكاملة لأي منها. حاول مرة أخرى أو قم بتوسيع معايير البحث.",
+              variant: "default",
             });
-        } else if (finalResults.length === 0) {
-             toast({
-                title: "لا توجد نتائج",
-                description: "لم نتمكن من العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
-                variant: "default",
+          } else {
+            // No initial suggestions from the first AI call
+            toast({
+              title: "لا توجد نتائج",
+              description: "لم يتم العثور على جامعات تطابق معاييرك. حاول تعديل بحثك.",
+              variant: "default",
             });
+          }
         }
 
-      } else {
+      } else { // No initial suggestions from guidedUniversitySelection
         setResults([]); 
         toast({
           title: "لا توجد نتائج",
@@ -239,7 +243,7 @@ export function GuidedWizardForm() {
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر المدينة أو اتركها فارغة..." />
-                      </SelectTrigger>
+                      </Trigger>
                     </FormControl>
                     <SelectContent>
                        <SelectItem value={ALL_CITIES_VALUE}>أي مدينة</SelectItem>
