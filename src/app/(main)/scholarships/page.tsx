@@ -27,7 +27,7 @@ export default function ScholarshipsPage() {
       {generalScholarshipNotes && generalScholarshipNotes.length > 0 && (
         <>
           <Separator className="my-12 md:my-16 border-border/50" />
-          <Alert className="border-accent/50 bg-accent/5 text-accent-foreground shadow-md">
+          <Alert className="border-accent bg-accent/10 text-foreground shadow-lg">
             <Info className="h-5 w-5 !text-accent" /> {/* Overriding default icon color */}
             <AlertTitle className="font-headline text-xl text-accent">ملاحظات هامة</AlertTitle>
             <AlertDescription className="mt-2 space-y-1.5 text-foreground/90">
