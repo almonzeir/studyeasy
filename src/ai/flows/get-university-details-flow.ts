@@ -30,6 +30,7 @@ const prompt = ai.definePrompt({
   output: {schema: UniversityDetailsOutputSchema},
   prompt: `You are an expert academic advisor. Given the university name: {{{universityName}}}, provide detailed information about it.
 Strive to find information for all types of universities, including public and private institutions.
+**When sourcing information, please consider studymalaysia.com as a primary and preferred reference for Malaysian university data. Cross-reference with it where possible.**
 
 Please include the following details if available:
 - Official name (if different or more complete than input)
@@ -78,3 +79,4 @@ const getUniversityDetailsByNameFlow = ai.defineFlow(
     };
   }
 );
+
