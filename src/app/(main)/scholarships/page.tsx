@@ -10,10 +10,19 @@ export default function ScholarshipsPage() {
     <div className="container py-12 md:py-16">
       <header className="mb-12 text-center">
         <Award className="mx-auto mb-6 h-16 w-16 text-accent animate-pulse" />
-        <h1 className="font-headline text-4xl font-bold md:text-5xl">
-          المنح الدراسية في <span className="text-accent">ماليزيا</span>
+        <h1 
+          className="font-headline text-4xl font-bold md:text-5xl"
+          style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.7)' }}
+        >
+          المنح الدراسية في <span 
+            className="text-accent"
+            style={{ textShadow: '0 2px 5px rgba(0, 0, 0, 0.5)' }}
+          >ماليزيا</span>
         </h1>
-        <p className="mt-4 text-lg text-foreground/80 md:text-xl">
+        <p 
+          className="mt-4 text-lg text-foreground/95 md:text-xl" // Increased opacity
+          style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.6)' }}
+        >
           اكتشف أبرز المنح الدراسية المتاحة للطلاب الدوليين لعام 2025.
         </p>
       </header>
