@@ -29,6 +29,7 @@ const prompt = ai.definePrompt({
   input: {schema: GetUniversityDetailsByNameInputSchema},
   output: {schema: UniversityDetailsOutputSchema},
   prompt: `You are an expert academic advisor. Given the university name: {{{universityName}}}, provide detailed information about it.
+Strive to find information for all types of universities, including public and private institutions.
 
 Please include the following details if available:
 - Official name (if different or more complete than input)
@@ -39,7 +40,7 @@ Please include the following details if available:
 - A placeholder URL for a logo, e.g., https://placehold.co/100x100.png. If unknown, omit this field.
 - A placeholder URL for a campus image, e.g., https://placehold.co/600x400.png. If unknown, omit this field.
 - One or two keywords for a campus image if imageUrl is provided, e.g., 'university campus'. If unknown, omit.
-- Estimated monthly living costs for a student in USD, e.g., 'USD 500-800'. If unknown, omit.
+- Provide the *minimum estimated* monthly living costs for a student in USD, focusing on a budget-conscious student (e.g., 'USD 300-500' or 'USD 350 minimum'). If a range is more appropriate, ensure the lower end reflects this minimum. If unknown, omit this field.
 - A few key acceptance criteria or general requirements (as an array of strings). If unknown, omit.
 - The official website URL. If unknown, omit.
 - The direct application portal URL. If unknown, omit, or use the official website URL if it's generally the same.
