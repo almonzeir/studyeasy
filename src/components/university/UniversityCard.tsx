@@ -1,10 +1,11 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { University } from '@/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MapPin, BookOpen, DollarSign, ChevronLeft } from 'lucide-react';
+import { MapPin, BookOpen, DollarSign, ChevronLeft, Award } from 'lucide-react';
 
 interface UniversityCardProps {
   university: University;
@@ -32,6 +33,15 @@ export function UniversityCard({ university }: UniversityCardProps) {
             <div className="mb-2 flex items-center justify-center text-sm text-muted-foreground"> {/* Centered city */}
               <MapPin className="mr-2 h-4 w-4 text-accent rtl:ml-2 rtl:mr-0" />
               <span>{university.city}</span>
+            </div>
+          )}
+          {university.ranking?.global && (
+            <div className="mb-3 flex justify-center">
+              <Badge variant="outline" className="border-primary/70 text-primary text-xs">
+                <Award className="mr-1.5 h-3.5 w-3.5 rtl:ml-1.5 rtl:mr-0" />
+                Global Rank: {university.ranking.global}
+                {university.ranking.source && ` (${university.ranking.source.split(" ")[0]})`}
+              </Badge>
             </div>
           )}
         </div>
@@ -69,7 +79,7 @@ export function UniversityCard({ university }: UniversityCardProps) {
       </CardContent>
       <CardFooter className="bg-secondary/30 p-4 mt-auto"> {/* Added mt-auto to push footer down, adjusted padding */}
         <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-          <Link href={`/universities/${university.id}`}> 
+          <Link href={`/universities/${encodeURIComponent(university.id)}`}> 
             عرض التفاصيل
             <ChevronLeft className="ml-2 h-4 w-4 rtl:mr-2 rtl:ml-0" />
           </Link>

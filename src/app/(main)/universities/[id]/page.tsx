@@ -7,35 +7,39 @@ import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe, BookCopy } from 'lucide-react';
+import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe, BookCopy, Award } from 'lucide-react';
 import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
 
 async function getUniversityData(idOrNameFromUrl: string): Promise<University | undefined> {
-  // 1. Try to find in mockUniversities by ID first.
-  const mockUni = mockUniversities.find((uni) => uni.id === idOrNameFromUrl);
+  let decodedIdOrName: string;
+  try {
+    decodedIdOrName = decodeURIComponent(idOrNameFromUrl);
+  } catch (e) {
+    console.warn("Failed to decode university ID/Name from URL:", idOrNameFromUrl, e);
+    decodedIdOrName = idOrNameFromUrl; // Use as is if decoding fails
+  }
+
+  // 1. Try to find in mockUniversities by ID or name.
+  const mockUni = mockUniversities.find((uni) => uni.id === decodedIdOrName || uni.name === decodedIdOrName);
   if (mockUni) {
+    // If found in mock, use its data, potentially enriching with AI details if some are missing (optional).
+    // For now, we'll just return the mock data if found.
     return mockUni;
   }
 
-  // 2. If not found in mock data by ID, assume idOrNameFromUrl is a university name (possibly URL-encoded) and fetch from AI.
-  let universityNameToQuery: string;
+  // 2. If not found in mock data, assume it's a university name and fetch from AI.
+  console.log(`University name "${decodedIdOrName}" not in mock. Attempting AI fetch.`);
   try {
-    universityNameToQuery = decodeURIComponent(idOrNameFromUrl);
-  } catch (e) {
-    console.warn("Failed to decode university ID/Name from URL:", idOrNameFromUrl, e);
-    universityNameToQuery = idOrNameFromUrl; // Use as is if decoding fails
-  }
-
-  console.log(`University ID/Name "${idOrNameFromUrl}" (decoded: "${universityNameToQuery}") not in mock. Attempting AI fetch.`);
-  try {
-    const aiDetails = await getUniversityDetailsByName({ universityName: universityNameToQuery });
+    const aiDetails = await getUniversityDetailsByName({ universityName: decodedIdOrName });
 
     if (aiDetails && aiDetails.name) {
       // Construct a University object using AI details.
       // The ID for this AI-fetched university will be its name.
       return {
+        ...aiDetails, // Spread AI's output first
         id: aiDetails.name, // Use the AI-provided name as the ID
         name: aiDetails.name,
+        // Ensure other fields have fallbacks if not provided by AI
         city: aiDetails.city,
         annualFees: aiDetails.annualFees === undefined ? undefined : Number(aiDetails.annualFees),
         availableCourses: aiDetails.availableCourses || [],
@@ -48,12 +52,13 @@ async function getUniversityData(idOrNameFromUrl: string): Promise<University | 
         officialWebsiteUrl: aiDetails.officialWebsiteUrl,
         applicationLink: aiDetails.applicationLink,
         studentHandbookUrl: aiDetails.studentHandbookUrl,
+        ranking: aiDetails.ranking, // Add ranking from AI
       };
     }
-    console.warn(`AI fetch for "${universityNameToQuery}" did not return sufficient details (name missing).`);
+    console.warn(`AI fetch for "${decodedIdOrName}" did not return sufficient details (name missing).`);
     return undefined;
   } catch (error) {
-    console.error(`Error fetching university details from AI for name "${universityNameToQuery}":`, error);
+    console.error(`Error fetching university details from AI for name "${decodedIdOrName}":`, error);
     return undefined;
   }
 }
@@ -84,10 +89,10 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
         </Link>
       </Button>
 
-      <Card className="overflow-hidden shadow-2xl rounded-xl"> {/* Enhanced shadow and rounding */}
+      <Card className="overflow-hidden shadow-2xl rounded-xl">
         <CardHeader className="relative p-0">
           {university.imageUrl && (
-            <div className="relative h-72 w-full md:h-[500px]"> {/* Increased height */}
+            <div className="relative h-72 w-full md:h-[500px]">
               <Image
                 src={university.imageUrl}
                 alt={`Campus of ${university.name}`}
@@ -96,13 +101,13 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
                 priority
                 data-ai-hint={university.dataAiHint || "university campus"}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" /> {/* Darker gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
             </div>
           )}
-          <div className="absolute bottom-0 w-full p-6 md:p-10 bg-gradient-to-t from-black/90 to-transparent"> {/* Darker gradient, more padding */}
+          <div className="absolute bottom-0 w-full p-6 md:p-10 bg-gradient-to-t from-black/90 to-transparent">
             <div className="flex items-center mb-2">
                 {university.logoUrl && (
-                    <div className="relative mr-4 h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-card p-1.5 rtl:ml-4 rtl:mr-0 shadow-md"> {/* Increased size, shadow */}
+                    <div className="relative mr-4 h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-card p-1.5 rtl:ml-4 rtl:mr-0 shadow-md">
                     <Image
                         src={university.logoUrl}
                         alt={`${university.name} logo`}
@@ -113,11 +118,11 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
                     </div>
                 )}
                 <div>
-                    <CardTitle className="font-headline text-4xl font-bold text-primary-foreground md:text-5xl" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}> {/* Increased size, stronger shadow */}
+                    <CardTitle className="font-headline text-4xl font-bold text-primary-foreground md:text-5xl" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.8)' }}>
                     {university.name}
                     </CardTitle>
                     {university.city && (
-                    <div className="mt-2 flex items-center text-base text-accent"> {/* Increased size */}
+                    <div className="mt-2 flex items-center text-base text-accent">
                         <MapPin className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
                         <span>{university.city}</span>
                     </div>
@@ -127,23 +132,49 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
           </div>
         </CardHeader>
 
-        <CardContent className="p-6 md:p-10 space-y-10"> {/* Increased padding and spacing */}
+        <CardContent className="p-6 md:p-10 space-y-10">
           {university.description && (
             <section>
               <SectionTitle icon={Info} title="عن الجامعة" />
-              <CardDescription className="text-base leading-relaxed text-foreground/90 md:text-lg"> {/* Increased font size */}
+              <CardDescription className="text-base leading-relaxed text-foreground/90 md:text-lg">
                 {university.description}
               </CardDescription>
             </section>
           )}
 
-          <div className="grid gap-10 md:grid-cols-2"> {/* Increased gap */}
+          {university.ranking && (university.ranking.global || university.ranking.national) && (
+            <section>
+              <SectionTitle icon={Award} title="التصنيف الجامعي" />
+              <ul className="space-y-3 text-foreground/90 text-base md:text-lg">
+                {university.ranking.global && (
+                  <li>
+                    <strong>التصنيف العالمي:</strong> {university.ranking.global}
+                  </li>
+                )}
+                {university.ranking.national && (
+                  <li>
+                    <strong>التصنيف الوطني:</strong> {university.ranking.national}
+                  </li>
+                )}
+                {university.ranking.source && (
+                  <li>
+                    <strong>مصدر التصنيف:</strong> {university.ranking.source}
+                  </li>
+                )}
+              </ul>
+              {!university.ranking.global && !university.ranking.national && (
+                 <p className="text-muted-foreground">لا تتوفر معلومات تصنيف حاليًا.</p>
+              )}
+            </section>
+          )}
+
+          <div className="grid gap-10 md:grid-cols-2">
             <section>
               <SectionTitle icon={BookOpen} title="التخصصات المتاحة" />
               {university.availableCourses && university.availableCourses.length > 0 ? (
-                <div className="flex flex-wrap gap-3"> {/* Increased gap */}
+                <div className="flex flex-wrap gap-3">
                   {university.availableCourses.map((course) => (
-                    <Badge key={course} variant="secondary" className="px-4 py-2 text-sm shadow-sm hover:bg-accent/20 transition-colors"> {/* Larger badges, hover effect */}
+                    <Badge key={course} variant="secondary" className="px-4 py-2 text-sm shadow-sm hover:bg-accent/20 transition-colors">
                       {course}
                     </Badge>
                   ))}
@@ -155,13 +186,13 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
 
             <section>
               <SectionTitle icon={DollarSign} title="الرسوم والتكاليف" />
-              <ul className="space-y-3 text-foreground/90 text-base md:text-lg"> {/* Increased spacing and font size */}
+              <ul className="space-y-3 text-foreground/90 text-base md:text-lg">
                 <li>
                   <strong>الرسوم السنوية:</strong> ${university.annualFees?.toLocaleString() ?? 'غير متوفر'}
                 </li>
                 {university.livingCosts && (
                   <li>
-                    <strong>تكاليف المعيشة التقديرية:</strong> {university.livingCosts}
+                    <strong>تكاليف المعيشة الشهرية التقديرية:</strong> {university.livingCosts}
                   </li>
                 )}
               </ul>
@@ -171,7 +202,7 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
           {university.acceptanceCriteria && university.acceptanceCriteria.length > 0 && (
             <section>
               <SectionTitle icon={ShieldCheck} title="شروط القبول" />
-              <ul className="list-disc space-y-2 pr-5 text-foreground/90 rtl:pl-5 rtl:pr-0 text-base md:text-lg"> {/* Increased spacing and font size */}
+              <ul className="list-disc space-y-2 pr-5 text-foreground/90 rtl:pl-5 rtl:pr-0 text-base md:text-lg">
                 {university.acceptanceCriteria.map((criterion, index) => (
                   <li key={index}>{criterion}</li>
                 ))}
@@ -181,7 +212,7 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
         </CardContent>
 
         {(university.officialWebsiteUrl || (university.applicationLink && university.applicationLink !== '#') || university.studentHandbookUrl) && (
-          <CardFooter className="bg-secondary/20 p-6 md:p-8 flex flex-col sm:flex-row gap-4 items-stretch"> {/* items-stretch for equal height buttons */}
+          <CardFooter className="bg-secondary/20 p-6 md:p-8 flex flex-col sm:flex-row gap-4 items-stretch">
             {university.officialWebsiteUrl && (
               <Button asChild size="lg" variant="outline" className="flex-1 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105">
                 <Link href={university.officialWebsiteUrl} target="_blank" rel="noopener noreferrer">

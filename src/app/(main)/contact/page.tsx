@@ -59,15 +59,12 @@ export default function ContactPage() {
                 <Phone className="h-6 w-6" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-foreground">الهاتف (واتساب مبدئيًا)</h3>
+                <h3 className="text-lg font-semibold text-foreground">الهاتف (واتساب)</h3>
                 <p className="text-muted-foreground">
                   تواصل معنا عبر واتساب للحصول على ردود سريعة:
-                  <Link href="https://wa.me/60123456789" target="_blank" rel="noopener noreferrer" className="block text-accent hover:underline">
-                    +60 12 345 6789 (مثال)
+                  <Link href="https://wa.me/601137967833" target="_blank" rel="noopener noreferrer" className="block text-accent hover:underline">
+                    +60 11-3796 7833
                   </Link>
-                </p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  (الرجاء استبدال الرقم برقم واتساب الفعلي للخدمة)
                 </p>
               </div>
             </div>

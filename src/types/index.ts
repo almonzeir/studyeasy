@@ -10,6 +10,15 @@ export const AISuggestedUniversitySchema = z.object({
 });
 export type AISuggestedUniversity = z.infer<typeof AISuggestedUniversitySchema>;
 
+// Schema for university ranking details
+export const UniversityRankingSchema = z.object({
+  national: z.union([z.number(), z.string()]).optional().describe("National ranking of the university."),
+  global: z.union([z.number(), z.string()]).optional().describe("Global ranking of the university."),
+  source: z.string().optional().describe("Source of the ranking information (e.g., QS World University Rankings, THE)."),
+});
+export type UniversityRanking = z.infer<typeof UniversityRankingSchema>;
+
+
 // Schema for detailed university information, potentially fetched by AI
 // This is what the getUniversityDetailsByName flow will output.
 export const UniversityDetailsOutputSchema = z.object({
@@ -25,7 +34,8 @@ export const UniversityDetailsOutputSchema = z.object({
   acceptanceCriteria: z.array(z.string()).optional().describe("Key acceptance criteria. If unknown, omit."),
   officialWebsiteUrl: z.string().optional().describe("The official website URL. If unknown, omit."),
   applicationLink: z.string().optional().describe("The direct application portal URL. If unknown, omit."),
-  studentHandbookUrl: z.string().optional().describe("The URL for the university's student handbook. If unknown, omit.")
+  studentHandbookUrl: z.string().optional().describe("The URL for the university's student handbook. If unknown, omit."),
+  ranking: UniversityRankingSchema.optional().describe("Ranking information for the university."),
 });
 export type UniversityDetailsOutput = z.infer<typeof UniversityDetailsOutputSchema>;
 
@@ -36,8 +46,8 @@ export interface University extends UniversityDetailsOutput {
   // Ensure all fields from UniversityDetailsOutput are optional here as well, or make them mandatory if they must exist
   name: string; // name is mandatory in UniversityDetailsOutput, so it is here too
   city?: string;
-  annualFees?: number; // Made optional to align with UniversityDetailsOutput
-  availableCourses?: string[]; // Made optional
+  annualFees?: number;
+  availableCourses?: string[];
   description?: string;
   logoUrl?: string;
   imageUrl?: string;
@@ -47,4 +57,5 @@ export interface University extends UniversityDetailsOutput {
   officialWebsiteUrl?: string;
   applicationLink?: string;
   studentHandbookUrl?: string;
+  ranking?: UniversityRanking;
 }
