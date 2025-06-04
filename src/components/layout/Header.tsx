@@ -2,12 +2,13 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, School, Home, LayoutGrid, Wand2, BotMessageSquare, Award } from 'lucide-react';
+import { Menu, School, Home, LayoutGrid, Wand2, BotMessageSquare, Award, DollarSign } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'الرئيسية', icon: <Home className="h-5 w-5" /> },
   { href: '/universities', label: 'الجامعات', icon: <LayoutGrid className="h-5 w-5" /> },
   { href: '/scholarships', label: 'المنح الدراسية', icon: <Award className="h-5 w-5" /> },
+  { href: '/study-costs', label: 'تكاليف الدراسة', icon: <DollarSign className="h-5 w-5" /> },
   { href: '/wizard', label: 'مساعد الاختيار', icon: <Wand2 className="h-5 w-5" /> },
   { href: '/chatbot', label: 'اسال الذكاء الاصناعي', icon: <BotMessageSquare className="h-5 w-5" /> },
 ];
