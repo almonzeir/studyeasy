@@ -1,5 +1,5 @@
 
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MessageSquareHeart, BotMessageSquare, Send } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
@@ -9,92 +9,70 @@ export default function ContactPage() {
   return (
     <div className="container py-12 md:py-16">
       <header className="mb-12 text-center">
-        <Mail className="mx-auto mb-6 h-16 w-16 text-accent animate-bounce" />
+        <MessageSquareHeart className="mx-auto mb-6 h-16 w-16 text-accent animate-pulse" />
         <h1 
-          className="font-headline text-4xl font-bold md:text-5xl"
-          style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.7)' }}
+          className="font-headline text-4xl font-bold md:text-5xl lg:text-6xl"
+          style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.75)' }}
         >
-          تواصل <span className="text-accent" style={{ textShadow: '0 2px 5px rgba(0, 0, 0, 0.5)' }}>معنا</span>
+          شاركنا <span className="text-accent" style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.6)' }}>رأيك!</span>
         </h1>
         <p 
-          className="mt-4 text-lg text-foreground/95 md:text-xl"
-          style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.6)' }}
+          className="mt-4 text-lg text-foreground/95 md:text-xl lg:text-2xl"
+          style={{ textShadow: '0 2px 5px rgba(0, 0, 0, 0.65)' }}
         >
-          نحن هنا لمساعدتك في رحلتك التعليمية في ماليزيا. لا تتردد في الاتصال بنا!
+          سواء كان لديك اقتراح، أو استفسار، أو ترغب في الإبلاغ عن مشكلة، تواصل معي مباشرة.
         </p>
       </header>
 
-      <div className="mx-auto max-w-3xl">
-        <Card className="overflow-hidden shadow-2xl rounded-xl mb-12">
-          <CardHeader className="bg-secondary/20">
-            <CardTitle className="font-headline text-2xl text-primary">معلومات الاتصال</CardTitle>
-            <CardDescription>يمكنك التواصل معنا عبر القنوات التالية:</CardDescription>
+      <div className="mx-auto max-w-2xl">
+        <Card className="overflow-hidden shadow-2xl rounded-xl mb-12 bg-card/90 backdrop-blur-sm">
+          <CardHeader className="bg-secondary/30 p-6">
+            <CardTitle className="font-headline text-2xl md:text-3xl text-primary">يسعدني التواصل معك</CardTitle>
+            <CardDescription className="text-base">يمكنك التواصل معي عبر الوسائل التالية:</CardDescription>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="flex items-start space-x-4 rtl:space-x-reverse">
-              <div className="flex-shrink-0 rounded-full bg-accent p-3 text-accent-foreground shadow-md">
-                <Mail className="h-6 w-6" />
+          <CardContent className="p-6 md:p-8 space-y-8">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse group">
+              <div className="flex-shrink-0 rounded-full bg-accent p-3.5 text-accent-foreground shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-accent/50">
+                <Mail className="h-7 w-7 md:h-8 md:w-8" />
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground">البريد الإلكتروني</h3>
-                <p className="text-muted-foreground">
-                  للاستفسارات العامة والدعم:
-                  <Link href="mailto:info@daleelmalaysia.com" className="block text-accent hover:underline">
-                    info@daleelmalaysia.com
-                  </Link>
-                </p>
-                <p className="text-muted-foreground mt-1">
-                  للاستفسارات المتعلقة بالقبول والجامعات:
-                  <Link href="mailto:admissions@daleelmalaysia.com" className="block text-accent hover:underline">
-                    admissions@daleelmalaysia.com
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">البريد الإلكتروني</h3>
+                <p className="text-muted-foreground mt-1 text-sm md:text-base">
+                  لأية استفسارات، اقتراحات، أو للإبلاغ عن مشكلة:
+                  <Link href="mailto:monzeer2002@gmail.com" className="block text-accent hover:underline font-medium text-base md:text-lg break-all">
+                    monzeer2002@gmail.com
                   </Link>
                 </p>
               </div>
             </div>
 
-            <Separator />
+            <Separator className="my-6 border-border/50" />
 
-            <div className="flex items-start space-x-4 rtl:space-x-reverse">
-              <div className="flex-shrink-0 rounded-full bg-accent p-3 text-accent-foreground shadow-md">
-                <Phone className="h-6 w-6" />
+            <div className="flex items-center space-x-4 rtl:space-x-reverse group">
+              <div className="flex-shrink-0 rounded-full bg-green-500 p-3.5 text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-green-500/50">
+                <Phone className="h-7 w-7 md:h-8 md:w-8" />
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground">الهاتف (واتساب)</h3>
-                <p className="text-muted-foreground">
-                  تواصل معنا عبر واتساب للحصول على ردود سريعة:
-                  <Link href="https://wa.me/601137967833" target="_blank" rel="noopener noreferrer" className="block text-accent hover:underline">
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-green-400 transition-colors">واتساب (للتواصل السريع)</h3>
+                <p className="text-muted-foreground mt-1 text-sm md:text-base">
+                  للتواصل السريع أو لتقديم ملاحظاتك مباشرة:
+                  <Link href="https://wa.me/601137967833" target="_blank" rel="noopener noreferrer" className="block text-green-400 hover:underline font-medium text-base md:text-lg">
                     +60 11-3796 7833
                   </Link>
-                </p>
-              </div>
-            </div>
-            
-            <Separator />
-
-            <div className="flex items-start space-x-4 rtl:space-x-reverse">
-              <div className="flex-shrink-0 rounded-full bg-accent p-3 text-accent-foreground shadow-md">
-                <MapPin className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground">ساعات العمل</h3>
-                <p className="text-muted-foreground">
-                  من الإثنين إلى الجمعة: 9:00 صباحًا - 6:00 مساءً (توقيت ماليزيا GMT+8)
-                </p>
-                <p className="text-muted-foreground">
-                  نحاول الرد على جميع الاستفسارات في غضون 24-48 ساعة عمل.
                 </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <div className="text-center">
-          <p className="text-lg text-foreground/80 mb-4">
-            هل لديك سؤال سريع؟ جرب <span className="font-semibold text-accent">مستشارنا الذكي</span>!
+        <div className="text-center space-y-4">
+          <p className="text-lg text-foreground/80">
+            قبل التواصل، ربما تجد إجابة لاستفسارك لدى <span className="font-semibold text-accent">المستشار الذكي</span>!
           </p>
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transition-transform hover:scale-105 shadow-lg hover:shadow-primary/40">
             <Link href="/chatbot">
-              تحدث مع المستشار الآن
+              <BotMessageSquare className="mr-2 h-5 w-5 rtl:ml-2 rtl:mr-0" />
+              جرب المستشار الذكي الآن
             </Link>
           </Button>
         </div>
