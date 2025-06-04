@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { ExternalLink, CheckCircle2, Users, ListChecks, Info } from 'lucide-react';
+import { cn } from "@/lib/utils"; // Added this import
 
 interface ScholarshipCardProps {
   scholarship: Scholarship;
