@@ -69,8 +69,15 @@ const universityChatbotFlow = ai.defineFlow(
     inputSchema: UniversityChatbotInputSchema,
     outputSchema: UniversityChatbotOutputSchema,
   },
-  async input => {
+  async (input: UniversityChatbotInput): Promise<UniversityChatbotOutput> => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output || typeof output.answer !== 'string') {
+      console.error('AI did not return a valid answer object for chatbot. Input:', input, 'Output:', output);
+      return {
+        answer: 'عذراً، لم أتمكن من معالجة طلبك في الوقت الحالي. يرجى المحاولة مرة أخرى.',
+        newContext: input.context, // Preserve previous context or decide on a strategy
+      };
+    }
+    return output;
   }
 );
