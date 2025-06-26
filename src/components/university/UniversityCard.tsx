@@ -77,7 +77,7 @@ export function UniversityCard({ university }: UniversityCardProps) {
         </div>
         {university.description && <CardDescription className="text-sm leading-relaxed text-muted-foreground line-clamp-3">{university.description}</CardDescription>}
       </CardContent>
-      <CardFooter className="bg-secondary/30 p-4 mt-auto"> {/* Added mt-auto to push footer down, adjusted padding */}
+      <CardFooter className="bg-card/60 p-4 mt-auto border-t"> {/* Adjusted background, added border-t, consistent padding */}
         <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
           <Link href={`/universities/${encodeURIComponent(university.id)}`}> 
             عرض التفاصيل

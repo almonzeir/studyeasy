@@ -1,5 +1,6 @@
 
 import type { Scholarship, ScholarshipLink } from '@/data/scholarships';
+import Image from 'next/image'; // Added Image import
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -21,16 +22,29 @@ const SectionTitle = ({ icon: Icon, title, className }: { icon: React.ElementTyp
 
 export function ScholarshipCard({ scholarship }: ScholarshipCardProps) {
   return (
-    <Card className="flex h-full flex-col overflow-hidden rounded-xl border-border/30 bg-card shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl hover:border-accent">
-      <CardHeader className="pb-4">
-        <CardTitle className="flex items-center font-headline text-xl md:text-2xl">
-          {scholarship.flag && <span className="ml-2 text-2xl rtl:mr-2 rtl:ml-0">{scholarship.flag}</span>}
-          {scholarship.name}
-        </CardTitle>
-        <Badge variant="secondary" className="mt-1 w-fit bg-accent/10 text-accent shadow-sm">{scholarship.level}</Badge>
+    <Card className="group flex h-full flex-col overflow-hidden rounded-xl border-border/30 bg-card shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl hover:border-accent">
+      <CardHeader className="p-0"> {/* Adjusted padding to p-0 */}
+        {scholarship.imageUrl && (
+          <div className="relative h-40 w-full overflow-hidden"> {/* Reduced height to h-40 for scholarship cards */}
+            <Image
+              src={scholarship.imageUrl}
+              alt={`Image for ${scholarship.name}`}
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+        )}
+        <div className="p-6 pb-4"> {/* Added wrapper div for padding */}
+          <CardTitle className="flex items-center font-headline text-xl md:text-2xl group-hover:text-accent transition-colors duration-300">
+            {scholarship.flag && <span className="ml-2 text-2xl rtl:mr-2 rtl:ml-0">{scholarship.flag}</span>}
+            {scholarship.name}
+          </CardTitle>
+          <Badge variant="secondary" className="mt-1 w-fit bg-accent/10 text-accent shadow-sm">{scholarship.level}</Badge>
+        </div>
       </CardHeader>
 
-      <CardContent className="flex-grow space-y-4 pt-0">
+      <CardContent className="flex-grow space-y-4 p-6 pt-0"> {/* Ensured padding consistency */}
         {scholarship.benefits && scholarship.benefits.length > 0 && (
           <section>
             <SectionTitle icon={CheckCircle2} title="المزايا" />

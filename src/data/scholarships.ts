@@ -10,6 +10,7 @@ export interface Scholarship {
   id: string;
   name: string;
   flag?: string;
+  imageUrl?: string; // Added optional imageUrl
   level: string;
   benefits: string[];
   targetAudience?: string;
@@ -24,6 +25,7 @@ export const scholarshipsData: Scholarship[] = [
     id: 'mis',
     name: 'منحة الحكومة الماليزية الدولية (MIS)',
     flag: '🇲🇾',
+    imageUrl: 'https://thumbs.dreamstime.com/b/malaysia-education-concept-student-graduation-cap-textbook-flag-malaysia-education-concept-student-graduation-170207313.jpg',
     level: 'ماجستير ودكتوراه',
     benefits: [
       'تغطية كاملة للرسوم الدراسية',
@@ -38,7 +40,7 @@ export const scholarshipsData: Scholarship[] = [
     applicationLink: 'https://mtcp.kln.gov.my/scholarship',
     secondaryLinks: [
       { name: 'Opportunity Desk', url: 'https://opportunitydesk.org/2024/06/01/malaysia-international-scholarship-mis-2024-2025/?utm_source=chatgpt.com' },
-      { name: 'Fursaty Education (MIS page)', url: 'https://fursatyeducation.com/scholarships/malaysia-international-scholarship-mis/?utm_source=chatgpt.com' }, // Corrected link, assuming this is the intended page. The original reused Al-Bukhari link.
+      { name: 'Fursaty Education (MIS page)', url: 'https://fursatyeducation.com/scholarships/malaysia-international-scholarship-mis/?utm_source=chatgpt.com' },
       { name: 'Opportunities for Youth', url: 'https://opportunitiesforyouth.org/2024/06/29/malaysia-international-scholarship-mis-2024-25-for-masters-and-doctoral-programs-apply-now/?utm_source=chatgpt.com' },
     ],
   },
@@ -46,6 +48,7 @@ export const scholarshipsData: Scholarship[] = [
     id: 'mtcp',
     name: 'منحة برنامج التعاون الفني الماليزي (MTCP)',
     flag: '🌍',
+    imageUrl: 'https://thumbs.dreamstime.com/b/malaysia-education-concept-student-graduation-cap-textbook-flag-malaysia-education-concept-student-graduation-170207313.jpg',
     level: 'ماجستير',
     benefits: [
       'تغطية الرسوم الدراسية',
@@ -53,17 +56,18 @@ export const scholarshipsData: Scholarship[] = [
       'تذاكر طيران ذهابًا وإيابًا',
     ],
     targetAudience: 'طلاب من الدول النامية',
-    applicationLink: 'https://mtcp.kln.gov.my/scholarship', // This is the same link as MIS, official site structure.
+    applicationLink: 'https://mtcp.kln.gov.my/scholarship',
     secondaryLinks: [
       { name: 'Opportunities Pedia', url: 'https://opportunitiespedia.com/malaysian-government-scholarship/?utm_source=chatgpt.com' },
       { name: 'نافذة الطلاب', url: 'https://swfors.com/malaysia-government-scholarship-2024/?utm_source=chatgpt.com' },
-      { name: 'Fursaty Education (MTCP specific if available, else generic)', url: 'https://fursatyeducation.com/scholarships/malaysian-technical-cooperation-programme-mtcp-scholarship/?utm_source=chatgpt.com' }, // Generic Fursaty link for MTCP
+      { name: 'Fursaty Education (MTCP specific if available, else generic)', url: 'https://fursatyeducation.com/scholarships/malaysian-technical-cooperation-programme-mtcp-scholarship/?utm_source=chatgpt.com' },
     ],
   },
   {
     id: 'albukhari',
     name: 'منحة جامعة البخاري الدولية',
     flag: '🕌',
+    imageUrl: 'https://aiu.edu.my/wp-content/uploads/2023/11/AIU-Official-Logo-01.png',
     level: 'بكالوريوس',
     benefits: [
       'إعفاء كامل من الرسوم الدراسية',
@@ -82,6 +86,7 @@ export const scholarshipsData: Scholarship[] = [
     id: 'perlis',
     name: 'منحة جامعة بيرليس الإسلامية',
     flag: '🏛️',
+    // No specific imageUrl due to difficulties, will display without.
     level: 'بكالوريوس',
     benefits: [
       'تغطية كاملة للرسوم الدراسية',
@@ -90,14 +95,15 @@ export const scholarshipsData: Scholarship[] = [
     ],
     applicationLink: 'https://masertak.com/en/%D9%85%D9%86%D8%AD%D8%A9-%D8%AC%D8%A7%D9%85%D8%B9%D8%A9-%D8%A8%D9%8A%D8%B1%D9%84%D9%8A%D8%B3-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7/',
     secondaryLinks: [
-      { name: 'Fursaty Education (Perlis Islamic Uni specific if available)', url: 'https://fursatyeducation.com/scholarships/' }, // Generic link, specific page not found
-      { name: 'Masertak', url: 'https://masertak.com/en/%D9%85%D9%86%D8%AD%D8%A9-%D8%AC%D8%A7%D9%85%D8%B9%D8%A9-%D8%A8%D9%8A%D8%B1%D9%84%D9%8A%D8%B3-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7/' }, // This is the main application link
+      { name: 'Fursaty Education (Perlis Islamic Uni specific if available)', url: 'https://fursatyeducation.com/scholarships/' },
+      { name: 'Masertak', url: 'https://masertak.com/en/%D9%85%D9%86%D8%AD%D8%A9-%D8%AC%D8%A7%D9%85%D8%B9%D8%A9-%D8%A8%D9%8A%D8%B1%D9%84%D9%8A%D8%B3-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7/' },
     ],
   },
   {
     id: 'tar',
     name: 'منحة مؤسسة تونكو عبد الرحمن',
     flag: '🏅',
+    // No specific imageUrl due to difficulties, will display without.
     level: 'بكالوريوس للطلاب الماليزيين',
     benefits: [
       'دعم مالي للطلاب المتفوقين أكاديميًا',
@@ -108,6 +114,7 @@ export const scholarshipsData: Scholarship[] = [
     id: 'lecordonbleu',
     name: 'منحة Le Cordon Bleu ماليزيا',
     flag: '🧑‍🍳',
+    imageUrl: 'https://www.cordonbleu.com/themes/custom/cordonbleu/logo.svg', // Attempting SVG, browser might handle it. Otherwise, no image.
     level: 'دبلوم في فنون الطهي أو المعجنات',
     benefits: [
       'خصم يصل إلى 5,000 رينجت ماليزي على رسوم الدورة',
@@ -118,21 +125,23 @@ export const scholarshipsData: Scholarship[] = [
     id: 'nottingham',
     name: 'منحة جامعة نوتنغهام ماليزيا',
     flag: '🏛️',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/University_of_Nottingham_logo.svg/1024px-University_of_Nottingham_logo.svg.png', // University Logo
     level: 'بكالوريوس',
     benefits: [
       'خصم 25% على الرسوم الدراسية للطلاب الدوليين المتفوقين',
     ],
-    applicationLink: 'https://www.nottingham.edu.my/Study/Fees-and-scholarships/scholarships/index.aspx', // More specific link
+    applicationLink: 'https://www.nottingham.edu.my/Study/Fees-and-scholarships/scholarships/index.aspx',
   },
   {
     id: 'monash',
     name: 'منحة جامعة موناش ماليزيا',
     flag: '🏛️',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Monash_University_logo.svg/1024px-Monash_University_logo.svg.png', // University Logo
     level: 'بكالوريوس',
     benefits: [
       'منح دراسية تصل إلى 100% للطلاب المتفوقين',
     ],
-    applicationLink: 'https://www.monash.edu.my/student-life/financial-assistance/scholarships', // More specific link
+    applicationLink: 'https://www.monash.edu.my/student-life/financial-assistance/scholarships',
     secondaryLinks: [
       { name: 'دراسة (منح ماليزيا)', url: 'https://dr3sah.com/tag/%D9%85%D9%86%D8%AD-%D8%AF%D8%B1%D8%A7%D8%B3%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7-%D8%A8%D9%83%D8%A7%D9%84%D9%88%D8%B1%D9%8A%D9%88%D8%B3/?utm_source=chatgpt.com' },
     ],
@@ -141,11 +150,12 @@ export const scholarshipsData: Scholarship[] = [
     id: 'apu',
     name: 'منحة جامعة آسيا والمحيط الهادئ (APU)',
     flag: '🏛️',
+    imageUrl: 'https://www.apu.edu.my/sites/all/themes/apu/logo.png', // University Logo
     level: 'بكالوريوس',
     benefits: [
       'منح دراسية جزئية للطلاب الدوليين',
     ],
-    applicationLink: 'https://www.apu.edu.my/study-apu/financial-assistance-scholarships/apu-scholarships-merit-awards', // More specific
+    applicationLink: 'https://www.apu.edu.my/study-apu/financial-assistance-scholarships/apu-scholarships-merit-awards',
     secondaryLinks: [
       { name: 'The Global Scholarship (MIS page, not APU)', url: 'https://www.theglobalscholarship.org/scholarships/malaysia-government-international-scholarship-2024?source=main&utm_source=chatgpt.com' },
       { name: 'Easy Uni Me', url: 'https://www.easyunime.com/advice/%D8%A3%D9%87%D9%85-%D8%AD%D9%82%D8%A7%D8%A6%D9%82-%D9%85%D9%86%D8%AD-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7-2025-3117/?utm_source=chatgpt.com' },
@@ -155,11 +165,12 @@ export const scholarshipsData: Scholarship[] = [
     id: 'mmu',
     name: 'منحة جامعة MMU',
     flag: '🏛️',
+    imageUrl: 'https://www.mmu.edu.my/wp-content/uploads/2021/04/MMU-LOGO-01-HORIZONTAL-01.png', // University Logo
     level: 'بكالوريوس',
     benefits: [
       'منح دراسية جزئية للطلاب الدوليين',
     ],
-    applicationLink: 'https://www.mmu.edu.my/financial-aid-scholarships/', // More specific
+    applicationLink: 'https://www.mmu.edu.my/financial-aid-scholarships/',
     secondaryLinks: [
       { name: 'دراسة (منح ماليزيا)', url: 'https://dr3sah.com/tag/%D9%85%D9%86%D8%AD-%D8%AF%D8%B1%D8%A7%D8%B3%D9%8A%D8%A9-%D9%81%D9%8A-%D9%85%D8%A7%D9%84%D9%8A%D8%B2%D9%8A%D8%A7-%D8%A8%D9%83%D8%A7%D9%84%D9%88%D8%B1%D9%8A%D9%88%D8%B3/?utm_source=chatgpt.com' },
     ],
