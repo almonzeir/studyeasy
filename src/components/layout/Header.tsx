@@ -1,4 +1,3 @@
-
 "use client"; // Required for useTheme hook
 import React from 'react'; // Import React
 import Link from 'next/link';
@@ -18,7 +17,7 @@ const navItems = [
 
 export function Header() {
   return (
-    <div className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2 rtl:ml-6 rtl:mr-0">
           <School className="h-7 w-7 text-primary" />
@@ -71,7 +70,7 @@ export function Header() {
           </Sheet>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
