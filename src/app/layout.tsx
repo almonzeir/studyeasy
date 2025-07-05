@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'دليلك في ماليزيا',
@@ -13,18 +14,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" suppressHydrationWarning> {/* suppressHydrationWarning is often needed with theme providers that modify class on html */}
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
-      <body 
-        className="font-body antialiased bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url('https://cdn.unifiedcommerce.com/content/product/media/large/5900511103946.jpg')" }}
-      >
-        {children}
-        <Toaster />
+      <body>
+        <ThemeProvider
+          attribute="class" // This is a common pattern for next-themes, adapting for our simpler provider
+          defaultTheme="dark" // Keep dark as initial default
+          enableSystem={false} // Assuming no system preference detection for now
+          storageKey="malaysia-guide-theme"
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

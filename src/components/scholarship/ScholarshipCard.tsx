@@ -13,7 +13,7 @@ interface ScholarshipCardProps {
 }
 
 const SectionTitle = ({ icon: Icon, title, className }: { icon: React.ElementType, title: string, className?: string }) => (
-  <div className={cn("mb-2 flex items-center", className)}>
+  <div className={cn("mb-3 flex items-center border-b border-border/30 pb-2", className)}> {/* Added border, pb-2, and updated mb-3 */}
     <Icon className="mr-2 h-5 w-5 text-accent rtl:ml-2 rtl:mr-0" />
     <h4 className="font-semibold text-primary">{title}</h4>
   </div>

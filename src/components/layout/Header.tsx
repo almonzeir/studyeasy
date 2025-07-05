@@ -1,8 +1,11 @@
 
+"use client"; // Required for useTheme hook
+import React from 'react'; // Import React
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, School, Home, LayoutGrid, Wand2, BotMessageSquare, Award, DollarSign, FileText } from 'lucide-react';
+import { Menu, School, Home, LayoutGrid, Wand2, BotMessageSquare, Award, DollarSign, FileText, Sun, Moon } from 'lucide-react';
+import { useTheme } from './ThemeProvider'; // Import useTheme
 
 const navItems = [
   { href: '/', label: 'الرئيسية', icon: <Home className="h-5 w-5" /> },
@@ -27,17 +30,20 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm" // Added focus ring and rounded-sm for better ring shape
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-2 rtl:space-x-reverse md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+        <div className="flex flex-1 items-center justify-end space-x-2 rtl:space-x-reverse">
+          <ThemeToggleButton />
+          {/* Mobile Menu Button - hidden on md and larger screens */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">فتح القائمة</span>
               </Button>
@@ -53,7 +59,7 @@ export function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex items-center space-x-3 rtl:space-x-reverse rounded-md p-3 text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
+                      className="flex items-center space-x-3 rtl:space-x-reverse rounded-md p-3 text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background" // Added focus ring
                     >
                       {item.icon}
                       <span>{item.label}</span>
@@ -66,5 +72,30 @@ export function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+// Theme Toggle Button Component
+function ThemeToggleButton() {
+  const { theme, setTheme } = useTheme();
+  // Prevent rendering on server to avoid hydration mismatch for theme icon
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    // Render a placeholder or null on the server and initial client render
+    // You could also return a skeleton or a disabled button
+    return <Button variant="ghost" size="icon" aria-label="Toggle theme" disabled><Sun className="h-5 w-5" /></Button>;
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      aria-label={theme === 'light' ? 'التحويل للوضع الداكن' : 'التحويل للوضع الفاتح'}
+    >
+      {theme === 'light' ? <Moon className="h-5 w-5 text-foreground/80" /> : <Sun className="h-5 w-5 text-foreground/80" />}
+    </Button>
   );
 }

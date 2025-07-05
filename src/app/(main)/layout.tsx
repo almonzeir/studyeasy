@@ -8,7 +8,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-background/10 via-background/40 to-background/70"> {/* Updated overlay */}
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-primary/5 via-background/30 to-background/80"> {/* Adjusted gradient */}
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
