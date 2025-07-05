@@ -103,8 +103,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
-    transition-colors duration-300 ease-in-out; /* Smooth transition for theme changes */
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-300 ease-in-out;
   }
   /* Define font-body if it's not already part of a Tailwind plugin */
   .font-body {
