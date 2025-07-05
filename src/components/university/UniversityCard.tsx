@@ -22,9 +22,18 @@ export function UniversityCard({ university }: UniversityCardProps) {
               alt={`Campus of ${university.name}`}
               layout="fill"
               objectFit="cover"
+              placeholder="blur" // Added placeholder
+              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48rectIHdpZHRoPSIyMDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjZTZlNmVlIi8+PHRleHQgeD0iNTAiIHk9IjcwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkIj5NoImageAvail</text></svg>" // Generic light gray placeholder with text
               data-ai-hint={university.dataAiHint || "university campus"}
               className="transition-transform duration-300 group-hover:scale-105" /* Image zoom on hover */
             />
+          </div>
+        )}
+        {/* Fallback for when imageUrl is empty or fails to load - this is more complex to do purely with next/image if src is empty string */}
+        {!university.imageUrl && (
+          <div className="relative h-48 w-full overflow-hidden bg-muted flex items-center justify-center">
+            {/* You could put an icon or text here */}
+            <BookOpen className="h-16 w-16 text-muted-foreground/50" />
           </div>
         )}
         <div className="p-6">
@@ -37,7 +46,11 @@ export function UniversityCard({ university }: UniversityCardProps) {
           )}
           {university.ranking?.global && (
             <div className="mb-3 flex justify-center">
-              <Badge variant="outline" className="border-primary/70 text-primary text-xs">
+              <Badge
+                variant="outline"
+                className="border-primary/70 text-primary text-xs"
+                title={university.ranking.source ? `Source: ${university.ranking.source}` : 'Global Ranking'}
+              >
                 <Award className="mr-1.5 h-3.5 w-3.5 rtl:ml-1.5 rtl:mr-0" />
                 Global Rank: {university.ranking.global}
                 {university.ranking.source && ` (${university.ranking.source.split(" ")[0]})`}
@@ -66,7 +79,11 @@ export function UniversityCard({ university }: UniversityCardProps) {
                     </Badge>
                   ))}
                   {university.availableCourses.length > 3 && (
-                    <Badge variant="outline" className="text-xs px-2.5 py-1 border-accent/50 text-accent/90"> {/* Adjusted padding and styling */}
+                    <Badge
+                      variant="outline"
+                      className="text-xs px-2.5 py-1 border-accent/50 text-accent/90" // Adjusted padding and styling
+                      title={`والعديد من التخصصات الأخرى مثل: ${university.availableCourses.slice(3, 7).join('، ')}${university.availableCourses.length > 7 ? '، وغيرها...' : ''}`} // Added title attribute
+                    >
                       +{university.availableCourses.length - 3} أخرى
                     </Badge>
                   )}

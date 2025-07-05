@@ -15,7 +15,7 @@ export default function HomePage() {
       <section className="relative py-24 text-primary-foreground md:py-40"> {/* Increased padding */}
         <div className="absolute inset-0">
           <Image
-            src="https://rare-gallery.com/uploads/posts/733421-Malaysia-Skyscrapers-Night-Kuala-Lumpur.jpg"
+            src="/images/hero-skyline.jpg" // Updated to local path
             alt="Kuala Lumpur skyline at night"
             layout="fill"
             objectFit="cover"
@@ -23,7 +23,7 @@ export default function HomePage() {
             quality={85}
             data-ai-hint="city skyline night"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-background/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/85" /> {/* Darker, theme-independent overlay */}
         </div>
         <div className="container relative z-10 text-center">
           <h1
@@ -45,7 +45,7 @@ export default function HomePage() {
                 ابدأ بمساعد الاختيار
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-accent text-accent hover:text-accent-foreground hover:bg-accent/90 transition-transform hover:scale-105 bg-black/50 hover:border-accent backdrop-blur-sm shadow-xl hover:shadow-accent/40 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background">
+            <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:text-accent-foreground hover:bg-accent/80 transition-transform hover:scale-105 hover:border-accent/80 shadow-xl hover:shadow-accent/40 focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background">
               <Link href="/universities">
                 تصفح الجامعات
                 <ChevronLeft className="ml-2 h-5 w-5 rtl:mr-2 rtl:ml-0" />
