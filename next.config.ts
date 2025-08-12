@@ -1,29 +1,11 @@
-import type {NextConfig} from 'next';
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'upload.wikimedia.org',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-      },
-      {
-        protocol: 'https',
-        hostname: '4kwallpapers.com',
-      },
-    ],
+    // Keep it simple: serve images as-is (no domain headaches on Vercel)
+    unoptimized: true,
+    // (optional) if you later re-enable optimization, keep these:
+    domains: ['upload.wikimedia.org', 'placehold.co'],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
