@@ -86,11 +86,6 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased transition-colors duration-300 ease-in-out;
-    background-image: url('https://www.hdwallpapers.in/download/building_city_kuala_lumpur_malaysia_night_petronas_towers_skyscraper_hd_city-2560x1440.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
   }
 
   .font-body {
@@ -100,6 +95,18 @@
   .font-headline {
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
+  }
+
+  .text-shadow-strong {
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  .text-shadow-medium {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  }
+
+  .text-shadow-accent {
+    text-shadow: 0 3px 8px rgba(0,0,0,0.6);
   }
 
   /* Additional improvements */
