@@ -1,4 +1,3 @@
-
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -20,6 +19,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'rare-gallery.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
         port: '',
         pathname: '/**',
       },
