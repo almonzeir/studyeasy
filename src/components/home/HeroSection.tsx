@@ -6,7 +6,11 @@ import { Wand2, ChevronLeft } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative py-24 text-primary-foreground md:py-40 bg-gradient-to-br from-gray-900 via-slate-800 to-primary/40">
+    <section
+      className="relative py-24 text-primary-foreground md:py-40 bg-cover bg-center"
+      style={{ backgroundImage: "url('https://www.worldconstructionnetwork.com/wp-content/uploads/sites/26/2023/10/Image-1-Merdeka-118.jpg')" }}
+    >
+      <div className="absolute inset-0 bg-black/60" />
       <div className="container relative z-10 text-center">
         <h1
           className="mb-6 font-headline text-5xl font-bold text-shadow-strong sm:text-6xl md:text-7xl lg:text-8xl animate-fade-in-down"

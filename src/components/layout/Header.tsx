@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { useTheme } from './ThemeProvider';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Moon, Sun, BookOpen, GraduationCap, Mail, University } from 'lucide-react';
+import { Menu, Moon, Sun, BookOpen, GraduationCap, Mail, University, Bot } from 'lucide-react';
 
 const navLinks = [
   { href: '/universities', label: 'الجامعات', icon: University },
   { href: '/scholarships', label: 'المنح الدراسية', icon: GraduationCap },
   { href: '/contact', label: 'تواصل معنا', icon: Mail },
+  { href: '/chatbot', label: 'المستشار الذكي', icon: Bot, className: 'text-accent font-bold' },
 ];
 
 export function Header() {
@@ -35,8 +36,8 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map(({ href, label }) => (
-            <Link key={href} href={href} className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+          {navLinks.map(({ href, label, className }) => (
+            <Link key={href} href={href} className={`text-sm font-medium text-muted-foreground transition-colors hover:text-primary ${className || ''}`}>
               {label}
             </Link>
           ))}
@@ -60,12 +61,12 @@ export function Header() {
             <SheetContent side="right" className="w-full max-w-xs sm:max-w-sm">
               <div className="p-4">
                 <nav className="flex flex-col gap-6">
-                  {navLinks.map(({ href, label, icon: Icon }) => (
+                  {navLinks.map(({ href, label, icon: Icon, className }) => (
                     <Link
                       key={href}
                       href={href}
                       onClick={closeSheet}
-                      className="flex items-center gap-3 rounded-md p-3 text-lg font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      className={`flex items-center gap-3 rounded-md p-3 text-lg font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground ${className || ''}`}
                     >
                       <Icon className="h-5 w-5" />
                       {label}
