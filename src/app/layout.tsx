@@ -22,9 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider
-          attribute="class" // This is a common pattern for next-themes, adapting for our simpler provider
           defaultTheme="dark" // Keep dark as initial default
-          enableSystem={false} // Assuming no system preference detection for now
           storageKey="malaysia-guide-theme"
         >
           {children}
