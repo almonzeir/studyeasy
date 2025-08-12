@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { UniversityCard } from '@/components/university/UniversityCard';
-import { mockUniversities } from '@/data/universities';
+import UniversityCard from '@/components/university/UniversityCard';
+import { universities } from '@/data/universities';
 import { ChevronLeft } from 'lucide-react';
 
 export function FeaturedUniversities() {
-  const featuredUniversities = mockUniversities.slice(0, 3);
+  const featuredUniversities = universities.slice(0, 3);
 
   return (
     <section className="py-16 bg-transparent md:py-24">
@@ -20,7 +20,7 @@ export function FeaturedUniversities() {
         </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {featuredUniversities.map((uni) => (
-            <UniversityCard key={uni.id} university={uni} />
+            <UniversityCard key={uni.id} uni={uni} />
           ))}
         </div>
         <div className="mt-12 text-center">
