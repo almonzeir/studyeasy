@@ -8,7 +8,7 @@ export function HeroSection() {
   return (
     <section
       className="relative py-24 text-primary-foreground md:py-40 bg-cover bg-center"
-      style={{ backgroundImage: "url('https://www.worldconstructionnetwork.com/wp-content/uploads/sites/26/2023/10/Image-1-Merdeka-118.jpg')" }}
+      style={{ backgroundImage: "url('https://4kwallpapers.com/images/wallpapers/petronas-towers-kuala-lumpur-malaysia-cityscape-night-2560x1440-2109.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/60" />
       <div className="container relative z-10 text-center">
