@@ -1,14 +1,13 @@
-
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { UniversityCard } from '@/components/university/UniversityCard';
-import { mockUniversities } from '@/data/universities';
-import type { University } from '@/types';
+import UniversityCard from '@/components/university/UniversityCard';
+import { universities } from '@/data/universities';
+import type { University } from '@/types/university';
 import { Input } from '@/components/ui/input';
 import { Search, MapPin, DollarSign, Frown, ListFilter, FilterIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Added CardHeader, CardTitle
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -16,17 +15,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from '@/components/ui/separator'; // Added Separator
+import { Separator } from '@/components/ui/separator';
 
 export default function UniversitiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [cityFilter, setCityFilter] = useState('');
   const [budgetFilter, setBudgetFilter] = useState<number | ''>('');
-  const [filteredUniversities, setFilteredUniversities] = useState<University[]>(mockUniversities);
+  const [filteredUniversities, setFilteredUniversities] = useState<University[]>(universities);
 
   const uniqueCities = useMemo(() => {
     const cities = new Set<string>();
-    mockUniversities.forEach(uni => {
+    universities.forEach(uni => {
       if (uni.city) {
         cities.add(uni.city);
       }
@@ -35,26 +34,26 @@ export default function UniversitiesPage() {
   }, []);
 
   useEffect(() => {
-    let universities = mockUniversities;
+    let filtered = universities;
 
     if (searchTerm) {
-      universities = universities.filter(uni =>
+      filtered = filtered.filter(uni =>
         uni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (uni.availableCourses && uni.availableCourses.some(course => course.toLowerCase().includes(searchTerm.toLowerCase())))
       );
     }
 
     if (cityFilter) {
-      universities = universities.filter(uni =>
+      filtered = filtered.filter(uni =>
         uni.city && uni.city.toLowerCase() === cityFilter.toLowerCase()
       );
     }
 
     if (budgetFilter !== '') {
-      universities = universities.filter(uni => uni.annualFees !== undefined && uni.annualFees <= budgetFilter);
+      filtered = filtered.filter(uni => typeof uni.annualFees === 'number' && uni.annualFees <= budgetFilter);
     }
 
-    setFilteredUniversities(universities);
+    setFilteredUniversities(filtered);
   }, [searchTerm, cityFilter, budgetFilter]);
 
   const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +72,8 @@ export default function UniversitiesPage() {
         </p>
       </header>
 
-      <Card className="mb-12 rounded-lg border bg-card p-6 shadow-xl"> {/* Increased mb */}
-        <CardHeader className="p-0 pb-6"> {/* Added CardHeader */}
+      <Card className="mb-12 rounded-lg border bg-card p-6 shadow-xl">
+        <CardHeader className="p-0 pb-6">
           <CardTitle className="flex items-center font-headline text-2xl">
             <FilterIcon className="mr-2 h-6 w-6 text-accent rtl:ml-2 rtl:mr-0" />
             تصفية النتائج
@@ -96,7 +95,7 @@ export default function UniversitiesPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">جميع الجامعات</SelectItem>
-                  {mockUniversities.sort((a, b) => a.name.localeCompare(b.name)).map((uni) => (
+                  {universities.sort((a, b) => a.name.localeCompare(b.name)).map((uni) => (
                     <SelectItem key={uni.id} value={uni.name}>
                       {uni.name}
                     </SelectItem>
@@ -144,19 +143,17 @@ export default function UniversitiesPage() {
         </CardContent>
       </Card>
 
-      {/* <Separator className="my-10 border-border/30" />  Added separator, commented out for now to see if mb-12 is enough */}
-
       {filteredUniversities.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredUniversities.map((uni) => (
-            <UniversityCard key={uni.id} university={uni} />
+            <UniversityCard key={uni.id} uni={uni} />
           ))}
         </div>
       ) : (
-        <Card className="shadow-lg border-dashed border-muted-foreground/50"> {/* Enhanced no results card */}
-          <CardContent className="py-16 text-center"> {/* Increased padding */}
-            <Frown className="mx-auto mb-6 h-24 w-24 text-muted-foreground/70" /> {/* Larger icon */}
-            <p className="mb-3 text-3xl font-semibold text-foreground">لم يتم العثور على جامعات</p> {/* Larger text */}
+        <Card className="shadow-lg border-dashed border-muted-foreground/50">
+          <CardContent className="py-16 text-center">
+            <Frown className="mx-auto mb-6 h-24 w-24 text-muted-foreground/70" />
+            <p className="mb-3 text-3xl font-semibold text-foreground">لم يتم العثور على جامعات</p>
             <p className="text-muted-foreground text-lg">
               حاول تعديل معايير البحث الخاصة بك أو توسيع نطاق بحثك.
             </p>

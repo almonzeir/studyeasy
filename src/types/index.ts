@@ -39,23 +39,4 @@ export const UniversityDetailsOutputSchema = z.object({
 });
 export type UniversityDetailsOutput = z.infer<typeof UniversityDetailsOutputSchema>;
 
-// Main University type used throughout the application, includes an ID.
-// It can be constructed from mock data or from AI-fetched details.
-export interface University extends UniversityDetailsOutput {
-  id: string;
-  // Ensure all fields from UniversityDetailsOutput are optional here as well, or make them mandatory if they must exist
-  name: string; // name is mandatory in UniversityDetailsOutput, so it is here too
-  city?: string;
-  annualFees?: number;
-  availableCourses?: string[];
-  description?: string;
-  logoUrl?: string;
-  imageUrl?: string;
-  dataAiHint?: string;
-  livingCosts?: string;
-  acceptanceCriteria?: string[];
-  officialWebsiteUrl?: string;
-  applicationLink?: string;
-  studentHandbookUrl?: string;
-  ranking?: UniversityRanking;
-}
+// University type is now defined in `types/university.ts`
