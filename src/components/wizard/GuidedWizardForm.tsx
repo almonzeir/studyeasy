@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -24,15 +23,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { UniversityCard } from '@/components/university/UniversityCard';
+import UniversityCard from '@/components/university/UniversityCard';
 import { guidedUniversitySelection } from '@/ai/flows/guided-university-selection';
 import type { GuidedUniversitySelectionInput, GuidedUniversitySelectionOutput as AISuggestionSchemaArray } from '@/ai/flows/guided-university-selection';
 import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
 import type { UniversityDetailsOutput } from '@/types';
 import { Loader2, Search, Frown } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { mockUniversities } from '@/data/universities'; // Still used for dropdowns
-import type { University } from '@/types';
+import { universities } from '@/data/universities';
+import type { University } from '@/types/university';
 
 const FormSchema = z.object({
   specialization: z.string().optional().describe("The student's desired field of study. If omitted, the AI should consider all specializations."),
@@ -63,7 +62,7 @@ export function GuidedWizardForm() {
 
   const uniqueSpecializations = useMemo(() => {
     const specializations = new Set<string>();
-    mockUniversities.forEach(uni => {
+    universities.forEach(uni => {
       uni.availableCourses?.forEach(course => specializations.add(course));
     });
     return Array.from(specializations).sort((a, b) => a.localeCompare(b));
@@ -71,7 +70,7 @@ export function GuidedWizardForm() {
 
   const uniqueCities = useMemo(() => {
     const cities = new Set<string>();
-    mockUniversities.forEach(uni => {
+    universities.forEach(uni => {
       if (uni.city) {
         cities.add(uni.city);
       }
@@ -100,8 +99,6 @@ export function GuidedWizardForm() {
         const enrichedResultsPromises = aiSuggestions.map(async (suggestedUni) => {
           const fetchedDetails: UniversityDetailsOutput = await getUniversityDetailsByName({ universityName: suggestedUni.name });
           
-          // Use the university name as the ID for AI-sourced universities
-          // This makes the URL for the detail page cleaner and directly usable for AI queries if needed.
           const universityId = fetchedDetails.name || suggestedUni.name;
 
           return {
@@ -277,7 +274,7 @@ export function GuidedWizardForm() {
               {results.map((uni) => (
                 <UniversityCard
                   key={uni.id}
-                  university={uni}
+                  uni={uni}
                 />
               ))}
             </div>

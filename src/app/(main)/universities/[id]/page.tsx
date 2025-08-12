@@ -1,6 +1,5 @@
-
-import { mockUniversities } from '@/data/universities';
-import type { University } from '@/types';
+import { universities } from '@/data/universities';
+import type { University } from '@/types/university';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -19,8 +18,8 @@ async function getUniversityData(idOrNameFromUrl: string): Promise<University | 
     decodedIdOrName = idOrNameFromUrl; // Use as is if decoding fails
   }
 
-  // 1. Try to find in mockUniversities by ID or name.
-  const mockUni = mockUniversities.find((uni) => uni.id === decodedIdOrName || uni.name === decodedIdOrName);
+  // 1. Try to find in universities by ID or name.
+  const mockUni = universities.find((uni) => uni.id === decodedIdOrName || uni.name === decodedIdOrName);
   if (mockUni) {
     // If found in mock, use its data, potentially enriching with AI details if some are missing (optional).
     // For now, we'll just return the mock data if found.
@@ -41,9 +40,9 @@ async function getUniversityData(idOrNameFromUrl: string): Promise<University | 
         name: aiDetails.name,
         // Ensure other fields have fallbacks if not provided by AI
         city: aiDetails.city,
-        annualFees: aiDetails.annualFees === undefined ? undefined : Number(aiDetails.annualFees),
+        annualFees: aiDetails.annualFees === undefined ? 'N/A' : Number(aiDetails.annualFees),
         availableCourses: aiDetails.availableCourses || [],
-        description: aiDetails.description,
+        description: aiDetails.description || 'No description available.',
         logoUrl: aiDetails.logoUrl || `https://placehold.co/100x100.png`,
         imageUrl: aiDetails.imageUrl || `https://placehold.co/600x400.png`,
         dataAiHint: aiDetails.dataAiHint || 'university campus',
@@ -188,7 +187,7 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
               <SectionTitle icon={DollarSign} title="الرسوم والتكاليف" />
               <ul className="space-y-2 text-sm text-foreground/90 md:text-base md:space-y-3">
                 <li>
-                  <strong>الرسوم السنوية:</strong> ${university.annualFees?.toLocaleString() ?? 'غير متوفر'}
+                  <strong>الرسوم السنوية:</strong> ${typeof university.annualFees === 'number' ? university.annualFees.toLocaleString() : university.annualFees ?? 'غير متوفر'}
                 </li>
                 {university.livingCosts && (
                   <li>
