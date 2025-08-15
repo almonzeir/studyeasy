@@ -39,7 +39,7 @@ async function getUniversityData(idOrNameFromUrl: string): Promise<University | 
         id: aiDetails.name, // Use the AI-provided name as the ID
         name: aiDetails.name,
         // Ensure other fields have fallbacks if not provided by AI
-        city: aiDetails.city,
+        city: aiDetails.city ?? 'N/A',
         annualFees: aiDetails.annualFees === undefined ? 'N/A' : Number(aiDetails.annualFees),
         availableCourses: aiDetails.availableCourses || [],
         description: aiDetails.description || 'No description available.',
