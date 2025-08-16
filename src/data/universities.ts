@@ -19,7 +19,7 @@ export const universities: University[] = [
     ],
     description:
       'تأسست جامعة ملايا عام 1905، وهي أقدم وأعرق جامعة في ماليزيا. تتميز ببرامجها البحثية المتقدمة وتصنيفها العالمي المرتفع.',
-    imageUrl: '/universities/uni1.png',
+    imageUrl: 'https://picsum.photos/seed/uni1/600/300',
     livingCosts: 'USD 320-540 شهريًا',
     acceptanceCriteria: [
       'شهادة الثانوية العامة بمعدل ممتاز',
@@ -49,7 +49,7 @@ export const universities: University[] = [
     ],
     description:
       'Known for its focus on scientific research and innovation, offering a wide range of science and applied disciplines.',
-    imageUrl: '/universities/uni2.png',
+    imageUrl: 'https://picsum.photos/seed/uni2/600/300',
     livingCosts: 'USD 320-540 monthly',
     acceptanceCriteria: [
       'High school certificate with very good grades',
@@ -77,7 +77,7 @@ export const universities: University[] = [
     ],
     description:
       'Established to promote the Malay language and culture, a leading university in humanities and social sciences.',
-    imageUrl: '/universities/uni3.png',
+    imageUrl: 'https://picsum.photos/seed/uni3/600/300',
     livingCosts: 'USD 320-540 monthly',
     acceptanceCriteria: [
       'High school certificate',
@@ -106,7 +106,7 @@ export const universities: University[] = [
     ],
     description:
       'Distinguished for its strong programs in agriculture and related sciences, a major research center in this field.',
-    imageUrl: '/universities/uni4.png',
+    imageUrl: 'https://picsum.photos/seed/uni4/600/300',
     livingCosts: 'USD 320-540 monthly',
     acceptanceCriteria: [
       'High school certificate',
@@ -133,7 +133,7 @@ export const universities: University[] = [
     ],
     description:
       'A leader in engineering and technology, renowned for its highly competent graduates.',
-    imageUrl: '/universities/uni5.png',
+    imageUrl: 'https://picsum.photos/seed/uni5/600/300',
     livingCosts: 'USD 320-540 monthly',
     acceptanceCriteria: [
       'High school certificate with excellent grades in science subjects',
