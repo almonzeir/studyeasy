@@ -10,8 +10,9 @@ type Props = {
 };
 
 /**
- * A smart image component that falls back to a set of local placeholder images when
- * the provided source fails to load or is undefined.
+ * A smart image component that falls back to a set of remote placeholder images when
+ * the provided source fails to load or is undefined. This keeps broken URLs from
+ * rendering visibly on the page.
  */
 export default function SmartImage({
   src,
@@ -22,11 +23,11 @@ export default function SmartImage({
 }: Props) {
   const [error, setError] = useState(false);
   const fallbacks = [
-    '/universities/uni1.png',
-    '/universities/uni2.png',
-    '/universities/uni3.png',
-    '/universities/uni4.png',
-    '/universities/uni5.png',
+    'https://picsum.photos/seed/uni1/600/300',
+    'https://picsum.photos/seed/uni2/600/300',
+    'https://picsum.photos/seed/uni3/600/300',
+    'https://picsum.photos/seed/uni4/600/300',
+    'https://picsum.photos/seed/uni5/600/300',
   ];
   const fallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
   const chosenSrc = !src || error ? fallback : src;
