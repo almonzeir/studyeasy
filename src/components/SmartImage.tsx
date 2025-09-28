@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 type Props = {
   src?: string | null;
@@ -24,14 +24,27 @@ export default function SmartImage({
   className,
 }: Props) {
   const [error, setError] = useState(false);
-  const fallbacks = [
-    'https://picsum.photos/seed/uni1/600/300',
-    'https://picsum.photos/seed/uni2/600/300',
-    'https://picsum.photos/seed/uni3/600/300',
-    'https://picsum.photos/seed/uni4/600/300',
-    'https://picsum.photos/seed/uni5/600/300',
-  ];
-  const fallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  const fallbacks = useMemo(
+    () => [
+      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
+    ],
+    []
+  );
+
+  const fallback = useMemo(() => {
+    const key = (src ?? alt ?? '').trim();
+    if (!key) {
+      return fallbacks[0];
+    }
+
+    const hash = Array.from(key).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return fallbacks[hash % fallbacks.length];
+  }, [alt, fallbacks, src]);
+
   const chosenSrc = !src || error ? fallback : src;
 
   return (
@@ -41,6 +54,7 @@ export default function SmartImage({
       width={width}
       height={height}
       className={className}
+      loading="lazy"
       onError={() => setError(true)}
     />
   );

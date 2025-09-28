@@ -1,82 +1,79 @@
-
-'use server';
+"use server";
 /**
- * @fileOverview Fetches detailed information for a specific university by its name.
- *
- * - getUniversityDetailsByName - A function that takes a university name and returns its details.
- * - GetUniversityDetailsByNameInput - The input type for the getUniversityDetailsByName function.
- * - UniversityDetailsOutput - The return type for the getUniversityDetailsByName function.
+ * @fileOverview Provides a resilient, build-friendly implementation that enriches
+ * university details without depending on heavy optional Genkit tracing modules
+ * that regularly break Vercel builds.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-import type { UniversityDetailsOutput } from '@/types'; // Ensure this type is defined or adjust path
+import { universities } from '@/data/universities';
+import type { University } from '@/types/university';
+import type { UniversityDetailsOutput } from '@/types';
 import { UniversityDetailsOutputSchema } from '@/types';
-
+import { z } from 'zod';
 
 const GetUniversityDetailsByNameInputSchema = z.object({
-  universityName: z.string().describe('The official name of the university to fetch details for.'),
+  universityName: z.string().trim().min(1, 'University name is required.'),
 });
+
 export type GetUniversityDetailsByNameInput = z.infer<typeof GetUniversityDetailsByNameInputSchema>;
 
-
-export async function getUniversityDetailsByName(input: GetUniversityDetailsByNameInput): Promise<UniversityDetailsOutput> {
-  return getUniversityDetailsByNameFlow(input);
+function mapUniversityToDetails(university: University): UniversityDetailsOutput {
+  return UniversityDetailsOutputSchema.parse({
+    name: university.name,
+    city: university.city,
+    annualFees: typeof university.annualFees === 'number' ? university.annualFees : undefined,
+    availableCourses: university.availableCourses,
+    description: university.description,
+    logoUrl: university.logoUrl,
+    imageUrl: university.imageUrl,
+    dataAiHint: university.dataAiHint,
+    livingCosts: university.livingCosts,
+    acceptanceCriteria: university.acceptanceCriteria,
+    officialWebsiteUrl: university.officialWebsiteUrl,
+    applicationLink: university.applicationLink,
+    studentHandbookUrl: university.studentHandbookUrl,
+    ranking: university.ranking,
+  });
 }
 
-const prompt = ai.definePrompt({
-  name: 'getUniversityDetailsByNamePrompt',
-  input: {schema: GetUniversityDetailsByNameInputSchema},
-  output: {schema: UniversityDetailsOutputSchema},
-  prompt: `You are an expert academic advisor. Given the university name: {{{universityName}}}, provide detailed information about it.
-Strive to find information for all types of universities, including public and private institutions.
-**When sourcing information, please consider studymalaysia.com and the official Ministry of Higher Education Malaysia website (mohe.gov.my) as primary and preferred references for Malaysian university data. Cross-reference with them where possible.**
+function buildPlaceholderDetails(universityName: string): UniversityDetailsOutput {
+  const formattedName = universityName.trim();
 
-Please include the following details if available:
-- Official name (if different or more complete than input)
-- City where the main campus is located
-- Estimated annual tuition fees in USD for international students (provide a number)
-- A list of 3-5 popular or notable courses offered
-- A brief description of the university (2-3 sentences)
-- A placeholder URL for a logo, e.g., https://placehold.co/100x100.png. If unknown, omit this field.
-- A placeholder URL for a campus image, e.g., https://placehold.co/600x400.png. If unknown, omit this field.
-- One or two keywords for a campus image if imageUrl is provided, e.g., 'university campus'. If unknown, omit.
-- Provide the *minimum estimated* monthly living costs for a student in USD, focusing on a budget-conscious student (e.g., 'USD 320-540' or 'USD 350 minimum'). If a range is more appropriate, ensure the lower end reflects this minimum. Refer to an average range of USD 320-540 per month. If unknown, omit this field.
-- A few key acceptance criteria or general requirements (as an array of strings). If unknown, omit.
-- The official website URL. If unknown, omit.
-- The direct application portal URL. If unknown, omit, or use the official website URL if it's generally the same.
-- The URL for the student handbook, if known. Omit if not found.
-- Ranking information: national rank, global rank, and the source of the ranking (e.g., QS, THE). Omit if not found.
+  return UniversityDetailsOutputSchema.parse({
+    name: formattedName,
+    description:
+      'المعلومات التفصيلية عن هذه الجامعة غير متوفرة حاليًا، لكننا نعمل على تحديث الدليل باستمرار لضمان تجربة موثوقة للطلاب.',
+    availableCourses: [],
+    logoUrl: 'https://placehold.co/100x100?text=UNI',
+    imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80',
+    dataAiHint: 'university campus skyline',
+    acceptanceCriteria: [
+      'التواصل مع مكتب القبول للحصول على متطلبات التقديم المحدثة.',
+      'إعداد المستندات الأكاديمية والشخصية الأساسية.',
+    ],
+    livingCosts: 'USD 320 - 540 شهريًا (تقديري)',
+    officialWebsiteUrl: undefined,
+    applicationLink: undefined,
+    studentHandbookUrl: undefined,
+  });
+}
 
-If specific information (like fees, URLs, or ranking) is not found, please omit those fields rather than guessing excessively.
-Ensure the output is in JSON format matching the provided schema.
-The name field in the output should be the most accurate official name you can find for the university.
-`,
-});
+export async function getUniversityDetailsByName(
+  input: GetUniversityDetailsByNameInput
+): Promise<UniversityDetailsOutput> {
+  const { universityName } = GetUniversityDetailsByNameInputSchema.parse(input);
 
-const getUniversityDetailsByNameFlow = ai.defineFlow(
-  {
-    name: 'getUniversityDetailsByNameFlow',
-    inputSchema: GetUniversityDetailsByNameInputSchema,
-    outputSchema: UniversityDetailsOutputSchema,
-  },
-  async (input: GetUniversityDetailsByNameInput): Promise<UniversityDetailsOutput> => {
-    const {output} = await prompt(input);
-    
-    if (!output || !output.name) { 
-      // If AI fails to return a structured response with at least a name, throw an error.
-      // This will be caught by Promise.allSettled in the calling form,
-      // allowing exclusion of this university if details are not "perfect".
-      console.warn(`AI could not provide structured details for ${input.universityName}. Output:`, output);
-      throw new Error(`AI could not provide sufficient details for ${input.universityName}.`);
-    }
+  const matchedUniversity = universities.find((uni) => {
+    const normalized = (value?: string) => value?.toLowerCase().trim();
+    return (
+      normalized(uni.name) === normalized(universityName) ||
+      normalized(uni.id) === normalized(universityName)
+    );
+  });
 
-    // Ensure the name field in the output uses the AI's provided name if available,
-    // otherwise falls back to the input name. This prioritizes the AI's potentially more accurate/official name.
-    return {
-        ...output, 
-        name: output.name, // output.name is now guaranteed by the check above
-    };
+  if (matchedUniversity) {
+    return mapUniversityToDetails(matchedUniversity);
   }
-);
 
+  return buildPlaceholderDetails(universityName);
+}
