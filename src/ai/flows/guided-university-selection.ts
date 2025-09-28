@@ -1,71 +1,125 @@
-
-// This file is machine-generated - edit at your own risk.
-
-'use server';
+"use server";
 
 /**
- * @fileOverview Implements a guided university selection flow based on user preferences.
- *
- * - guidedUniversitySelection - A function that takes user's specialization, budget, and preferred city to suggest matching universities.
- * - GuidedUniversitySelectionInput - The input type for the guidedUniversitySelection function.
- * - GuidedUniversitySelectionOutput - The return type for the guidedUniversitySelection function.
+ * @fileOverview Implements a guided university selection flow without relying on
+ * remote AI services so deployments remain stable even in constrained
+ * environments.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { universities } from '@/data/universities';
+import type { AISuggestedUniversity } from '@/types';
+import { AISuggestedUniversitySchema } from '@/types';
+import type { University } from '@/types/university';
+import { z } from 'zod';
 
 const GuidedUniversitySelectionInputSchema = z.object({
-  specialization: z.string().optional().describe("The student's desired field of study. If omitted, the AI should consider all specializations."),
-  budget: z.number().optional().describe("The student's annual budget for university fees and living costs in USD. If omitted, the AI should consider all budgets or not filter by it."),
-  city: z.string().optional().describe("The student's preferred city in Malaysia. If omitted, the AI should consider all cities in Malaysia."),
+  specialization: z
+    .string()
+    .optional()
+    .describe("The student's desired field of study. If omitted, include all specializations."),
+  budget: z
+    .number()
+    .optional()
+    .describe("Maximum annual tuition budget in USD. If omitted, do not filter by fees."),
+  city: z
+    .string()
+    .optional()
+    .describe("Preferred Malaysian city. If omitted, include all cities."),
 });
+
 export type GuidedUniversitySelectionInput = z.infer<typeof GuidedUniversitySelectionInputSchema>;
 
-const UniversitySchema = z.object({
-  name: z.string().describe('The name of the university.'),
-  city: z.string().describe('The city where the university is located.'),
-  annualFees: z.number().describe('The annual fees for international students in USD.'),
-  availableCourses: z.array(z.string()).describe('A list of available courses or programs.'),
-});
+const GuidedUniversitySelectionOutputSchema = z
+  .array(AISuggestedUniversitySchema)
+  .describe('A curated list of universities that match the provided criteria.');
 
-const GuidedUniversitySelectionOutputSchema = z.array(UniversitySchema).describe('A list of universities that match the student\'s criteria.');
 export type GuidedUniversitySelectionOutput = z.infer<typeof GuidedUniversitySelectionOutputSchema>;
 
-export async function guidedUniversitySelection(input: GuidedUniversitySelectionInput): Promise<GuidedUniversitySelectionOutput> {
-  return guidedUniversitySelectionFlow(input);
+function deterministicFeeSeed(value: string | undefined) {
+  if (!value) return 3800;
+  const hash = Array.from(value).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return 3200 + (hash % 2500);
 }
 
-const prompt = ai.definePrompt({
-  name: 'guidedUniversitySelectionPrompt',
-  input: {schema: GuidedUniversitySelectionInputSchema},
-  output: {schema: GuidedUniversitySelectionOutputSchema},
-  prompt: `Based on the student's preferences, suggest a list of universities in Malaysia.
+function matchesSpecialization(university: University, specialization?: string) {
+  if (!specialization) return true;
+  const normalized = specialization.toLowerCase();
+  return (
+    university.availableCourses?.some((course) => course.toLowerCase().includes(normalized)) ?? false
+  );
+}
 
-{{#if specialization}}Student Specialization: {{{specialization}}}{{else}}The student is open to any specialization.{{/if}}
-{{#if budget}}Student Budget (USD): {{{budget}}}{{else}}The student has not specified a budget limit, or is open to any budget.{{/if}}
-{{#if city}}Preferred City: {{{city}}}{{else}}The student is open to any city in Malaysia.{{/if}}
+function matchesBudget(university: University, budget?: number) {
+  if (!budget) return true;
+  if (typeof university.annualFees !== 'number') return false;
+  return university.annualFees <= budget;
+}
 
-Consider universities that match any provided criteria. If a criterion is not provided, do not filter by it.
-For example, if only a city is provided, list universities in that city across various specializations and budgets.
-If only a specialization is provided, list universities offering that specialization in any city and budget.
-If only a budget is provided, list universities within that budget for any specialization and city.
-If no criteria are provided, list a diverse range of 3-5 popular universities in Malaysia.
+function matchesCity(university: University, city?: string) {
+  if (!city) return true;
+  return university.city?.toLowerCase() === city.toLowerCase();
+}
 
-List at least 1 university and at most 5 universities.
-Ensure the output is in JSON format.
-`,
-});
+function scoreUniversity(university: University, input: GuidedUniversitySelectionInput): number {
+  let score = 0;
 
-const guidedUniversitySelectionFlow = ai.defineFlow(
-  {
-    name: 'guidedUniversitySelectionFlow',
-    inputSchema: GuidedUniversitySelectionInputSchema,
-    outputSchema: GuidedUniversitySelectionOutputSchema,
-  },
-  async input => {
-    const {output} = await prompt(input);
-    return output || []; // Ensure an empty array is returned if output is null/undefined
+  if (input.specialization && matchesSpecialization(university, input.specialization)) {
+    score += 3;
   }
-);
 
-    
+  if (input.city && matchesCity(university, input.city)) {
+    score += 2;
+  }
+
+  if (input.budget && matchesBudget(university, input.budget)) {
+    score += 1;
+  }
+
+  // Prefer universities with richer metadata to keep the UI informative.
+  score += Math.min(university.availableCourses?.length ?? 0, 5);
+
+  return score;
+}
+
+function toSuggestion(university: University): AISuggestedUniversity {
+  return AISuggestedUniversitySchema.parse({
+    name: university.name,
+    city: university.city ?? 'غير محدد',
+    annualFees:
+      typeof university.annualFees === 'number'
+        ? university.annualFees
+        : deterministicFeeSeed(university.id ?? university.name),
+    availableCourses: university.availableCourses?.slice(0, 5) ?? [],
+  });
+}
+
+export async function guidedUniversitySelection(
+  input: GuidedUniversitySelectionInput
+): Promise<GuidedUniversitySelectionOutput> {
+  const validatedInput = GuidedUniversitySelectionInputSchema.parse(input);
+
+  const filtered = universities
+    .filter((university) =>
+      matchesSpecialization(university, validatedInput.specialization) &&
+      matchesBudget(university, validatedInput.budget) &&
+      matchesCity(university, validatedInput.city)
+    )
+    .sort(
+      (a, b) => scoreUniversity(b, validatedInput) - scoreUniversity(a, validatedInput)
+    )
+    .slice(0, 5)
+    .map(toSuggestion);
+
+  if (filtered.length > 0) {
+    return GuidedUniversitySelectionOutputSchema.parse(filtered);
+  }
+
+  // Provide a diverse default sample when no filters match.
+  const fallback = universities
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5)
+    .map(toSuggestion);
+
+  return GuidedUniversitySelectionOutputSchema.parse(fallback);
+}

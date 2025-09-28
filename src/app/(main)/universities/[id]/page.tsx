@@ -1,13 +1,15 @@
-import { universities } from '@/data/universities';
-import type { University } from '@/types/university';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import type { ElementType } from 'react';
+
+import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { universities } from '@/data/universities';
+import type { University } from '@/types/university';
 import { ArrowLeft, MapPin, BookOpen, DollarSign, ShieldCheck, Info, ExternalLink, Globe, BookCopy, Award } from 'lucide-react';
-import { getUniversityDetailsByName } from '@/ai/flows/get-university-details-flow';
 
 async function getUniversityData(idOrNameFromUrl: string): Promise<University | undefined> {
   let decodedIdOrName: string;
@@ -62,14 +64,19 @@ async function getUniversityData(idOrNameFromUrl: string): Promise<University | 
   }
 }
 
-export default async function UniversityDetailPage({ params }: { params: { id: string } }) {
-  const university = await getUniversityData(params.id);
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function UniversityDetailPage({ params }: PageProps) {
+  const { id } = await params;
+  const university = await getUniversityData(id);
 
   if (!university) {
     notFound();
   }
 
-  const SectionTitle = ({ icon: Icon, title }: { icon: React.ElementType, title: string }) => (
+  const SectionTitle = ({ icon: Icon, title }: { icon: ElementType; title: string }) => (
     <div className="mb-4 flex items-center border-b-2 border-accent pb-2">
       <Icon className="mr-3 h-6 w-6 md:h-7 md:w-7 text-accent rtl:ml-3 rtl:mr-0" />
       <h2 className="font-headline text-xl font-semibold text-primary md:text-2xl">
@@ -95,10 +102,10 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
               <Image
                 src={university.imageUrl}
                 alt={`Campus of ${university.name}`}
-                layout="fill"
-                objectFit="cover"
+                fill
+                className="object-cover"
                 priority
-                data-ai-hint={university.dataAiHint || "university campus"}
+                data-ai-hint={university.dataAiHint || 'university campus'}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
             </div>
@@ -110,8 +117,8 @@ export default async function UniversityDetailPage({ params }: { params: { id: s
                     <Image
                         src={university.logoUrl}
                         alt={`${university.name} logo`}
-                        layout="fill"
-                        objectFit="contain"
+                        fill
+                        className="object-contain"
                         data-ai-hint="university logo"
                     />
                     </div>
