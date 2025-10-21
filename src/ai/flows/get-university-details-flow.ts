@@ -36,6 +36,55 @@ function mapUniversityToDetails(university: University): UniversityDetailsOutput
   });
 }
 
+function normalizeForMatching(value?: string) {
+  if (!value) {
+    return undefined;
+  }
+
+  return value
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/&/g, 'and')
+    .replace(/[’'`]/g, '')
+    .replace(/[^a-z0-9\u0600-\u06FF]+/gu, ' ')
+    .trim();
+}
+
+function buildUniversityNameVariants(university: University): string[] {
+  const variants = new Set<string>();
+  const push = (value?: string | string[]) => {
+    if (!value) {
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((entry) => push(entry));
+      return;
+    }
+
+    const normalized = normalizeForMatching(value);
+    if (normalized) {
+      variants.add(normalized);
+    }
+  };
+
+  push(university.id);
+  push(university.name);
+  push(university.englishName);
+  push(university.slug);
+  push(university.aliases);
+
+  const parentheticalMatches = university.name.match(/\(([^)]+)\)/g);
+  if (parentheticalMatches) {
+    parentheticalMatches.forEach((match) => push(match.slice(1, -1)));
+  }
+
+  push(university.name.replace(/\([^)]*\)/g, ' '));
+
+  return Array.from(variants);
+}
+
 function buildPlaceholderDetails(universityName: string): UniversityDetailsOutput {
   const formattedName = universityName.trim();
 
@@ -63,11 +112,26 @@ export async function getUniversityDetailsByName(
 ): Promise<UniversityDetailsOutput> {
   const { universityName } = GetUniversityDetailsByNameInputSchema.parse(input);
 
+  const normalizedQuery = normalizeForMatching(universityName);
+
   const matchedUniversity = universities.find((uni) => {
-    const normalized = (value?: string) => value?.toLowerCase().trim();
-    return (
-      normalized(uni.name) === normalized(universityName) ||
-      normalized(uni.id) === normalized(universityName)
+    const variants = buildUniversityNameVariants(uni);
+
+    if (!normalizedQuery) {
+      return false;
+    }
+
+    if (variants.some((value) => value === normalizedQuery)) {
+      return true;
+    }
+
+    if (normalizedQuery.length < 3) {
+      return false;
+    }
+
+    return variants.some(
+      (value) =>
+        value.length >= 3 && (value.includes(normalizedQuery) || normalizedQuery.includes(value))
     );
   });
 

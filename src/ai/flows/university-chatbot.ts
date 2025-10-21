@@ -35,7 +35,7 @@ function normalise(text: string) {
 function formatUniversityAnswer(question: string) {
   const normalizedQuestion = normalise(question);
   const matchedUniversity = universities.find((uni) =>
-    [uni.name, uni.id, uni.city]
+    [uni.name, uni.id, uni.city, uni.englishName, uni.slug, ...(uni.aliases ?? [])]
       .filter(Boolean)
       .map((value) => normalise(String(value)))
       .some((candidate) => candidate.length > 0 && normalizedQuestion.includes(candidate))

@@ -8,6 +8,9 @@ export type University = {
   logoUrl?: string;
   imageUrl: string;
   dataAiHint?: string;
+  slug?: string;
+  englishName?: string;
+  aliases?: string[];
   livingCosts?: string;
   acceptanceCriteria?: string[];
   officialWebsiteUrl?: string;
