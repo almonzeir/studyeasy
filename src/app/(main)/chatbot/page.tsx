@@ -1,3 +1,5 @@
+"use client";
+
 import { BotMessageSquare } from "lucide-react";
 
 import { useLanguage } from "@/components/layout/LanguageProvider";
