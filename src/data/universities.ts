@@ -1,0 +1,1662 @@
+import type { University } from "@/types/university";
+
+/**
+ * Malaysian university dataset sourced from universities_malaysia.json.
+ * Generated automatically to keep StudyEasy listings comprehensive.
+ */
+export const universities: University[] = [
+  {
+    "id": "uni-001",
+    "name": "Universiti Malaya (UM)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaya is a public institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaya",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaya",
+    "officialWebsiteUrl": "https://www.um.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaya (UM)",
+        "city": "Kuala Lumpur",
+        "description": "Universiti Malaya ?? ????? ?????? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaya",
+    "aliases": [
+      "UM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-002",
+    "name": "Universiti Sains Malaysia (USM)",
+    "city": "George Town, Penang",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Sains Malaysia is a public institution located in George Town, Penang. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-sains-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Sains%20Malaysia",
+    "officialWebsiteUrl": "https://www.usm.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Sains Malaysia (USM)",
+        "city": "George Town, Penang",
+        "description": "Universiti Sains Malaysia ?? ????? ?????? ??? ?? George Town, Penang. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Sains Malaysia",
+    "aliases": [
+      "USM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-003",
+    "name": "Universiti Kebangsaan Malaysia (UKM)",
+    "city": "Bangi, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Kebangsaan Malaysia is a public institution located in Bangi, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-kebangsaan-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Kebangsaan%20Malaysia",
+    "officialWebsiteUrl": "https://www.ukm.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Kebangsaan Malaysia (UKM)",
+        "city": "Bangi, Selangor",
+        "description": "Universiti Kebangsaan Malaysia ?? ????? ?????? ??? ?? Bangi, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Kebangsaan Malaysia",
+    "aliases": [
+      "UKM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-004",
+    "name": "Universiti Putra Malaysia (UPM)",
+    "city": "Serdang, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Putra Malaysia is a public institution located in Serdang, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-putra-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Putra%20Malaysia",
+    "officialWebsiteUrl": "https://www.upm.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Putra Malaysia (UPM)",
+        "city": "Serdang, Selangor",
+        "description": "Universiti Putra Malaysia ?? ????? ?????? ??? ?? Serdang, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Putra Malaysia",
+    "aliases": [
+      "UPM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-005",
+    "name": "Universiti Teknologi Malaysia (UTM)",
+    "city": "Skudai, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Teknologi Malaysia is a public institution located in Skudai, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-teknologi-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Teknologi%20Malaysia",
+    "officialWebsiteUrl": "https://www.utm.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Teknologi Malaysia (UTM)",
+        "city": "Skudai, Johor",
+        "description": "Universiti Teknologi Malaysia ?? ????? ?????? ??? ?? Skudai, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Teknologi Malaysia",
+    "aliases": [
+      "UTM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-006",
+    "name": "Universiti Islam Antarabangsa Malaysia (IIUM)",
+    "city": "Gombak, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Islam Antarabangsa Malaysia is a public institution located in Gombak, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-islam-antarabangsa-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Islam%20Antarabangsa%20Malaysia",
+    "officialWebsiteUrl": "https://www.iium.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Islam Antarabangsa Malaysia (IIUM)",
+        "city": "Gombak, Selangor",
+        "description": "Universiti Islam Antarabangsa Malaysia ?? ????? ?????? ??? ?? Gombak, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Islam Antarabangsa Malaysia",
+    "aliases": [
+      "IIUM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-007",
+    "name": "Universiti Utara Malaysia (UUM)",
+    "city": "Sintok, Kedah",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Utara Malaysia is a public institution located in Sintok, Kedah. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-utara-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Utara%20Malaysia",
+    "officialWebsiteUrl": "https://www.uum.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Utara Malaysia (UUM)",
+        "city": "Sintok, Kedah",
+        "description": "Universiti Utara Malaysia ?? ????? ?????? ??? ?? Sintok, Kedah. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Utara Malaysia",
+    "aliases": [
+      "UUM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-008",
+    "name": "Universiti Malaysia Sarawak (UNIMAS)",
+    "city": "Kota Samarahan, Sarawak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Sarawak is a public institution located in Kota Samarahan, Sarawak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-sarawak",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Sarawak",
+    "officialWebsiteUrl": "https://www.unimas.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Sarawak (UNIMAS)",
+        "city": "Kota Samarahan, Sarawak",
+        "description": "Universiti Malaysia Sarawak ?? ????? ?????? ??? ?? Kota Samarahan, Sarawak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Sarawak",
+    "aliases": [
+      "UNIMAS"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-009",
+    "name": "Universiti Malaysia Sabah (UMS)",
+    "city": "Kota Kinabalu, Sabah",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Sabah is a public institution located in Kota Kinabalu, Sabah. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-sabah",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Sabah",
+    "officialWebsiteUrl": "https://www.ums.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Sabah (UMS)",
+        "city": "Kota Kinabalu, Sabah",
+        "description": "Universiti Malaysia Sabah ?? ????? ?????? ??? ?? Kota Kinabalu, Sabah. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Sabah",
+    "aliases": [
+      "UMS"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-010",
+    "name": "Universiti Pendidikan Sultan Idris (UPSI)",
+    "city": "Tanjong Malim, Perak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Pendidikan Sultan Idris is a public institution located in Tanjong Malim, Perak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-pendidikan-sultan-idris",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Pendidikan%20Sultan%20Idris",
+    "officialWebsiteUrl": "https://www.upsi.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Pendidikan Sultan Idris (UPSI)",
+        "city": "Tanjong Malim, Perak",
+        "description": "Universiti Pendidikan Sultan Idris ?? ????? ?????? ??? ?? Tanjong Malim, Perak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Pendidikan Sultan Idris",
+    "aliases": [
+      "UPSI"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-011",
+    "name": "Universiti Teknologi MARA (UiTM)",
+    "city": "Shah Alam, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Teknologi MARA is a public institution located in Shah Alam, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-teknologi-mara",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Teknologi%20MARA",
+    "officialWebsiteUrl": "https://www.uitm.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Teknologi MARA (UiTM)",
+        "city": "Shah Alam, Selangor",
+        "description": "Universiti Teknologi MARA ?? ????? ?????? ??? ?? Shah Alam, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Teknologi MARA",
+    "aliases": [
+      "UiTM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-012",
+    "name": "Universiti Tun Hussein Onn Malaysia (UTHM)",
+    "city": "Batu Pahat, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Tun Hussein Onn Malaysia is a public institution located in Batu Pahat, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-tun-hussein-onn-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Tun%20Hussein%20Onn%20Malaysia",
+    "officialWebsiteUrl": "https://www.uthm.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Tun Hussein Onn Malaysia (UTHM)",
+        "city": "Batu Pahat, Johor",
+        "description": "Universiti Tun Hussein Onn Malaysia ?? ????? ?????? ??? ?? Batu Pahat, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Tun Hussein Onn Malaysia",
+    "aliases": [
+      "UTHM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-013",
+    "name": "Universiti Teknikal Malaysia Melaka (UTeM)",
+    "city": "Durian Tunggal, Melaka",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Teknikal Malaysia Melaka is a public institution located in Durian Tunggal, Melaka. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-teknikal-malaysia-melaka",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Teknikal%20Malaysia%20Melaka",
+    "officialWebsiteUrl": "https://www.utem.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Teknikal Malaysia Melaka (UTeM)",
+        "city": "Durian Tunggal, Melaka",
+        "description": "Universiti Teknikal Malaysia Melaka ?? ????? ?????? ??? ?? Durian Tunggal, Melaka. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Teknikal Malaysia Melaka",
+    "aliases": [
+      "UTeM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-014",
+    "name": "Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)",
+    "city": "Pekan, Pahang",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Pahang Al-Sultan Abdullah is a public institution located in Pekan, Pahang. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-pahang-al-sultan-abdullah",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Pahang%20Al-Sultan%20Abdullah",
+    "officialWebsiteUrl": "https://www.umpsa.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Pahang Al-Sultan Abdullah (UMPSA)",
+        "city": "Pekan, Pahang",
+        "description": "Universiti Malaysia Pahang Al-Sultan Abdullah ?? ????? ?????? ??? ?? Pekan, Pahang. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Pahang Al-Sultan Abdullah",
+    "aliases": [
+      "UMPSA"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-015",
+    "name": "Universiti Sains Islam Malaysia (USIM)",
+    "city": "Nilai, Negeri Sembilan",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Sains Islam Malaysia is a public institution located in Nilai, Negeri Sembilan. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-sains-islam-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Sains%20Islam%20Malaysia",
+    "officialWebsiteUrl": "https://www.usim.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Sains Islam Malaysia (USIM)",
+        "city": "Nilai, Negeri Sembilan",
+        "description": "Universiti Sains Islam Malaysia ?? ????? ?????? ??? ?? Nilai, Negeri Sembilan. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Sains Islam Malaysia",
+    "aliases": [
+      "USIM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-016",
+    "name": "Universiti Malaysia Perlis (UniMAP)",
+    "city": "Arau, Perlis",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Perlis is a public institution located in Arau, Perlis. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-perlis",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Perlis",
+    "officialWebsiteUrl": "https://www.unimap.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Perlis (UniMAP)",
+        "city": "Arau, Perlis",
+        "description": "Universiti Malaysia Perlis ?? ????? ?????? ??? ?? Arau, Perlis. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Perlis",
+    "aliases": [
+      "UniMAP"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-017",
+    "name": "Universiti Malaysia Terengganu (UMT)",
+    "city": "Kuala Nerus, Terengganu",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Terengganu is a public institution located in Kuala Nerus, Terengganu. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-terengganu",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Terengganu",
+    "officialWebsiteUrl": "https://www.umt.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Terengganu (UMT)",
+        "city": "Kuala Nerus, Terengganu",
+        "description": "Universiti Malaysia Terengganu ?? ????? ?????? ??? ?? Kuala Nerus, Terengganu. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Terengganu",
+    "aliases": [
+      "UMT"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-018",
+    "name": "Universiti Pertahanan Nasional Malaysia (UPNM)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Pertahanan Nasional Malaysia is a public institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-pertahanan-nasional-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Pertahanan%20Nasional%20Malaysia",
+    "officialWebsiteUrl": "https://www.upnm.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Pertahanan Nasional Malaysia (UPNM)",
+        "city": "Kuala Lumpur",
+        "description": "Universiti Pertahanan Nasional Malaysia ?? ????? ?????? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Pertahanan Nasional Malaysia",
+    "aliases": [
+      "UPNM"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-019",
+    "name": "Universiti Sultan Zainal Abidin (UniSZA)",
+    "city": "Kuala Terengganu, Terengganu",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Sultan Zainal Abidin is a public institution located in Kuala Terengganu, Terengganu. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-sultan-zainal-abidin",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Sultan%20Zainal%20Abidin",
+    "officialWebsiteUrl": "https://www.unisza.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Sultan Zainal Abidin (UniSZA)",
+        "city": "Kuala Terengganu, Terengganu",
+        "description": "Universiti Sultan Zainal Abidin ?? ????? ?????? ??? ?? Kuala Terengganu, Terengganu. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Sultan Zainal Abidin",
+    "aliases": [
+      "UniSZA"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-020",
+    "name": "Universiti Malaysia Kelantan (UMK)",
+    "city": "Kelantan (Bachok/Jeli/Kota Bharu)",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Malaysia Kelantan is a public institution located in Kelantan (Bachok/Jeli/Kota Bharu). Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-malaysia-kelantan",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Malaysia%20Kelantan",
+    "officialWebsiteUrl": "https://www.umk.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Malaysia Kelantan (UMK)",
+        "city": "Kelantan (Bachok/Jeli/Kota Bharu)",
+        "description": "Universiti Malaysia Kelantan ?? ????? ?????? ??? ?? Kelantan (Bachok/Jeli/Kota Bharu). ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Malaysia Kelantan",
+    "aliases": [
+      "UMK"
+    ],
+    "dataAiHint": "Public university"
+  },
+  {
+    "id": "uni-021",
+    "name": "Universiti Tunku Abdul Rahman (UTAR)",
+    "city": "Kampar & Sungai Long",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Tunku Abdul Rahman is a private institution located in Kampar & Sungai Long. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-tunku-abdul-rahman",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Tunku%20Abdul%20Rahman",
+    "officialWebsiteUrl": "https://www.utar.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Tunku Abdul Rahman (UTAR)",
+        "city": "Kampar & Sungai Long",
+        "description": "Universiti Tunku Abdul Rahman ?? ????? ???? ??? ?? Kampar & Sungai Long. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Tunku Abdul Rahman",
+    "aliases": [
+      "UTAR"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-022",
+    "name": "Universiti Tun Abdul Razak (UNIRAZAK)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Tun Abdul Razak is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-tun-abdul-razak",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Tun%20Abdul%20Razak",
+    "officialWebsiteUrl": "https://www.unirazak.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Tun Abdul Razak (UNIRAZAK)",
+        "city": "Kuala Lumpur",
+        "description": "Universiti Tun Abdul Razak ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Tun Abdul Razak",
+    "aliases": [
+      "UNIRAZAK"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-023",
+    "name": "Universiti Tenaga Nasional (UNITEN)",
+    "city": "Putrajaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Tenaga Nasional is a private institution located in Putrajaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-tenaga-nasional",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Tenaga%20Nasional",
+    "officialWebsiteUrl": "https://www.uniten.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Tenaga Nasional (UNITEN)",
+        "city": "Putrajaya",
+        "description": "Universiti Tenaga Nasional ?? ????? ???? ??? ?? Putrajaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Tenaga Nasional",
+    "aliases": [
+      "UNITEN"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-024",
+    "name": "Universiti Teknologi PETRONAS (UTP)",
+    "city": "Seri Iskandar, Perak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Teknologi PETRONAS is a private institution located in Seri Iskandar, Perak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-teknologi-petronas",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Teknologi%20PETRONAS",
+    "officialWebsiteUrl": "https://www.utp.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Teknologi PETRONAS (UTP)",
+        "city": "Seri Iskandar, Perak",
+        "description": "Universiti Teknologi PETRONAS ?? ????? ???? ??? ?? Seri Iskandar, Perak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Teknologi PETRONAS",
+    "aliases": [
+      "UTP"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-025",
+    "name": "Universiti Kuala Lumpur (UniKL)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Kuala Lumpur is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-kuala-lumpur",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Kuala%20Lumpur",
+    "officialWebsiteUrl": "https://www.unikl.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Kuala Lumpur (UniKL)",
+        "city": "Kuala Lumpur",
+        "description": "Universiti Kuala Lumpur ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Kuala Lumpur",
+    "aliases": [
+      "UniKL"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-026",
+    "name": "Universiti Selangor (UNISEL)",
+    "city": "Bestari Jaya & Shah Alam",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Selangor is a private (state) institution located in Bestari Jaya & Shah Alam. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-selangor",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Selangor",
+    "officialWebsiteUrl": "https://www.unisel.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Selangor (UNISEL)",
+        "city": "Bestari Jaya & Shah Alam",
+        "description": "Universiti Selangor ?? ????? ???? (?????? ?? ???????) ??? ?? Bestari Jaya & Shah Alam. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Selangor",
+    "aliases": [
+      "UNISEL"
+    ],
+    "dataAiHint": "Private (State) university"
+  },
+  {
+    "id": "uni-027",
+    "name": "Universiti Islam Malaysia (UIM)",
+    "city": "Cyberjaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Islam Malaysia is a private institution located in Cyberjaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-islam-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Islam%20Malaysia",
+    "officialWebsiteUrl": "https://www.uim.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Islam Malaysia (UIM)",
+        "city": "Cyberjaya",
+        "description": "Universiti Islam Malaysia ?? ????? ???? ??? ?? Cyberjaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Islam Malaysia",
+    "aliases": [
+      "UIM"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-028",
+    "name": "Universiti Sultan Azlan Shah (USAS)",
+    "city": "Kuala Kangsar, Perak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Sultan Azlan Shah is a private (state) institution located in Kuala Kangsar, Perak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-sultan-azlan-shah",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Sultan%20Azlan%20Shah",
+    "officialWebsiteUrl": "https://www.usas.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Sultan Azlan Shah (USAS)",
+        "city": "Kuala Kangsar, Perak",
+        "description": "Universiti Sultan Azlan Shah ?? ????? ???? (?????? ?? ???????) ??? ?? Kuala Kangsar, Perak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Sultan Azlan Shah",
+    "aliases": [
+      "USAS"
+    ],
+    "dataAiHint": "Private (State) university"
+  },
+  {
+    "id": "uni-029",
+    "name": "Universiti Poly-Tech Malaysia (UPTM)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Poly-Tech Malaysia is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-poly-tech-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Poly-Tech%20Malaysia",
+    "officialWebsiteUrl": "https://www.uptm.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Poly-Tech Malaysia (UPTM)",
+        "city": "Kuala Lumpur",
+        "description": "Universiti Poly-Tech Malaysia ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Poly-Tech Malaysia",
+    "aliases": [
+      "UPTM"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-030",
+    "name": "University of Technology Sarawak (UTS)",
+    "city": "Sibu, Sarawak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Technology Sarawak is a private (state) institution located in Sibu, Sarawak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-technology-sarawak",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Technology%20Sarawak",
+    "officialWebsiteUrl": "https://www.uts.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "University of Technology Sarawak (UTS)",
+        "city": "Sibu, Sarawak",
+        "description": "University of Technology Sarawak ?? ????? ???? (?????? ?? ???????) ??? ?? Sibu, Sarawak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "University of Technology Sarawak",
+    "aliases": [
+      "UTS"
+    ],
+    "dataAiHint": "Private (State) university"
+  },
+  {
+    "id": "uni-031",
+    "name": "AIMST University",
+    "city": "Bedong, Kedah",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "AIMST University is a private institution located in Bedong, Kedah. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "aimst-university",
+    "imageUrl": "https://placehold.co/1200x900?text=AIMST%20University",
+    "officialWebsiteUrl": "https://www.aimst.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "AIMST University",
+        "city": "Bedong, Kedah",
+        "description": "AIMST University ?? ????? ???? ??? ?? Bedong, Kedah. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-032",
+    "name": "Asia e University (AeU)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Asia e University is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "asia-e-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Asia%20e%20University",
+    "officialWebsiteUrl": "https://aeu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Asia e University (AeU)",
+        "city": "Kuala Lumpur",
+        "description": "Asia e University ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Asia e University",
+    "aliases": [
+      "AeU"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-033",
+    "name": "Asia Pacific University of Technology & Innovation (APU)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Asia Pacific University of Technology & Innovation is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "asia-pacific-university-of-technology-innovation",
+    "imageUrl": "https://placehold.co/1200x900?text=Asia%20Pacific%20University%20of%20Technology%20%26%20Innovation",
+    "officialWebsiteUrl": "https://www.apu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Asia Pacific University of Technology & Innovation (APU)",
+        "city": "Kuala Lumpur",
+        "description": "Asia Pacific University of Technology & Innovation ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Asia Pacific University of Technology & Innovation",
+    "aliases": [
+      "APU"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-034",
+    "name": "City University Malaysia",
+    "city": "Petaling Jaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "City University Malaysia is a private institution located in Petaling Jaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "city-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=City%20University%20Malaysia",
+    "officialWebsiteUrl": "https://city.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "City University Malaysia",
+        "city": "Petaling Jaya",
+        "description": "City University Malaysia ?? ????? ???? ??? ?? Petaling Jaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-035",
+    "name": "DRB-HICOM University of Automotive Malaysia",
+    "city": "Pekan, Pahang",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "DRB-HICOM University of Automotive Malaysia is a private institution located in Pekan, Pahang. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "drb-hicom-university-of-automotive-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=DRB-HICOM%20University%20of%20Automotive%20Malaysia",
+    "officialWebsiteUrl": "https://www.drb-hicom.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "DRB-HICOM University of Automotive Malaysia",
+        "city": "Pekan, Pahang",
+        "description": "DRB-HICOM University of Automotive Malaysia ?? ????? ???? ??? ?? Pekan, Pahang. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-036",
+    "name": "GlobalNxt University",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "GlobalNxt University is a private (online) institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "globalnxt-university",
+    "imageUrl": "https://placehold.co/1200x900?text=GlobalNxt%20University",
+    "officialWebsiteUrl": "https://www.globalnxt.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "GlobalNxt University",
+        "city": "Kuala Lumpur",
+        "description": "GlobalNxt University ?? ????? ???? (??? ????????) ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private (Online) university"
+  },
+  {
+    "id": "uni-037",
+    "name": "HELP University",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "HELP University is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "help-university",
+    "imageUrl": "https://placehold.co/1200x900?text=HELP%20University",
+    "officialWebsiteUrl": "https://university.help.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "HELP University",
+        "city": "Kuala Lumpur",
+        "description": "HELP University ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-038",
+    "name": "International Medical University (IMU)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "International Medical University is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "international-medical-university",
+    "imageUrl": "https://placehold.co/1200x900?text=International%20Medical%20University",
+    "officialWebsiteUrl": "https://www.imu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "International Medical University (IMU)",
+        "city": "Kuala Lumpur",
+        "description": "International Medical University ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "International Medical University",
+    "aliases": [
+      "IMU"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-039",
+    "name": "Limkokwing University of Creative Technology",
+    "city": "Cyberjaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Limkokwing University of Creative Technology is a private institution located in Cyberjaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "limkokwing-university-of-creative-technology",
+    "imageUrl": "https://placehold.co/1200x900?text=Limkokwing%20University%20of%20Creative%20Technology",
+    "officialWebsiteUrl": "https://www.limkokwing.net/",
+    "translations": {
+      "ar": {
+        "name": "Limkokwing University of Creative Technology",
+        "city": "Cyberjaya",
+        "description": "Limkokwing University of Creative Technology ?? ????? ???? ??? ?? Cyberjaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-040",
+    "name": "Management & Science University (MSU)",
+    "city": "Shah Alam, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Management & Science University is a private institution located in Shah Alam, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "management-science-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Management%20%26%20Science%20University",
+    "officialWebsiteUrl": "https://www.msu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Management & Science University (MSU)",
+        "city": "Shah Alam, Selangor",
+        "description": "Management & Science University ?? ????? ???? ??? ?? Shah Alam, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Management & Science University",
+    "aliases": [
+      "MSU"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-041",
+    "name": "Malaysia University of Science & Technology (MUST)",
+    "city": "Petaling Jaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Malaysia University of Science & Technology is a private institution located in Petaling Jaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "malaysia-university-of-science-technology",
+    "imageUrl": "https://placehold.co/1200x900?text=Malaysia%20University%20of%20Science%20%26%20Technology",
+    "officialWebsiteUrl": "https://www.must.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Malaysia University of Science & Technology (MUST)",
+        "city": "Petaling Jaya",
+        "description": "Malaysia University of Science & Technology ?? ????? ???? ??? ?? Petaling Jaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Malaysia University of Science & Technology",
+    "aliases": [
+      "MUST"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-042",
+    "name": "MILA University",
+    "city": "Malaysia",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "MILA University is a private institution located in Malaysia. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "mila-university",
+    "imageUrl": "https://placehold.co/1200x900?text=MILA%20University",
+    "officialWebsiteUrl": "https://mila.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "MILA University",
+        "city": "Malaysia",
+        "description": "MILA University ?? ????? ???? ??? ?? Malaysia. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-043",
+    "name": "MISI University (Malaysia Institute for Supply Chain Innovation)",
+    "city": "Shah Alam, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "MISI University is a private institution located in Shah Alam, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "misi-university",
+    "imageUrl": "https://placehold.co/1200x900?text=MISI%20University",
+    "officialWebsiteUrl": "https://www.misi.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "MISI University (Malaysia Institute for Supply Chain Innovation)",
+        "city": "Shah Alam, Selangor",
+        "description": "MISI University ?? ????? ???? ??? ?? Shah Alam, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "MISI University",
+    "aliases": [
+      "Malaysia Institute for Supply Chain Innovation"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-044",
+    "name": "Multimedia University (MMU)",
+    "city": "Cyberjaya & Melaka",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Multimedia University is a private institution located in Cyberjaya & Melaka. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "multimedia-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Multimedia%20University",
+    "officialWebsiteUrl": "https://www.mmu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Multimedia University (MMU)",
+        "city": "Cyberjaya & Melaka",
+        "description": "Multimedia University ?? ????? ???? ??? ?? Cyberjaya & Melaka. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Multimedia University",
+    "aliases": [
+      "MMU"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-045",
+    "name": "Nilai University",
+    "city": "Nilai, Negeri Sembilan",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Nilai University is a private institution located in Nilai, Negeri Sembilan. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "nilai-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Nilai%20University",
+    "officialWebsiteUrl": "https://www.nilai.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Nilai University",
+        "city": "Nilai, Negeri Sembilan",
+        "description": "Nilai University ?? ????? ???? ??? ?? Nilai, Negeri Sembilan. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-046",
+    "name": "Open University Malaysia (OUM)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Open University Malaysia is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "open-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Open%20University%20Malaysia",
+    "officialWebsiteUrl": "https://www.oum.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Open University Malaysia (OUM)",
+        "city": "Kuala Lumpur",
+        "description": "Open University Malaysia ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Open University Malaysia",
+    "aliases": [
+      "OUM"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-047",
+    "name": "Perdana University",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Perdana University is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "perdana-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Perdana%20University",
+    "officialWebsiteUrl": "https://www.perdanauniversity.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Perdana University",
+        "city": "Kuala Lumpur",
+        "description": "Perdana University ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-048",
+    "name": "Raffles University",
+    "city": "Iskandar Puteri, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Raffles University is a private institution located in Iskandar Puteri, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "raffles-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Raffles%20University",
+    "officialWebsiteUrl": "https://www.raffles-university.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Raffles University",
+        "city": "Iskandar Puteri, Johor",
+        "description": "Raffles University ?? ????? ???? ??? ?? Iskandar Puteri, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-049",
+    "name": "SEGi University",
+    "city": "Kota Damansara (multiple campuses)",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "SEGi University is a private institution located in Kota Damansara (multiple campuses). Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "segi-university",
+    "imageUrl": "https://placehold.co/1200x900?text=SEGi%20University",
+    "officialWebsiteUrl": "https://www.segi.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "SEGi University",
+        "city": "Kota Damansara (multiple campuses)",
+        "description": "SEGi University ?? ????? ???? ??? ?? Kota Damansara (multiple campuses). ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-050",
+    "name": "Sunway University",
+    "city": "Subang Jaya, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Sunway University is a private institution located in Subang Jaya, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "sunway-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Sunway%20University",
+    "officialWebsiteUrl": "https://sunway.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Sunway University",
+        "city": "Subang Jaya, Selangor",
+        "description": "Sunway University ?? ????? ???? ??? ?? Subang Jaya, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-051",
+    "name": "Taylor's University",
+    "city": "Subang Jaya, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Taylor's University is a private institution located in Subang Jaya, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "taylor-s-university",
+    "imageUrl": "https://placehold.co/1200x900?text=Taylor's%20University",
+    "officialWebsiteUrl": "https://university.taylors.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Taylor's University",
+        "city": "Subang Jaya, Selangor",
+        "description": "Taylor's University ?? ????? ???? ??? ?? Subang Jaya, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-052",
+    "name": "Tunku Abdul Rahman University of Management and Technology (TAR UMT)",
+    "city": "Kuala Lumpur (multi-campus)",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Tunku Abdul Rahman University of Management and Technology is a private institution located in Kuala Lumpur (multi-campus). Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "tunku-abdul-rahman-university-of-management-and-technology",
+    "imageUrl": "https://placehold.co/1200x900?text=Tunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology",
+    "officialWebsiteUrl": "https://www.tarc.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Tunku Abdul Rahman University of Management and Technology (TAR UMT)",
+        "city": "Kuala Lumpur (multi-campus)",
+        "description": "Tunku Abdul Rahman University of Management and Technology ?? ????? ???? ??? ?? Kuala Lumpur (multi-campus). ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Tunku Abdul Rahman University of Management and Technology",
+    "aliases": [
+      "TAR UMT"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-053",
+    "name": "UCSI University",
+    "city": "Kuala Lumpur (multi-campus)",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "UCSI University is a private institution located in Kuala Lumpur (multi-campus). Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "ucsi-university",
+    "imageUrl": "https://placehold.co/1200x900?text=UCSI%20University",
+    "officialWebsiteUrl": "https://www.ucsiuniversity.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "UCSI University",
+        "city": "Kuala Lumpur (multi-campus)",
+        "description": "UCSI University ?? ????? ???? ??? ?? Kuala Lumpur (multi-campus). ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-054",
+    "name": "University of Cyberjaya",
+    "city": "Cyberjaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Cyberjaya is a private institution located in Cyberjaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-cyberjaya",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Cyberjaya",
+    "officialWebsiteUrl": "https://cyberjaya.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "University of Cyberjaya",
+        "city": "Cyberjaya",
+        "description": "University of Cyberjaya ?? ????? ???? ??? ?? Cyberjaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-055",
+    "name": "International University of Malaya-Wales (IUMW)",
+    "city": "Kuala Lumpur",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "International University of Malaya-Wales is a private institution located in Kuala Lumpur. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "international-university-of-malaya-wales",
+    "imageUrl": "https://placehold.co/1200x900?text=International%20University%20of%20Malaya-Wales",
+    "officialWebsiteUrl": "https://iumw.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "International University of Malaya-Wales (IUMW)",
+        "city": "Kuala Lumpur",
+        "description": "International University of Malaya-Wales ?? ????? ???? ??? ?? Kuala Lumpur. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "International University of Malaya-Wales",
+    "aliases": [
+      "IUMW"
+    ],
+    "dataAiHint": "Private university"
+  },
+  {
+    "id": "uni-056",
+    "name": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah (UniSHAMS)",
+    "city": "Kuala Ketil, Kedah",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah is a private (state) institution located in Kuala Ketil, Kedah. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "universiti-islam-antarabangsa-sultan-abdul-halim-mu-adzam-shah",
+    "imageUrl": "https://placehold.co/1200x900?text=Universiti%20Islam%20Antarabangsa%20Sultan%20Abdul%20Halim%20Mu'adzam%20Shah",
+    "officialWebsiteUrl": "https://www.unishams.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah (UniSHAMS)",
+        "city": "Kuala Ketil, Kedah",
+        "description": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah ?? ????? ???? (?????? ?? ???????) ??? ?? Kuala Ketil, Kedah. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah",
+    "aliases": [
+      "UniSHAMS"
+    ],
+    "dataAiHint": "Private (State) university"
+  },
+  {
+    "id": "uni-057",
+    "name": "Curtin University Malaysia",
+    "city": "Miri, Sarawak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Curtin University Malaysia is a foreign branch institution located in Miri, Sarawak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "curtin-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Curtin%20University%20Malaysia",
+    "officialWebsiteUrl": "https://www.curtin.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Curtin University Malaysia",
+        "city": "Miri, Sarawak",
+        "description": "Curtin University Malaysia ?? ????? ??? ????? ???? ??? ?? Miri, Sarawak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-058",
+    "name": "Heriot-Watt University Malaysia",
+    "city": "Putrajaya",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Heriot-Watt University Malaysia is a foreign branch institution located in Putrajaya. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "heriot-watt-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Heriot-Watt%20University%20Malaysia",
+    "officialWebsiteUrl": "https://www.hw.ac.uk/malaysia/",
+    "translations": {
+      "ar": {
+        "name": "Heriot-Watt University Malaysia",
+        "city": "Putrajaya",
+        "description": "Heriot-Watt University Malaysia ?? ????? ??? ????? ???? ??? ?? Putrajaya. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-059",
+    "name": "Monash University Malaysia",
+    "city": "Subang Jaya, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Monash University Malaysia is a foreign branch institution located in Subang Jaya, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "monash-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Monash%20University%20Malaysia",
+    "officialWebsiteUrl": "https://www.monash.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Monash University Malaysia",
+        "city": "Subang Jaya, Selangor",
+        "description": "Monash University Malaysia ?? ????? ??? ????? ???? ??? ?? Subang Jaya, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-060",
+    "name": "Newcastle University Medicine Malaysia (NUMed)",
+    "city": "Iskandar Puteri, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Newcastle University Medicine Malaysia is a foreign branch institution located in Iskandar Puteri, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "newcastle-university-medicine-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Newcastle%20University%20Medicine%20Malaysia",
+    "officialWebsiteUrl": "https://www.ncl.ac.uk/numed/",
+    "translations": {
+      "ar": {
+        "name": "Newcastle University Medicine Malaysia (NUMed)",
+        "city": "Iskandar Puteri, Johor",
+        "description": "Newcastle University Medicine Malaysia ?? ????? ??? ????? ???? ??? ?? Iskandar Puteri, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Newcastle University Medicine Malaysia",
+    "aliases": [
+      "NUMed"
+    ],
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-061",
+    "name": "RCSI & UCD Malaysia Campus (RUMC)",
+    "city": "George Town, Penang",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "RCSI & UCD Malaysia Campus is a foreign branch institution located in George Town, Penang. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "rcsi-ucd-malaysia-campus",
+    "imageUrl": "https://placehold.co/1200x900?text=RCSI%20%26%20UCD%20Malaysia%20Campus",
+    "officialWebsiteUrl": "https://www.rumc.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "RCSI & UCD Malaysia Campus (RUMC)",
+        "city": "George Town, Penang",
+        "description": "RCSI & UCD Malaysia Campus ?? ????? ??? ????? ???? ??? ?? George Town, Penang. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "RCSI & UCD Malaysia Campus",
+    "aliases": [
+      "RUMC"
+    ],
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-062",
+    "name": "Swinburne University of Technology Sarawak",
+    "city": "Kuching, Sarawak",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Swinburne University of Technology Sarawak is a foreign branch institution located in Kuching, Sarawak. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "swinburne-university-of-technology-sarawak",
+    "imageUrl": "https://placehold.co/1200x900?text=Swinburne%20University%20of%20Technology%20Sarawak",
+    "officialWebsiteUrl": "https://www.swinburne.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Swinburne University of Technology Sarawak",
+        "city": "Kuching, Sarawak",
+        "description": "Swinburne University of Technology Sarawak ?? ????? ??? ????? ???? ??? ?? Kuching, Sarawak. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-063",
+    "name": "University of Nottingham Malaysia",
+    "city": "Semenyih, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Nottingham Malaysia is a foreign branch institution located in Semenyih, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-nottingham-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Nottingham%20Malaysia",
+    "officialWebsiteUrl": "https://www.nottingham.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "University of Nottingham Malaysia",
+        "city": "Semenyih, Selangor",
+        "description": "University of Nottingham Malaysia ?? ????? ??? ????? ???? ??? ?? Semenyih, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-064",
+    "name": "University of Reading Malaysia",
+    "city": "Iskandar Puteri, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Reading Malaysia is a foreign branch institution located in Iskandar Puteri, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-reading-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Reading%20Malaysia",
+    "officialWebsiteUrl": "https://www.reading.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "University of Reading Malaysia",
+        "city": "Iskandar Puteri, Johor",
+        "description": "University of Reading Malaysia ?? ????? ??? ????? ???? ??? ?? Iskandar Puteri, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-065",
+    "name": "University of Southampton Malaysia",
+    "city": "Iskandar Puteri, Johor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Southampton Malaysia is a foreign branch institution located in Iskandar Puteri, Johor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-southampton-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Southampton%20Malaysia",
+    "officialWebsiteUrl": "https://www.southampton.ac.uk/",
+    "translations": {
+      "ar": {
+        "name": "University of Southampton Malaysia",
+        "city": "Iskandar Puteri, Johor",
+        "description": "University of Southampton Malaysia ?? ????? ??? ????? ???? ??? ?? Iskandar Puteri, Johor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-066",
+    "name": "University of Wollongong Malaysia (UOW Malaysia)",
+    "city": "Shah Alam & Penang (multi-campus)",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "University of Wollongong Malaysia is a foreign branch institution located in Shah Alam & Penang (multi-campus). Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "university-of-wollongong-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=University%20of%20Wollongong%20Malaysia",
+    "officialWebsiteUrl": "https://www.uow.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "University of Wollongong Malaysia (UOW Malaysia)",
+        "city": "Shah Alam & Penang (multi-campus)",
+        "description": "University of Wollongong Malaysia ?? ????? ??? ????? ???? ??? ?? Shah Alam & Penang (multi-campus). ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "University of Wollongong Malaysia",
+    "aliases": [
+      "UOW Malaysia"
+    ],
+    "dataAiHint": "Foreign branch university"
+  },
+  {
+    "id": "uni-067",
+    "name": "Xiamen University Malaysia (XMUM)",
+    "city": "Sepang, Selangor",
+    "annualFees": "Contact the university for current tuition fees",
+    "availableCourses": [
+      "Programme information coming soon"
+    ],
+    "description": "Xiamen University Malaysia is a foreign branch institution located in Sepang, Selangor. Visit the official website to explore programmes, scholarships, and admissions timelines.",
+    "slug": "xiamen-university-malaysia",
+    "imageUrl": "https://placehold.co/1200x900?text=Xiamen%20University%20Malaysia",
+    "officialWebsiteUrl": "https://www.xmu.edu.my/",
+    "translations": {
+      "ar": {
+        "name": "Xiamen University Malaysia (XMUM)",
+        "city": "Sepang, Selangor",
+        "description": "Xiamen University Malaysia ?? ????? ??? ????? ???? ??? ?? Sepang, Selangor. ?????? ?????? ?????? ???????? ??????? ?????? ???????? ??????? ???????.",
+        "annualFees": "????? ?? ??????? ?????? ?????? ???????"
+      }
+    },
+    "englishName": "Xiamen University Malaysia",
+    "aliases": [
+      "XMUM"
+    ],
+    "dataAiHint": "Foreign branch university"
+  }
+];
