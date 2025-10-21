@@ -74,13 +74,13 @@ export function Header() {
             isArabic && "flex-row-reverse text-right",
           )}
         >
-          {content.nav.map(({ href, label, className }) => (
+          {content.nav.map(({ href, label, ...props }) => (
             <Link
               key={href}
               href={href}
               className={cn(
                 "text-sm font-medium text-muted-foreground transition-colors hover:text-primary",
-                className,
+                (props as { className?: string }).className,
               )}
             >
               {label}
@@ -108,14 +108,14 @@ export function Header() {
             >
               <div className="p-4">
                 <nav className="flex flex-col gap-6">
-                  {content.nav.map(({ href, label, icon: Icon, className }) => (
+                  {content.nav.map(({ href, label, icon: Icon, ...props }) => (
                     <Link
                       key={href}
                       href={href}
                       onClick={closeSheet}
                       className={cn(
                         "flex items-center gap-3 rounded-md p-3 text-lg font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground",
-                        className,
+                        (props as { className?: string }).className,
                         isArabic && "flex-row-reverse text-right",
                       )}
                     >
